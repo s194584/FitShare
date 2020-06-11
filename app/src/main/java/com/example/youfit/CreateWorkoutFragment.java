@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -48,6 +49,12 @@ public class CreateWorkoutFragment extends Fragment {
                     NavHostFragment.findNavController(CreateWorkoutFragment.this)
                             .navigate(R.id.action_createWorkoutFragment_to_excersizeFragment,bundle);
 
+                } else {
+                    Toast toast = Toast.makeText(v.getContext(),
+                            "Please enter a form of excersize",
+                            Toast.LENGTH_SHORT);
+
+                    toast.show();
                 }
 
             }
