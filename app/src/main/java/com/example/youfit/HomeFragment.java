@@ -40,4 +40,33 @@ public class HomeFragment extends Fragment {
             default: return super.onOptionsItemSelected(item);
         }
     }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.createWorkoutBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_HomeFragment_to_createWorkoutFragment);
+            }
+        });
+
+        view.findViewById(R.id.startWorkoutBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_HomeFragment_to_DoingWorkoutFragment);
+            }
+        });
+
+        view.findViewById(R.id.browseWorkoutBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_HomeFragment_to_browseWorkoutsFragment);
+            }
+        });
+
+    }
 }
