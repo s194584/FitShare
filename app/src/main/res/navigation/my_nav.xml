@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/HomeFragment">
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.example.youfit.HomeFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/DoingWorkoutFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_createWorkoutFragment"
+            app:destination="@id/createWorkoutFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_browseWorkoutsFragment"
+            app:destination="@id/browseWorkoutsFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DoingWorkoutFragment"
+        android:name="com.example.youfit.DoingWorkoutFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_doingworkout" />
+    <fragment
+        android:id="@+id/createWorkoutFragment"
+        android:name="com.example.youfit.CreateWorkoutFragment"
+        android:label="fragment_create_workout"
+        tools:layout="@layout/fragment_create_workout" />
+    <fragment
+        android:id="@+id/browseWorkoutsFragment"
+        android:name="com.example.youfit.BrowseWorkoutsFragment"
+        android:label="fragment_browse_workouts"
+        tools:layout="@layout/fragment_browse_workouts" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.youfit.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
