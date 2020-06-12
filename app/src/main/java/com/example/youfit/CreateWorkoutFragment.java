@@ -50,11 +50,9 @@ public class CreateWorkoutFragment extends Fragment {
                             .navigate(R.id.action_createWorkoutFragment_to_excersizeFragment,bundle);
 
                 } else {
-                    Toast toast = Toast.makeText(v.getContext(),
+                    Toast.makeText(v.getContext(),
                             "Please enter a form of excersize",
-                            Toast.LENGTH_SHORT);
-
-                    toast.show();
+                            Toast.LENGTH_SHORT).show();
                 }
 
             }

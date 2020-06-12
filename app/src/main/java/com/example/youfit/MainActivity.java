@@ -1,12 +1,15 @@
 package com.example.youfit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,8 +42,15 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.settings:
-                Navigation.findNavController(findViewById(R.id.fragment)).navigate(R.id.settingsFragment);
-                return true;
+                int CurrentFragmentID = Navigation.findNavController(findViewById(R.id.fragment)).getCurrentDestination().getId();
+                if (CurrentFragmentID!=R.id.settingsFragment) {
+                    Navigation.findNavController(findViewById(R.id.fragment)).navigate(R.id.settingsFragment);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "You are already in settings dummy",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             case R.id.signOut:
                 // TODO: where does signOut go
                 // return true;
