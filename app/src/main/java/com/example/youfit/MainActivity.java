@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -17,7 +18,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,12 +33,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if (!alreadyLoggedIn) {
-//            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-//            startActivity(intent);
-//        }
+        setUpNavigation();
 
     }
+
+    public void setUpNavigation(){
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavHostFragment navHostFragment =       (NavHostFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment);
+        NavigationUI.setupWithNavController(bottomNavigationView,
+                navHostFragment.getNavController());
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
