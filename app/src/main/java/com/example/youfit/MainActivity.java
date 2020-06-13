@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -17,7 +18,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,42 +35,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if (!alreadyLoggedIn) {
-//            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-//            startActivity(intent);
-//        }
+        // removing notifcation bar
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // setting up bottombarnavigation
+        setUpNavigation();
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case R.id.settings:
-                int CurrentFragmentID = Navigation.findNavController(findViewById(R.id.fragment)).getCurrentDestination().getId();
-                if (CurrentFragmentID!=R.id.settingsFragment) {
-                    Navigation.findNavController(findViewById(R.id.fragment)).navigate(R.id.settingsFragment);
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "You are already in settings dummy",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            case R.id.signOut:
-                // TODO: where does signOut go
-                // return true;
-            default: return super.onOptionsItemSelected(item);
-        }
-
+    public void setUpNavigation(){
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavHostFragment navHostFragment =       (NavHostFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment);
+        NavigationUI.setupWithNavController(bottomNavigationView,
+                navHostFragment.getNavController());
     }
 
 }

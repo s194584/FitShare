@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        android:id="@+id/HomeFragment"/>
+    <item
+        android:title="Browse"
+        android:icon="@drawable/ic_browse"
+        android:id="@+id/browseWorkoutsFragment"/>
+    <item
+        android:title="Workout"
+        android:icon="@drawable/ic_workout"
+        android:id="@+id/createWorkoutFragment"/>
+    <item
+        android:title="Profile"
+        android:icon="@drawable/ic_person"
+        android:id="@+id/settingsFragment"/>
+</menu>
