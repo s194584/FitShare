@@ -14,16 +14,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.util.ArrayUtils;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 public class ExcersizeFragment extends Fragment {
 
     private String workoutSelected;
     private String excersizeSelected;
-    protected String[] excersizes;
+    protected HashMap<String,String[]> excersizeStrings = new HashMap<>();
+    protected String[] excersizeStringsArray = new String[]{};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,8 +47,11 @@ public class ExcersizeFragment extends Fragment {
         TextView excersizeSelectedTextView = view.findViewById(R.id.excersizeSelectedTextView);
         excersizeSelectedTextView.setText(workoutSelected);
 
-        this.excersizes = ArrayUtils.concat(getResources().getStringArray(R.array.rep_excersizes),
-                getResources().getStringArray(R.array.time_excersizes));
+        this.excersizeStrings.put("time",getResources().getStringArray(R.array.rep_excersizes));
+        this.excersizeStrings.put("rep",getResources().getStringArray(R.array.time_excersizes));
+
+        excersizeStringsArray = ArrayUtils.concat(this.excersizeStrings.get("time"),
+                this.excersizeStrings.get("rep"));
 
         Button addExcersizeBtn = view.findViewById(R.id.addExerciseBtn);
 
@@ -54,11 +61,15 @@ public class ExcersizeFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Add excersize");
                 // inflate view
-                View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.popup_input_excersize, (ViewGroup) getView(), false);
+                View viewInflated = LayoutInflater.from(getContext()).
+                        inflate(R.layout.popup_input_excersize,
+                                (ViewGroup) getView(), false);
                 // Set up the input
                 final AutoCompleteTextView inputExcersize = viewInflated.findViewById(R.id.inputExcersize);
 
-                ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,excersizes);
+                //set up autocomplete adapter
+                ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<String>(getContext(),
+                        R.layout.support_simple_spinner_dropdown_item, excersizeStringsArray);
                 inputExcersize.setAdapter(autocompleteAdapter);
 
 
@@ -66,6 +77,7 @@ public class ExcersizeFragment extends Fragment {
 
                 // Set up the buttons
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -82,7 +94,6 @@ public class ExcersizeFragment extends Fragment {
                 builder.show();
             }
         });
-
 
     }
 }

@@ -30,7 +30,7 @@
         android:id="@+id/repTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="34dp"
         android:layout_marginEnd="24dp"
         android:text="Reps:"
         app:layout_constraintEnd_toStartOf="@+id/amoutnTextView"
@@ -45,4 +45,5 @@
         android:text="40"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

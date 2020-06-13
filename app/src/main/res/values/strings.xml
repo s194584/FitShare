@@ -23,6 +23,7 @@
 
     <string-array name="time_excersizes">
         <item>Plank</item>
+        <item>Hand Stand</item>
         <item>Side Plank left</item>
         <item>Side Plank right</item>
         <item>Wall sit</item>
