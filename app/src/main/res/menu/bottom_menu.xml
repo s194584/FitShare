@@ -12,7 +12,7 @@
     <item
         android:title="Workout"
         android:icon="@drawable/ic_workout"
-        android:id="@+id/createWorkoutFragment"/>
+        android:id="@+id/DoingWorkoutFragment"/>
     <item
         android:title="Profile"
         android:icon="@drawable/ic_person"

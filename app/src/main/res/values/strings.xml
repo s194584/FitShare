@@ -8,4 +8,26 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="back">Back</string>
+    <string name="create_workout">Create workout</string>
+    <string name="choose_excersize">Choose your desired excersize</string>
+
+    <string-array name="rep_excersizes">
+        <item>Pull-up</item>
+        <item>Push-up</item>
+        <item>Squat</item>
+        <item>Sit up</item>
+        <item>Lunge</item>
+        <item>Lunge jump</item>
+        <item>Burpees</item>
+    </string-array>
+
+    <string-array name="time_excersizes">
+        <item>Plank</item>
+        <item>Side Plank left</item>
+        <item>Side Plank right</item>
+        <item>Wall sit</item>
+        <item>Superman</item>
+    </string-array>
+
+
 </resources>

@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.TextUtils;
@@ -35,10 +34,10 @@ public class CreateWorkoutFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = NavHostFragment.findNavController(CreateWorkoutFragment.this);
 
-        this.inputExcersize = view.findViewById(R.id.inputExcersize);
+        this.inputExcersize = view.findViewById(R.id.inputWorkout);
 
 
-        Button nextBtn = view.findViewById(R.id.nextBtn);
+        Button nextBtn = view.findViewById(R.id.createWorkoutBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +50,7 @@ public class CreateWorkoutFragment extends Fragment {
 
                 } else {
                     Toast.makeText(v.getContext(),
-                            "Please enter a form of excersize",
+                            "Please enter a name for your workout",
                             Toast.LENGTH_SHORT).show();
                 }
 

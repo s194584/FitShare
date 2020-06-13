@@ -1,6 +1,7 @@
 package com.example.youfit.domain;
 
 public enum WorkoutType {
-    STRENGTH, CARDIO,
+    STRENGTH,
+    CARDIO,
     DEFAULT
 }
