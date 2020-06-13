@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,12 +21,18 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Fragment HomeFragment;
+    protected boolean alreadyLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        if (!alreadyLoggedIn) {
+//            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+//            startActivity(intent);
+//        }
+
     }
 
     @Override
