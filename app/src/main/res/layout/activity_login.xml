@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="signInMode"
+            type="Boolean" />
+    </data>
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +32,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="341dp"
-        android:layout_height="129dp"
+        android:layout_width="376dp"
+        android:layout_height="108dp"
         android:layout_marginTop="64dp"
+        android:src="@drawable/fitshare_logo_plaintekst_sort"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/fitshare_logo_plaintekst_sort" />
+        app:srcCompat="@drawable/fitshare_logo_plaintekst_sort" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -37,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
+        android:visibility="@{signInMode ? View.GONE : View.VISIBLE}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +72,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
-        android:text="Sign in"
+        android:text="@{signInMode ? @string/sign_in : @string/sign_up}"
+        android:background = "#0EB57A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +84,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Create new profile"
+        android:text="@{signInMode ? @string/create_new_profile : @string/back}"
+        android:textColor="#0EB57A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

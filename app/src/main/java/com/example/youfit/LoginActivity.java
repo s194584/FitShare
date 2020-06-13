@@ -1,18 +1,25 @@
 package com.example.youfit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class LoginActivity extends AppCompatActivity {
+import androidx.databinding.DataBindingUtil;
+
+import com.example.youfit.databinding.ActivityLoginBinding;
+
+public class LoginActivity extends Activity {
+
+    ActivityLoginBinding mBinding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        mBinding = DataBindingUtil.setContentView(this ,R.layout.activity_login);
 
+        mBinding.setSignInMode(true);
 
         // Sign in
         findViewById(R.id.buttonSignin).setOnClickListener(new View.OnClickListener() {
@@ -27,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.textViewCreateNewProfile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mBinding.setSignInMode(!mBinding.getSignInMode());
             }
         });
 
