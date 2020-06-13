@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "563737138520",
+    "firebase_url": "https://fitshare-d87b3.firebaseio.com",
+    "project_id": "fitshare-d87b3",
+    "storage_bucket": "fitshare-d87b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563737138520:android:2c6581191a002d87b0012d",
+        "android_client_info": {
+          "package_name": "com.example.youfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563737138520-rsd1rjdkds9cfibt8ga19s1ocm8l58mi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrBUyE54oiPKKoRya62szY6byt7SxdUWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563737138520-rsd1rjdkds9cfibt8ga19s1ocm8l58mi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
