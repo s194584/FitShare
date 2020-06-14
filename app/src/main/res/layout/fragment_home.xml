@@ -6,18 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <Button
-        android:id="@+id/createWorkoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="348dp"
-        android:text="Create your own workout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/backgroundImage"
         android:layout_width="1183dp"
         android:layout_height="807dp"
         android:src="@drawable/backgroound_image"
@@ -27,6 +19,62 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/xxx"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:background="@drawable/planned_workouts_bg"
+        app:layout_constraintLeft_toLeftOf="@id/plannedWorkoutsRV"
+        app:layout_constraintRight_toRightOf="@id/plannedWorkoutsRV"
+        app:layout_constraintTop_toTopOf="@id/plannedWorkoutsRV"
+        app:layout_constraintBottom_toBottomOf="@id/plannedWorkoutsRV"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plannedWorkoutsRV"
+        android:layout_width="wrap_content"
+        android:layout_height="145dp"
+        app:layout_constraintBottom_toBottomOf="@id/createWorkoutBtn"
+        app:layout_constraintBottom_toTopOf="@id/createWorkoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/welcomeBackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Welcome back text goes here"
+        android:textSize="24dp"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@id/plannedWorkoutsRV"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/todaysWorkouts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Todays Workout(s):"
+        android:textSize="24dp"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toLeftOf="@id/xxx"
+        app:layout_constraintBottom_toTopOf="@id/plannedWorkoutsRV" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/createWorkoutBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="348dp"
+        android:background="@drawable/knap_plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:alpha=".80"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
