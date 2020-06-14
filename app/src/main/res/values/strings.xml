@@ -11,7 +11,7 @@
     <string name="create_workout">Create workout</string>
     <string name="choose_excersize">Choose your desired excersize</string>
 
-    <string-array name="rep_excersizes">
+    <string-array name="rep_exercises">
         <item>Pull-up</item>
         <item>Push-up</item>
         <item>Squat</item>
@@ -21,7 +21,7 @@
         <item>Burpees</item>
     </string-array>
 
-    <string-array name="time_excersizes">
+    <string-array name="time_exercises">
         <item>Plank</item>
         <item>Hand Stand</item>
         <item>Side Plank left</item>

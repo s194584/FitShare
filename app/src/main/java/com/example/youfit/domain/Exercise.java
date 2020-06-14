@@ -4,8 +4,13 @@ public class Exercise {
 
     protected Enum<ExerciseType> type;
     protected String name;
-    protected String reps = null;
+    protected int reps = 0;
     protected String time = null;
+
+    public Exercise(String name) {
+        this.name = name;
+        this.type = ExerciseType.REPETITION;
+    }
 
     public Exercise(String name, Enum<ExerciseType> type) {
         this.name = name;
@@ -18,5 +23,9 @@ public class Exercise {
 
     public Enum<ExerciseType> getType() {
         return type;
+    }
+
+    public int getReps(){
+        return reps;
     }
 }

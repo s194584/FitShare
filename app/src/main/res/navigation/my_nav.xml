@@ -31,7 +31,7 @@
         android:label="fragment_create_workout"
         tools:layout="@layout/fragment_create_workout" >
         <action
-            android:id="@+id/action_createWorkoutFragment_to_excersizeFragment"
+            android:id="@+id/action_createWorkoutFragment_to_exerciseFragment"
             app:destination="@id/excersizeFragment" />
     </fragment>
     <fragment
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/excersizeFragment"
-        android:name="com.example.youfit.ExcersizeFragment"
+        android:name="com.example.youfit.ExerciseFragment"
         android:label="fragment_excersize"
-        tools:layout="@layout/fragment_excersize" />
+        tools:layout="@layout/fragment_exercise" />
 </navigation>

@@ -23,12 +23,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.youfit.domain.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     protected boolean alreadyLoggedIn = false;
+    public User currentUser = new User("Jens","AZIA");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,4 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 navHostFragment.getNavController());
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

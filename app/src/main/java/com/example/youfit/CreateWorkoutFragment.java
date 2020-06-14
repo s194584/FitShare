@@ -15,12 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.youfit.domain.Workout;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CreateWorkoutFragment extends Fragment {
 
     NavController navController;
-    protected TextInputEditText inputExcersize;
+    protected TextInputEditText inputWorkout;
     protected String inputExcersizeString;
 
     @Override
@@ -34,19 +35,20 @@ public class CreateWorkoutFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = NavHostFragment.findNavController(CreateWorkoutFragment.this);
 
-        this.inputExcersize = view.findViewById(R.id.inputWorkout);
+        this.inputWorkout = view.findViewById(R.id.inputWorkout);
 
 
         Button nextBtn = view.findViewById(R.id.createWorkoutBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputExcersizeString = inputExcersize.getText().toString();
-                if(!TextUtils.isEmpty(inputExcersizeString)) {
+                String inputWorkoutName = inputWorkout.getText().toString();
+                if(!TextUtils.isEmpty(inputWorkoutName)) {
+
                     Bundle bundle = new Bundle();
-                    bundle.putString("excersize",inputExcersizeString);
+                    bundle.putString("newWorkout",inputWorkoutName);
                     NavHostFragment.findNavController(CreateWorkoutFragment.this)
-                            .navigate(R.id.action_createWorkoutFragment_to_excersizeFragment,bundle);
+                            .navigate(R.id.action_createWorkoutFragment_to_exerciseFragment,bundle);
 
                 } else {
                     Toast.makeText(v.getContext(),
