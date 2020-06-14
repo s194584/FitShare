@@ -1,5 +1,7 @@
 package com.example.youfit.domain;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Workout {
     // Fields
     private String name;
     private String uniqueID; // Generated in database?
+    private String time = null;
 
     private ArrayList<Exercise> exercises = new ArrayList<>();;
     private WorkoutType workoutType;
@@ -25,6 +28,8 @@ public class Workout {
         this(name);
         this.exercises=exercises;
         workoutType = WorkoutType.DEFAULT;
+
+        Log.i("Workout/Constructor", "Created a workout with an arraylist");
     }
 
     public void addExercise (Exercise exercise) {
@@ -37,5 +42,18 @@ public class Workout {
 
     public ArrayList<Exercise> getExercises() {
         return exercises;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTime() {
+        int time = 0;
+        for(Exercise x : exercises)
+        {
+            time += x.getTime();
+        }
+        return time;
     }
 }

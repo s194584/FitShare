@@ -19,4 +19,8 @@ public class Exercise {
     public Enum<ExerciseType> getType() {
         return type;
     }
+
+    public int getTime() {
+        return Integer.parseInt(time);
+    }
 }
