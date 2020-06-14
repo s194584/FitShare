@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.Workout;
 import com.google.android.gms.common.util.ArrayUtils;
 
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class ExcersizeFragment extends Fragment {
     private LinearLayout parentLinearLayout;
     protected HashMap<String,String[]> excersizeStrings = new HashMap<>();
     protected List<String>  excersizeStringsArray = new ArrayList<String>();
+    protected Workout currentWorkout;
+    protected List<Exercise> exercises;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

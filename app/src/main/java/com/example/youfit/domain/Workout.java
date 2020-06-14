@@ -20,4 +20,13 @@ public class Workout {
         workoutType = type;
     }
 
+    public Workout(String name, List<Exercise> exercises){
+        this(name);
+        this.exercises=exercises;
+        workoutType = WorkoutType.DEFAULT;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
 }
