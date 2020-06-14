@@ -22,8 +22,8 @@
 
     <View
         android:id="@+id/xxx"
-        android:layout_width="320dp"
-        android:layout_height="165dp"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
         android:background="@drawable/planned_workouts_bg"
         app:layout_constraintLeft_toLeftOf="@id/plannedWorkoutsRV"
         app:layout_constraintRight_toRightOf="@id/plannedWorkoutsRV"
@@ -48,6 +48,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Welcome back text goes here"
         android:textSize="24dp"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@id/plannedWorkoutsRV"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -59,7 +60,7 @@
         android:text="Todays Workout(s):"
         android:textSize="24dp"
         android:textColor="#ffffff"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintLeft_toLeftOf="@id/welcomeBackText"
         app:layout_constraintBottom_toTopOf="@id/plannedWorkoutsRV" />
 
