@@ -3,6 +3,7 @@ package com.example.youfit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -25,8 +26,9 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SignOutDialogListener{
 
     protected boolean alreadyLoggedIn = false;
 
@@ -48,4 +50,16 @@ public class MainActivity extends AppCompatActivity {
                 navHostFragment.getNavController());
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        FirebaseAuth.getInstance().signOut(); //log out
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
 }
