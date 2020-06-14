@@ -35,11 +35,11 @@
         android:layout_width="376dp"
         android:layout_height="108dp"
         android:layout_marginTop="64dp"
-        android:src="@drawable/fitshare_logo_plaintekst_sort"
+        android:src="@drawable/fitshare_logo_plain_tekst_sort_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fitshare_logo_plaintekst_sort" />
+        app:srcCompat="@drawable/fitshare_logo_plain_tekst_sort_2" />
 
     <EditText
         android:id="@+id/editTextPassword"
