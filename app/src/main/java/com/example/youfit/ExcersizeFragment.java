@@ -18,11 +18,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.util.ArrayUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ExcersizeFragment extends Fragment {
@@ -31,7 +35,7 @@ public class ExcersizeFragment extends Fragment {
     private String excersizeSelected;
     private LinearLayout parentLinearLayout;
     protected HashMap<String,String[]> excersizeStrings = new HashMap<>();
-    protected String[] excersizeStringsArray = new String[]{};
+    protected List<String>  excersizeStringsArray = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +55,15 @@ public class ExcersizeFragment extends Fragment {
         TextView excersizeSelectedTextView = view.findViewById(R.id.excersizeSelectedTextView);
         excersizeSelectedTextView.setText(workoutSelected);
 
+        List<String> bankAccNos = new ArrayList<String>();
+
         this.parentLinearLayout = view.findViewById(R.id.excersizeLinearLayout);
 
         this.excersizeStrings.put("time",getResources().getStringArray(R.array.rep_excersizes));
         this.excersizeStrings.put("rep",getResources().getStringArray(R.array.time_excersizes));
 
-        excersizeStringsArray = ArrayUtils.concat(this.excersizeStrings.get("time"),
-                this.excersizeStrings.get("rep"));
+        excersizeStringsArray = Arrays.asList(ArrayUtils.concat(this.excersizeStrings.get("time"),
+                this.excersizeStrings.get("rep")));
 
         Button addExcersizeBtn = view.findViewById(R.id.addExerciseBtn);
 
@@ -87,14 +93,22 @@ public class ExcersizeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+
                         excersizeSelected = inputExcersize.getText().toString();
 
-                        LayoutInflater inflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        final View rowView=inflater.inflate(R.layout.list_of_excersizes_detail, null);
-                        ((TextView) rowView.findViewById(R.id.excersizeNameTextView)).setText(excersizeSelected);
+                        if (excersizeStringsArray.contains(excersizeSelected)) {
+                            LayoutInflater inflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final View rowView=inflater.inflate(R.layout.list_of_excersizes_detail, null);
+                            ((TextView) rowView.findViewById(R.id.excersizeNameTextView)).setText(excersizeSelected);
 
-                        // Add the new row before the add field button.
-                        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
+                            // Add the new row.
+                            parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
+                        } else {
+                            Toast.makeText(getContext(),
+                                    "Please enter a vaild workout form",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
 
                     }
                 });
@@ -111,4 +125,8 @@ public class ExcersizeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }
