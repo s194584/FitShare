@@ -3,6 +3,7 @@ package com.example.youfit;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -72,6 +73,7 @@ public class HomeFragment extends Fragment {
         plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
 
         return view;

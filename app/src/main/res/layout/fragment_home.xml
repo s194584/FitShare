@@ -28,15 +28,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <View
+        android:id="@+id/xxx"
+        android:layout_width="320dp"
+        android:layout_height="165dp"
+        android:background="@drawable/planned_workouts_bg"
+        app:layout_constraintLeft_toLeftOf="@id/plannedWorkoutsRV"
+        app:layout_constraintRight_toRightOf="@id/plannedWorkoutsRV"
+        app:layout_constraintTop_toTopOf="@id/plannedWorkoutsRV"
+        app:layout_constraintBottom_toBottomOf="@id/plannedWorkoutsRV"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plannedWorkoutsRV"
         android:layout_width="wrap_content"
-        android:layout_height="157dp"
+        android:layout_height="145dp"
         app:layout_constraintBottom_toBottomOf="@id/createWorkoutBtn"
         app:layout_constraintBottom_toTopOf="@id/createWorkoutBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/welcomeBackText"
@@ -57,7 +67,7 @@
         android:text="Todays Workout(s):"
         android:textSize="24dp"
         android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintLeft_toLeftOf="@id/welcomeBackText"
         app:layout_constraintBottom_toTopOf="@id/plannedWorkoutsRV" />
 
