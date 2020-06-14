@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
 
         this.firebaseAuth = FirebaseAuth.getInstance(); //get current instance of database.
 
+        //check if user is already signed in/up
         if(firebaseAuth.getCurrentUser() != null) {
             goToMainActivity();
         }
@@ -61,28 +62,45 @@ public class LoginActivity extends Activity {
 
     //click event for signin/signup button
     public void onSignIn(View view) {
+        //Check validity of input, and give corresponding error message.
+        if (checkIfEmpty(this.editTextEmailAddress,"Email") &&
+                checkIfEmpty(this.editTextPassword,"Password")) {
+            return;
+        }
+
+        //load strings
+        String mEmail = this.editTextEmailAddress.getText().toString().trim();
+        String mPassword = this.editTextPassword.getText().toString().trim();
+
         if(this.mBinding.getSignInMode()) { //sign in event
+
+            //set loading bar visible
+            this.progressBarSignIn.setVisibility(View.VISIBLE);
+
+            //check if user exists
+            this.firebaseAuth.signInWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    onSuccesfullTask(task, "Welcome!");
+                }
+            });
+
             goToMainActivity();
         } else { //sign up event
 
-            //Check validity of input, and give corresponding error message.
-            if (checkIfEmpty(this.editTextEmailAddress,"Email") &&
-                    checkIfEmpty(this.editTextPassword,"Password") &&
-                    checkIfEmpty(this.editTextPasswordConfirm,"Password")) {
-                return;
-            }
-
-            //load strings
-            String mEmail = this.editTextEmailAddress.getText().toString().trim();
-            String mPassword = this.editTextPassword.getText().toString().trim();
+            //load confirmPassword String
             String mConfirmPassword = this.editTextPasswordConfirm.getText().toString().trim();
 
             //More validity checks
+            if (checkIfEmpty(this.editTextPasswordConfirm,"Password")) {
+                return;
+            }
             if (!mPassword.equals(mConfirmPassword)) {
                 this.editTextPasswordConfirm.setError("Passwords must match");
+                return;
             }
 
-
+            //set loading bar visible
             this.progressBarSignIn.setVisibility(View.VISIBLE);
 
 
@@ -90,19 +108,24 @@ public class LoginActivity extends Activity {
             this.firebaseAuth.createUserWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
-                    if (task.isSuccessful()) {
-                        toast.setText("Successfully created user!");
-                        goToMainActivity();
-                    } else {
-                        toast.setText("Error: " + task.getException().getMessage());
-                    }
-                    toast.show();
+                    onSuccesfullTask(task, "Successfully created user!");
                 }
             });
 
 
         }
+    }
+
+    private void onSuccesfullTask(Task<AuthResult> task, String succesMessage) {
+        Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG);
+        if (task.isSuccessful()) {
+            toast.setText(succesMessage);
+            goToMainActivity();
+        } else {
+            toast.setText("Error: " + task.getException().getMessage());
+            progressBarSignIn.setVisibility(View.INVISIBLE);
+        }
+        toast.show();
     }
 
     private boolean checkIfEmpty(EditText editText, String requriedMessage) {
