@@ -17,8 +17,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
-
+    User user = new User("This means smth is wrong", ""+0);
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,9 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+        welcomeBackTest.setText("Welcome back " + user.getName() + "!");
 
         Log.i("HomeFragment", "1: Getting recyclerView");
         //Get recycler view
