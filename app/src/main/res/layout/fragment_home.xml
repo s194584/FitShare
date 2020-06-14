@@ -6,15 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <Button
-        android:id="@+id/createWorkoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="348dp"
-        android:text="Create your own workout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/backgroundImage"
@@ -70,6 +62,17 @@
         android:layout_marginBottom="15dp"
         app:layout_constraintLeft_toLeftOf="@id/welcomeBackText"
         app:layout_constraintBottom_toTopOf="@id/plannedWorkoutsRV" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/createWorkoutBtn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="348dp"
+        android:background="@drawable/knap_plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:alpha=".80"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
