@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,25 +20,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Workout;
 import com.google.android.gms.common.util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ExcersizeFragment extends Fragment {
 
     private String workoutSelected;
     private String excersizeSelected;
     private LinearLayout parentLinearLayout;
-    protected HashMap<String,String[]> excersizeStrings = new HashMap<>();
-    protected List<String>  excersizeStringsArray = new ArrayList<String>();
+    protected HashMap<Enum<ExerciseType>,List<String>> excersizeStrings = new HashMap<>();
+    protected List<String> excersizeStringsList = new ArrayList<String>();
     protected Workout currentWorkout;
-    protected List<Exercise> exercises;
+    protected ArrayList<Exercise> exercises = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +48,8 @@ public class ExcersizeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        workoutSelected = getArguments().getString("excersize");
+        this.workoutSelected = getArguments().getString("excersize");
+        this.currentWorkout = new Workout(this.workoutSelected);
     }
 
     @Override
@@ -59,15 +58,14 @@ public class ExcersizeFragment extends Fragment {
         TextView excersizeSelectedTextView = view.findViewById(R.id.excersizeSelectedTextView);
         excersizeSelectedTextView.setText(workoutSelected);
 
-        List<String> bankAccNos = new ArrayList<String>();
-
         this.parentLinearLayout = view.findViewById(R.id.excersizeLinearLayout);
 
-        this.excersizeStrings.put("time",getResources().getStringArray(R.array.rep_excersizes));
-        this.excersizeStrings.put("rep",getResources().getStringArray(R.array.time_excersizes));
+        this.excersizeStrings.put(ExerciseType.REPETIOTION, Arrays.asList(getResources().getStringArray(R.array.rep_excersizes)));
+        this.excersizeStrings.put(ExerciseType.TIME, Arrays.asList(getResources().getStringArray(R.array.time_excersizes)));
 
-        excersizeStringsArray = Arrays.asList(ArrayUtils.concat(this.excersizeStrings.get("time"),
-                this.excersizeStrings.get("rep")));
+        for (List<String> list : this.excersizeStrings.values()) {
+            excersizeStringsList.addAll(list);
+        }
 
         Button addExcersizeBtn = view.findViewById(R.id.addExerciseBtn);
 
@@ -85,7 +83,7 @@ public class ExcersizeFragment extends Fragment {
 
                 //set up autocomplete adapter
                 ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<String>(getContext(),
-                        R.layout.support_simple_spinner_dropdown_item, excersizeStringsArray);
+                        R.layout.support_simple_spinner_dropdown_item, excersizeStringsList);
                 inputExcersize.setAdapter(autocompleteAdapter);
 
 
@@ -100,26 +98,38 @@ public class ExcersizeFragment extends Fragment {
 
                         excersizeSelected = inputExcersize.getText().toString();
 
-                        if (excersizeStringsArray.contains(excersizeSelected)) {
-                            LayoutInflater inflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                            final View rowView=inflater.inflate(R.layout.list_of_excersizes_detail, null);
-                            ((TextView) rowView.findViewById(R.id.excersizeNameTextView)).setText(excersizeSelected);
+                        if (excersizeStrings.get(ExerciseType.REPETIOTION).contains(excersizeSelected)) {
+                            iflateLayout();
 
-                            // Add the new row.
-                            parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
+                            //make excersize and add it to the currentWorkout.
+                            Exercise exercise = new Exercise(excersizeSelected,ExerciseType.REPETIOTION);
+                            exercises.add(exercise);
+
+                        } else if (excersizeStrings.get(ExerciseType.TIME).contains(excersizeSelected)) {
+                            iflateLayout();
+
+                            Exercise exercise = new Exercise(excersizeSelected,ExerciseType.TIME);
+                            exercises.add(exercise);
                         } else {
                             Toast.makeText(getContext(),
                                     "Please enter a vaild workout form",
                                     Toast.LENGTH_SHORT).show();
                         }
 
+                    }
 
+                    private void iflateLayout() {
+                        LayoutInflater inflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        final View rowView=inflater.inflate(R.layout.list_of_excersizes_detail, null);
+                        ((TextView) rowView.findViewById(R.id.excersizeNameTextView)).setText(excersizeSelected);
+                        // Add the new row.
+                        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                        dialog.dismiss();
                     }
                 });
 
@@ -131,6 +141,7 @@ public class ExcersizeFragment extends Fragment {
 
     @Override
     public void onStop() {
+        this.currentWorkout.setExercises(this.exercises);
         super.onStop();
     }
 }

@@ -4,6 +4,8 @@ public class Exercise {
 
     protected Enum<ExerciseType> type;
     protected String name;
+    protected String reps = null;
+    protected String time = null;
 
     public Exercise(String name, Enum<ExerciseType> type) {
         this.name = name;

@@ -1,5 +1,6 @@
 package com.example.youfit.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Workout {
@@ -7,7 +8,7 @@ public class Workout {
     private String name;
     private String uniqueID; // Generated in database?
 
-    private List<Exercise> exercises;
+    private ArrayList<Exercise> exercises = new ArrayList<>();;
     private WorkoutType workoutType;
 
     public Workout(String name){
@@ -20,13 +21,21 @@ public class Workout {
         workoutType = type;
     }
 
-    public Workout(String name, List<Exercise> exercises){
+    public Workout(String name, ArrayList<Exercise> exercises){
         this(name);
         this.exercises=exercises;
         workoutType = WorkoutType.DEFAULT;
     }
 
-    public void setExercises(List<Exercise> exercises) {
+    public void addExercise (Exercise exercise) {
+        this.exercises.add(exercise);
+    }
+
+    public void setExercises(ArrayList<Exercise> exercises) {
         this.exercises = exercises;
+    }
+
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
     }
 }
