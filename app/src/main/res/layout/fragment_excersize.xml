@@ -19,34 +19,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="350dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/excersizeSelectedTextView" />
-
     <Button
         android:id="@+id/addExerciseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="394dp"
         android:text="Add Exercise"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/excersizeSelectedTextView" />
 
     <Button
         android:id="@+id/addPauseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="394dp"
         android:layout_marginEnd="95dp"
         android:text="Add pause"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/excersizeSelectedTextView" />
 
     <Button
         android:id="@+id/workoutDoneBtn"
@@ -59,4 +50,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addExerciseBtn" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="294dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/excersizeSelectedTextView">
+
+        <LinearLayout
+            android:id="@+id/excersizeLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/excersizeSelectedTextView" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

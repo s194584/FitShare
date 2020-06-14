@@ -1,12 +1,14 @@
 package com.example.youfit;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.util.ArrayUtils;
@@ -26,6 +29,7 @@ public class ExcersizeFragment extends Fragment {
 
     private String workoutSelected;
     private String excersizeSelected;
+    private LinearLayout parentLinearLayout;
     protected HashMap<String,String[]> excersizeStrings = new HashMap<>();
     protected String[] excersizeStringsArray = new String[]{};
 
@@ -46,6 +50,8 @@ public class ExcersizeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TextView excersizeSelectedTextView = view.findViewById(R.id.excersizeSelectedTextView);
         excersizeSelectedTextView.setText(workoutSelected);
+
+        this.parentLinearLayout = view.findViewById(R.id.excersizeLinearLayout);
 
         this.excersizeStrings.put("time",getResources().getStringArray(R.array.rep_excersizes));
         this.excersizeStrings.put("rep",getResources().getStringArray(R.array.time_excersizes));
@@ -82,6 +88,14 @@ public class ExcersizeFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         excersizeSelected = inputExcersize.getText().toString();
+
+                        LayoutInflater inflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        final View rowView=inflater.inflate(R.layout.list_of_excersizes_detail, null);
+                        ((TextView) rowView.findViewById(R.id.excersizeNameTextView)).setText(excersizeSelected);
+
+                        // Add the new row before the add field button.
+                        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
+
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -96,4 +110,5 @@ public class ExcersizeFragment extends Fragment {
         });
 
     }
+
 }
