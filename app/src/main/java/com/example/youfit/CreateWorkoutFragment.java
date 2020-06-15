@@ -46,9 +46,9 @@ public class CreateWorkoutFragment extends Fragment {
                 if(!TextUtils.isEmpty(inputWorkoutName)) {
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("newWorkout",inputWorkoutName);
-                    NavHostFragment.findNavController(CreateWorkoutFragment.this)
-                            .navigate(R.id.action_createWorkoutFragment_to_exerciseFragment,bundle);
+//                    bundle.putString("newWorkout",inputWorkoutName);
+//                    NavHostFragment.findNavController(CreateWorkoutFragment.this)
+//                            .navigate(R.id.action_workoutFragment_to_exerciseFragment,bundle);
 
                 } else {
                     Toast.makeText(v.getContext(),

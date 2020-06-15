@@ -7,6 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavHostController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,18 +21,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.example.youfit.domain.Exercise;
-import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class ExerciseFragment extends Fragment {
+public class WorkoutFragment extends Fragment {
 
     private String workoutSelected;
     private String exerciseSelected;
@@ -43,22 +43,25 @@ public class ExerciseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercise, container, false);
+        return inflater.inflate(R.layout.fragment_workout, container, false);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.workoutSelected = getArguments().getString("newWorkout");
-        this.currentWorkout = new Workout(this.workoutSelected);
+        if(getArguments() != null){
+            this.currentWorkout = (Workout) getArguments().get("newWorkout");
+            exercises = currentWorkout.getExercises();
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView exerciseSelectedTextView = view.findViewById(R.id.workoutSelectedTextView);
-        exerciseSelectedTextView.setText(workoutSelected);
-
+        if (currentWorkout != null) {
+            EditText exerciseSelectedTextView = view.findViewById(R.id.editTextWorkoutName);
+            exerciseSelectedTextView.setText(currentWorkout.getName());
+        }
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.list_exercise);
 
         layoutManager = new LinearLayoutManager(getActivity());
@@ -67,12 +70,21 @@ public class ExerciseFragment extends Fragment {
         mAdapter = new ExersiceAdapter(exercises);
         recyclerView.setAdapter(mAdapter);
         
-        getActivity().findViewById(R.id.button_workout_complete).setOnClickListener(new View.OnClickListener() {
+        getActivity().findViewById(R.id.button_workout_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentWorkout.setExercises(exercises);
-                Log.i("EXERCISEFRAGMENT","WORKOUT CREATED");
+                EditText exerciseSelectedTextView = getActivity().findViewById(R.id.editTextWorkoutName);
 
+                if(currentWorkout == null && !exerciseSelectedTextView.getText().toString().isEmpty()){
+                    currentWorkout = new Workout();
+                    currentWorkout.setName(exerciseSelectedTextView.getText().toString());
+                    currentWorkout.setExercises(exercises);
+                }
+
+                Log.i("EXERCISEFRAGMENT","WORKOUT CREATED");
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("newWorkout",currentWorkout);
+                NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment,bundle);
                 // TODO - ADD TO USER AND FINISH TASK
 
             }

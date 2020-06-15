@@ -11,29 +11,20 @@
         android:label="fragment_first"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_HomeFragment_to_createWorkoutFragment"
-            app:destination="@id/createWorkoutFragment" />
-        <action
             android:id="@+id/action_HomeFragment_to_browseWorkoutsFragment"
             app:destination="@id/browseWorkoutsFragment" />
         <action
             android:id="@+id/action_HomeFragment_to_DoingWorkoutFragment"
             app:destination="@id/DoingWorkoutFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/DoingWorkoutFragment"
         android:name="com.example.youfit.DoingWorkoutFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_doingworkout" />
-    <fragment
-        android:id="@+id/createWorkoutFragment"
-        android:name="com.example.youfit.CreateWorkoutFragment"
-        android:label="fragment_create_workout"
-        tools:layout="@layout/fragment_create_workout" >
-        <action
-            android:id="@+id/action_createWorkoutFragment_to_exerciseFragment"
-            app:destination="@id/excersizeFragment" />
-    </fragment>
     <fragment
         android:id="@+id/browseWorkoutsFragment"
         android:name="com.example.youfit.BrowseWorkoutsFragment"
@@ -46,8 +37,20 @@
         tools:layout="@layout/fragment_settings">
     </fragment>
     <fragment
-        android:id="@+id/excersizeFragment"
-        android:name="com.example.youfit.ExerciseFragment"
+        android:id="@+id/workoutFragment"
+        android:name="com.example.youfit.WorkoutFragment"
         android:label="fragment_excersize"
-        tools:layout="@layout/fragment_exercise" />
+        tools:layout="@layout/fragment_workout" >
+        <action
+            android:id="@+id/action_workoutFragment_to_workoutSettingsFragment"
+            app:destination="@id/workoutSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutSettingsFragment"
+        android:name="com.example.youfit.WorkoutSettingsFragment"
+        android:label="WorkoutSettingsFragment" >
+        <action
+            android:id="@+id/action_workoutSettingsFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
 </navigation>

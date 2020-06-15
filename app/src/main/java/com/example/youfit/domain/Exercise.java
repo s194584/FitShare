@@ -1,6 +1,9 @@
 package com.example.youfit.domain;
 
-public class Exercise {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Exercise implements Parcelable {
 
     protected Enum<ExerciseType> type;
     protected String name;
@@ -17,6 +20,16 @@ public class Exercise {
         this.type = type;
     }
 
+    // Parcel constructor
+    protected Exercise(Parcel in) {
+        name = in.readString();
+        reps = in.readInt();
+        time = in.readString();
+    }
+
+
+
+
     public String getName() {
         return name;
     }
@@ -31,5 +44,32 @@ public class Exercise {
     }
     public int getTime() {
         return Integer.parseInt(time);
+    }
+
+
+
+    // Parcelable part
+    public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
+        @Override
+        public Exercise createFromParcel(Parcel in) {
+            return new Exercise(in);
+        }
+
+        @Override
+        public Exercise[] newArray(int size) {
+            return new Exercise[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeInt(reps);
+        parcel.writeString(time);
     }
 }
