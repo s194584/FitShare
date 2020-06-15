@@ -14,10 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.youfit.databinding.ActivityLoginBinding;
+import com.example.youfit.domain.User;
+import com.example.youfit.domain.UserHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends Activity {
 
@@ -29,6 +36,8 @@ public class LoginActivity extends Activity {
     protected TextView textViewCreateNewProfile;
 
     protected FirebaseAuth firebaseAuth;
+    protected FirebaseDatabase rootNode;
+    protected DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +53,7 @@ public class LoginActivity extends Activity {
         this.textViewCreateNewProfile = findViewById(R.id.textViewCreateNewProfile);
         this.progressBarSignIn = findViewById(R.id.progressBarSignIn);
 
-        this.firebaseAuth = FirebaseAuth.getInstance(); //get current instance of database.
+        this.firebaseAuth = FirebaseAuth.getInstance(); //get current instance of Firebase Auth.
 
         //check if user is already signed in/up
         if(firebaseAuth.getCurrentUser() != null) {
@@ -68,8 +77,8 @@ public class LoginActivity extends Activity {
         }
 
         //load strings
-        String mEmail = this.editTextEmailAddress.getText().toString().trim();
-        String mPassword = this.editTextPassword.getText().toString().trim();
+        final String mEmail = this.editTextEmailAddress.getText().toString().trim();
+        final String mPassword = this.editTextPassword.getText().toString().trim();
 
         if(this.mBinding.getSignInMode()) { //sign in event
 
@@ -108,6 +117,19 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     onSuccesfullTask(task, "Successfully created user!");
+
+                    //load new user into database
+                    if (task.isSuccessful()) {
+                        String userID = firebaseAuth.getCurrentUser().getUid();
+                        rootNode = FirebaseDatabase.getInstance();
+                        databaseReference = rootNode.getReference("Users"); //get reference to database.
+
+                        User user = new User(mEmail,mPassword,"New User");
+
+                        databaseReference.child(userID).setValue(user);
+                    }
+
+
                 }
             });
 

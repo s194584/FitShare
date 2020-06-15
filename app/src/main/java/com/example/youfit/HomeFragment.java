@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
-    User user = new User("This means smth is wrong", ""+0);
+    User user = new User();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,8 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-        welcomeBackTest.setText("Welcome back " + user.getName() + "!");
+        String username = ((MainActivity)getActivity()).getServer().getUsername();
+        welcomeBackTest.setText("Welcome back " + username + "!");
 
         Log.i("HomeFragment", "1: Getting recyclerView");
         //Get recycler view

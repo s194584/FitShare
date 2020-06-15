@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -37,11 +38,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity implements SignOutDialogListener{
 
     protected boolean alreadyLoggedIn = false;
+    protected Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.server = new Server(this);
 
         // setting up bottombarnavigation
         setUpNavigation();
@@ -68,4 +72,10 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
     }
+
+    public Server getServer() {
+        return this.server;
+    }
+
+
 }
