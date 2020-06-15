@@ -31,11 +31,13 @@ import android.widget.Toast;
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements SignOutDialogListener{
+public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener {
 
     protected boolean alreadyLoggedIn = false;
     protected Server server;
@@ -62,10 +64,29 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        FirebaseAuth.getInstance().signOut(); //log out
-        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-        startActivity(intent);
-        finish();
+        if (dialog instanceof ChangePasswordDialogFragment){
+
+            // Uses the Firebase build in function .sendPasswordResetEmail to reset users password.
+            FirebaseAuth.getInstance().sendPasswordResetEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getApplicationContext(), "Password reset email sent!", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
+
+        if (dialog instanceof SignOutDialogFragment) {
+            FirebaseAuth.getInstance().signOut(); //log out
+            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
