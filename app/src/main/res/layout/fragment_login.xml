@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="72dp"
-        tools:srcCompat="@drawable/fitshare_logo_plaintekst_sort" />
+        tools:srcCompat="@drawable/fitshare_logo_plain_tekst_sort_2" />
 
     <TextView
         android:id="@+id/textViewCreateNewProfile"
@@ -54,5 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSignin" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

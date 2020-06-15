@@ -25,7 +25,11 @@ public class Exercise {
         return type;
     }
 
-    public int getReps(){
+
+    public int getReps() {
         return reps;
+    }
+    public int getTime() {
+        return Integer.parseInt(time);
     }
 }

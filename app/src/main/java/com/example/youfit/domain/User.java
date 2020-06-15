@@ -19,4 +19,9 @@ public class User {
     public boolean saveWorkout(Workout workout){
         return true;
     }
+
+    public String getName()
+    {
+        return name;
+    }
 }
