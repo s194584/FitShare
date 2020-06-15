@@ -35,9 +35,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements SignOutDialogListener{
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {HomeFragmentWork
 
     protected boolean alreadyLoggedIn = false;
 
