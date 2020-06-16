@@ -47,7 +47,7 @@ public class DoingWorkoutFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                setWaterAmount += 10;
+                setWaterAmount += 100;
                 setWaterAmountText.setText(""+setWaterAmount + " mL");
             }
         });
@@ -57,7 +57,7 @@ public class DoingWorkoutFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                setWaterAmount -= 10;
+                setWaterAmount -= 100;
                 setWaterAmountText.setText(""+setWaterAmount + " mL");
             }
         });
