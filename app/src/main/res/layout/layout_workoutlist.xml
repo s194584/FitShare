@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BrowsePublicWorkoutsFragment"
-    android:padding="5dp"
+    android:padding="8dp"
     android:id="@+id/browse_workout_layout">
 
 
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Name: "
         android:textSize="15sp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/workout_type"
@@ -50,13 +50,14 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
+        android:layout_width="85dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/workout_info_text"
         android:text="Start "
-        android:textSize="12sp" />
+        android:textSize="11sp"
+        android:textAlignment="center"/>
 
 
 </RelativeLayout>
