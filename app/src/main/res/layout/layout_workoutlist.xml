@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/workout_info_text"
-        android:layout_width="306dp"
+        android:layout_width="309dp"
         android:layout_height="wrap_content"
         android:text="Name: "
         android:textSize="15sp"
@@ -21,10 +21,10 @@
 
     <TextView
         android:id="@+id/workout_type"
-        android:layout_width="100dp"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:text="Type: Strength"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="7dp"
         android:layout_marginTop="5dp"
         android:textSize="15sp"
         android:layout_toRightOf="@id/workout_difficulty"
@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/workout_difficulty"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/workout_info_text"
         android:layout_marginTop="5dp"
@@ -40,20 +40,20 @@
 
     <TextView
         android:id="@+id/workout_time"
-        android:layout_width="wrap_content"
+        android:layout_width="82dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/workout_type"
         android:layout_below="@+id/workout_info_text"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="7dp"
         android:layout_marginTop="5dp"
-        android:text="Time: 60:00" />
+        android:text="Time: 120:00" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="85dp"
+        android:layout_width="82dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="12dp"
         android:layout_toRightOf="@id/workout_info_text"
         android:text="Start "
         android:textSize="11sp"
