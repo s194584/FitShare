@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -71,6 +72,13 @@ public class DoingWorkoutFragment extends Fragment {
                 setWaterAmount = 0;
                 setWaterAmountText.setText(""+setWaterAmount + " mL");
                 waterAmountText.setText(""+totalWaterAmount + " mL / 2000 mL");
+                if (totalWaterAmount >= 2000)
+                {
+                    Toast toast = Toast.makeText(getActivity(),
+                            "Congratulations, you've reached your water goal! Good job! you are awesome!",
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
 
