@@ -52,5 +52,8 @@
         <action
             android:id="@+id/action_workoutSettingsFragment_to_workoutFragment"
             app:destination="@id/workoutFragment" />
+        <action
+            android:id="@+id/action_workoutSettingsFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
     </fragment>
 </navigation>

@@ -53,4 +53,8 @@ public class User {
     public void setSavedWorkouts(List<Workout> savedWorkouts) {
         this.savedWorkouts = savedWorkouts;
     }
+
+    public void addWorkout(Workout temp) {
+        savedWorkouts.add(temp);
+    }
 }

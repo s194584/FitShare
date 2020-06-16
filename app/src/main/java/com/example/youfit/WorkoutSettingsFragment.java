@@ -49,8 +49,26 @@ public class WorkoutSettingsFragment extends Fragment {
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.isNotifications());
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.isPublicWorkout());
 
+        getActivity().findViewById(R.id.button_workout_settings_complete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // TODO - SAVE THE WORKOUT IN THE USER
+                Bundle bundle = new Bundle();
+
+                boolean[] tempRecurring = new boolean[recurringChecks.getChildCount()];
+                for(int i = 0; i < recurringChecks.getChildCount(); i++){
+                    tempRecurring[i] = ((CheckBox) recurringChecks.getChildAt(i)).isChecked();
+                }
+                currentWorkout.setRecurring(tempRecurring);
+                currentWorkout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
+                currentWorkout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
 
 
+                bundle.putParcelable("newWorkout",currentWorkout);
+                NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment,bundle);
+            }
+        });
         getActivity().findViewById(R.id.button_workout_settings_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,18 +87,5 @@ public class WorkoutSettingsFragment extends Fragment {
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
             }
         });
-
     }
-
-    private Workout saveWorkout(Workout workout){
-        boolean[] tempRecurring = new boolean[recurringChecks.getChildCount()];
-        for(int i = 0; i < recurringChecks.getChildCount(); i++){
-            tempRecurring[i] = ((CheckBox) recurringChecks.getChildAt(i)).isChecked();
-        }
-        workout.setRecurring(tempRecurring);
-        workout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
-        workout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
-        return workout;
-    }
-
 }

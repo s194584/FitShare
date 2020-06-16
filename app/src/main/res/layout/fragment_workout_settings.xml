@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/createWorkoutBtn2"
+        app:layout_constraintBottom_toTopOf="@+id/button_workout_settings_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -103,7 +103,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/createWorkoutBtn2"
+        android:id="@+id/button_workout_settings_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"

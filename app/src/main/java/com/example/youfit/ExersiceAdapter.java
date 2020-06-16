@@ -9,19 +9,28 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.youfit.databinding.ExerciseDetailCardBinding;
 import com.example.youfit.domain.Exercise;
 
 import java.util.List;
 
 public class ExersiceAdapter extends RecyclerView.Adapter {
+    private final String TAG = "ExersiceAdapter";
+
     private List<Exercise> exercises;
 
     // Creating a holder for the views used in RecyclerView
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder{
-        public ConstraintLayout layout;
-        public ExerciseViewHolder(View itemView) {
-            super(itemView);
-            layout = (ConstraintLayout) itemView;
+        private ExerciseDetailCardBinding mBinding;
+
+        public ExerciseViewHolder(ExerciseDetailCardBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+        public void bind(Exercise exercise){
+            mBinding.setExercise(exercise);
+            mBinding.executePendingBindings();
         }
     }
 
@@ -32,19 +41,25 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ConstraintLayout view = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_detail_card,parent,false);
+        LayoutInflater li = LayoutInflater.from(parent.getContext());
+        ExerciseDetailCardBinding edcb = ExerciseDetailCardBinding.inflate(li,parent,false);
 
-        ExerciseViewHolder viewHolder = new ExerciseViewHolder(view);
+        ExerciseViewHolder viewHolder = new ExerciseViewHolder(edcb);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        TextView name =(TextView) ((ExerciseViewHolder) holder).layout.getViewById(R.id.excersizeNameTextView);
-        name.setText(exercises.get(position).getName());
-        TextView rep =(TextView) ((ExerciseViewHolder) holder).layout.getViewById(R.id.amoutnTextView);
-        rep.setText(""+exercises.get(position).getReps());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+        ((ExerciseViewHolder) holder).bind(exercises.get(position));
+        ((ExerciseViewHolder) holder).mBinding.getRoot().findViewById(R.id.cancelExerciseImageView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exercises.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,getItemCount());
+            }
+        });
     }
 
     @Override

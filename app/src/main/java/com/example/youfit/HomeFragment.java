@@ -26,6 +26,7 @@ import com.example.youfit.domain.Workout;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+    private final String TAG = "HomeFragment";
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
     User user = new User();
@@ -33,6 +34,13 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        if(getArguments()!= null){
+            Workout temp =(Workout) getArguments().get("newWorkout");
+            if(temp != null){
+                // TODO - ADD WORKOUT TO CURRENT USER
+                Log.i(TAG,temp.getName());
+            }
+        }
     }
 
     @Override
