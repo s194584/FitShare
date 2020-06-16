@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
-    User user = new User();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,47 +36,50 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Set welcome back tekst
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
         String username = ((MainActivity)getActivity()).getServer().getUsername();
         welcomeBackTest.setText("Welcome back " + username + "!");
 
-        Log.i("HomeFragment", "1: Getting recyclerView");
         //Get recycler view
+        Log.i("HomeFragment", "1: Getting recyclerView");
         RecyclerView  plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
         if(plannedWorkoutsRV == null)
         {
             Log.i("HomeFragment", "ERROR: Could not find recyclerView");
         }
 
-        Log.i("HomeFragment", "2: Creating example data");
         // Create example data
+        Log.i("HomeFragment", "2: Creating example data");
+        //TODO Get Firebase data and fill in here
         workouts.add(new Workout("1", new ArrayList<Exercise>()));
         workouts.add(new Workout("2", new ArrayList<Exercise>()));
         workouts.add(new Workout("3", new ArrayList<Exercise>()));
         workouts.add(new Workout("4", new ArrayList<Exercise>()));
         workouts.add(new Workout("5", new ArrayList<Exercise>()));
 
-        Log.i("HomeFragment", "3: Making adapter");
         //make adapter with sample data
+        Log.i("HomeFragment", "3: Making adapter");
         WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts);
         if(adapter == null)
         {
             Log.i("HomeFragment", "ERROR: Could not create adapter");
         }
 
-        Log.i("HomeFragment", "4: Adding adapter to recycler view");
         //add adapter to recycle view
+        Log.i("HomeFragment", "4: Adding adapter to recycler view");
+        assert plannedWorkoutsRV != null;
         plannedWorkoutsRV.setAdapter(adapter);
 
-
-        Log.i("HomeFragment", "5: Set recycler views layout manager");
         //Set layoutmanager
+        Log.i("HomeFragment", "5: Set recycler views layout manager");
         plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //Make recycleView look good.
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
