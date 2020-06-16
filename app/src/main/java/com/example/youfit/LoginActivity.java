@@ -1,6 +1,7 @@
 package com.example.youfit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,24 +12,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.youfit.databinding.ActivityLoginBinding;
+import com.example.youfit.domain.User;
+import com.example.youfit.domain.UserHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginActivity extends Activity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class LoginActivity extends AppCompatActivity implements ForgotPasswordDialogListener{
 
     ActivityLoginBinding mBinding;
 
-    protected EditText editTextEmailAddress, editTextPassword,editTextPasswordConfirm;
+    protected EditText editTextEmailAddress, editTextPassword, editTextPasswordConfirm;
     protected Button buttonSignin;
     protected ProgressBar progressBarSignIn;
     protected TextView textViewCreateNewProfile;
+    protected TextView forgotPassword;
 
     protected FirebaseAuth firebaseAuth;
+    protected FirebaseDatabase rootNode;
+    protected DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +58,27 @@ public class LoginActivity extends Activity {
         this.buttonSignin = findViewById(R.id.buttonSignin);
         this.textViewCreateNewProfile = findViewById(R.id.textViewCreateNewProfile);
         this.progressBarSignIn = findViewById(R.id.progressBarSignIn);
+        this.forgotPassword = findViewById(R.id.textViewForgotPassword2);
 
-        this.firebaseAuth = FirebaseAuth.getInstance(); //get current instance of database.
+        this.firebaseAuth = FirebaseAuth.getInstance(); //get current instance of Firebase Auth.
 
         //check if user is already signed in/up
         if(firebaseAuth.getCurrentUser() != null) {
             goToMainActivity();
         }
 
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showResetDialog();
+            }
+        });
 
+    }
+
+    private void showResetDialog(){
+        ForgotPasswordDialog forgot = new ForgotPasswordDialog();
+        forgot.show(getSupportFragmentManager(), "reset_password");
     }
 
     private void goToMainActivity() {
@@ -69,8 +96,8 @@ public class LoginActivity extends Activity {
         }
 
         //load strings
-        String mEmail = this.editTextEmailAddress.getText().toString().trim();
-        String mPassword = this.editTextPassword.getText().toString().trim();
+        final String mEmail = this.editTextEmailAddress.getText().toString().trim();
+        final String mPassword = this.editTextPassword.getText().toString().trim();
 
         if(this.mBinding.getSignInMode()) { //sign in event
 
@@ -103,12 +130,34 @@ public class LoginActivity extends Activity {
             //set loading bar visible
             this.progressBarSignIn.setVisibility(View.VISIBLE);
 
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showResetDialog();
+
+            }
+        });
+
+
 
             //registration of user
             this.firebaseAuth.createUserWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     onSuccesfullTask(task, "Successfully created user!");
+
+                    //load new user into database
+                    if (task.isSuccessful()) {
+                        String userID = firebaseAuth.getCurrentUser().getUid();
+                        rootNode = FirebaseDatabase.getInstance();
+                        databaseReference = rootNode.getReference("Users"); //get reference to database.
+
+                        User user = new User(mEmail,mPassword,"New User");
+
+                        databaseReference.child(userID).setValue(user);
+                    }
+
+
                 }
             });
 
@@ -139,5 +188,26 @@ public class LoginActivity extends Activity {
     //click event for create new profile/back textview
     public void onCreateNewProfile(View view) {
         mBinding.setSignInMode(!mBinding.getSignInMode());
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, EditText email) {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Password reset email sent!", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
     }
 }

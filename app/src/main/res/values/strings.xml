@@ -13,6 +13,12 @@
     <string name="sign_out_dialog">Are you sure, you want to sign out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="private_workouts">My Workouts</string>
+    <string name="public_workouts">Public Workouts</string>
+    <string name="reset_password">Reset password?</string>
+    <string name="enter_email">Enter email</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset password</string>
 
     <string-array name="rep_exercises">
         <item>Pull-up</item>

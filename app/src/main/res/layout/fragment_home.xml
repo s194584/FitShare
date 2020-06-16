@@ -7,18 +7,15 @@
     tools:context=".HomeFragment">
 
 
-
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="1183dp"
         android:layout_height="807dp"
         android:src="@drawable/backgroound_image"
-        tools:layout_editor_absoluteX="-324dp"
-        tools:layout_editor_absoluteY="-73dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/xxx"

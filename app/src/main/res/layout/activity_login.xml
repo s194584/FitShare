@@ -107,5 +107,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSignin" />
+
+    <TextView
+        android:id="@+id/textViewForgotPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="60dp"
+        android:text="Forgot password?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignin" />
 </androidx.constraintlayout.widget.ConstraintLayout>
     </layout>
