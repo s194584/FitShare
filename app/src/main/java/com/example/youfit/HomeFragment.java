@@ -1,5 +1,6 @@
 package com.example.youfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnNoteListener{
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
     @Override
@@ -64,7 +65,7 @@ public class HomeFragment extends Fragment {
 
         //make adapter with sample data
         Log.i("HomeFragment", "3: Making adapter");
-        WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts);
+        WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts, this);
         if(adapter == null)
         {
             Log.i("HomeFragment", "ERROR: Could not create adapter");
@@ -100,4 +101,12 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onNoteClick(int position) {
+        Log.i("HomeFragment", "A workout has been clicked");
+        Workout workout = workouts.get(position);
+        //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
+        //intent.putExtra("workout", workout);
+        //startActivity(intent);
+    }
 }
