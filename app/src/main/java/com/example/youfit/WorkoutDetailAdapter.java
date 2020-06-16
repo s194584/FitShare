@@ -18,15 +18,15 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     {
         public TextView workoutName;
         public TextView workoutTime;
-        OnNoteListener onNoteListener;
+        OnWorkoutListener onWorkoutListener;
 
-        public ViewHolder(View itemView, OnNoteListener onNoteListener)
+        public ViewHolder(View itemView, OnWorkoutListener onWorkoutListener)
         {
             super(itemView);
             workoutName = (TextView) itemView.findViewById(R.id.workoutNameText);
             workoutTime = (TextView) itemView.findViewById(R.id.workoutTimeText);
 
-            this.onNoteListener = onNoteListener;
+            this.onWorkoutListener = onWorkoutListener;
 
             itemView.setOnClickListener(this);
 
@@ -34,17 +34,17 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
 
         @Override
         public void onClick(View v) {
-            onNoteListener.onNoteClick(getAdapterPosition());
+            onWorkoutListener.onWorkoutClick(getAdapterPosition());
         }
     }
 
     private List<Workout> mWorkouts;
-    private OnNoteListener mOnNoteListener;
+    private OnWorkoutListener mOnWorkoutListener;
 
-    public WorkoutDetailAdapter(List<Workout> workouts, OnNoteListener onNoteListener)
+    public WorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener)
     {
         mWorkouts = workouts;
-        this.mOnNoteListener = onNoteListener;
+        this.mOnWorkoutListener = onWorkoutListener;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
 
         View workoutDetailView = inflater.inflate(R.layout.item_workout_detail, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(workoutDetailView, mOnNoteListener);
+        ViewHolder viewHolder = new ViewHolder(workoutDetailView, mOnWorkoutListener);
         return viewHolder;
     }
 
@@ -77,8 +77,8 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
         return mWorkouts.size();
     }
 
-    public interface OnNoteListener
+    public interface OnWorkoutListener
     {
-        void onNoteClick(int Position);
+        void onWorkoutClick(int Position);
     }
 }

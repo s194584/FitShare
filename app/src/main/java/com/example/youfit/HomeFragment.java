@@ -1,6 +1,5 @@
 package com.example.youfit;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,20 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.youfit.domain.Exercise;
-import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnNoteListener{
+public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener {
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
     @Override
@@ -102,7 +97,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnNot
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onWorkoutClick(int position) {
         Log.i("HomeFragment", "A workout has been clicked");
         Workout workout = workouts.get(position);
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
