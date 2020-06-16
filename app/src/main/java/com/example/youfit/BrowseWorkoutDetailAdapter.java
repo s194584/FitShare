@@ -58,8 +58,10 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        holder.workoutName.setText(mWorkouts.get(position).getName());
-        holder.workoutType.setText(mWorkouts.get(position).getType());
+        String workoutName = "Name: " + mWorkouts.get(position).getName();
+        String workoutType = "Type: " + mWorkouts.get(position).getType();
+        holder.workoutName.setText(workoutName);
+        holder.workoutType.setText(workoutType);
 
         holder.detailLayout.setOnClickListener(new View.OnClickListener() {
             @Override

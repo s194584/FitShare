@@ -37,11 +37,11 @@ public class BrowsePrivateWorkoutsFragment extends Fragment {
 
         Log.i("BrowsePrivateFragment", "2: Creating example data");
         // Create example data
-        workouts.add(new Workout("1", new ArrayList<Exercise>()));
-        workouts.add(new Workout("2", new ArrayList<Exercise>()));
-        workouts.add(new Workout("3", new ArrayList<Exercise>()));
-        workouts.add(new Workout("4", new ArrayList<Exercise>()));
-        workouts.add(new Workout("5", new ArrayList<Exercise>()));
+        workouts.add(new Workout("MYcoolWorkout", new ArrayList<Exercise>()));
+        workouts.add(new Workout("Strong", new ArrayList<Exercise>()));
+        workouts.add(new Workout("boii", new ArrayList<Exercise>()));
+        workouts.add(new Workout("Running", new ArrayList<Exercise>()));
+        workouts.add(new Workout("quick one", new ArrayList<Exercise>()));
 
         initRecyclerView(view);
 

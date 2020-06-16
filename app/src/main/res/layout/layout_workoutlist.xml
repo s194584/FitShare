@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BrowsePublicWorkoutsFragment"
-    android:padding="15dp"
+    android:padding="5dp"
     android:id="@+id/browse_workout_layout">
 
 
@@ -13,21 +13,50 @@
 
     <TextView
         android:id="@+id/workout_info_text"
-        android:layout_width="wrap_content"
+        android:layout_width="306dp"
         android:layout_height="wrap_content"
-        android:text="Workout name"
-        android:layout_marginLeft="0dp"
-        android:textSize="15sp"/>
+        android:text="Name: "
+        android:textSize="15sp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/workout_type"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Type: Strength"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/workout_difficulty"
+        android:layout_below="@+id/workout_info_text" />
+
+    <TextView
+        android:id="@+id/workout_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type"
-        android:layout_marginLeft="30dp"
-        android:textSize="15sp"
-        android:layout_toRightOf="@id/workout_info_text"/>
+        android:layout_below="@+id/workout_info_text"
+        android:layout_marginTop="5dp"
+        android:text="Difficulty: Medium" />
 
+    <TextView
+        android:id="@+id/workout_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/workout_type"
+        android:layout_below="@+id/workout_info_text"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="Time: 60:00" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/workout_info_text"
+        android:text="Start "
+        android:textSize="12sp" />
 
 
 </RelativeLayout>
