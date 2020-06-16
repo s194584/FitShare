@@ -4,10 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="46dp"
     android:paddingTop="5dp"
     android:paddingBottom="10dp"
-    android:background="@drawable/item_workout_detail_layout"
+    android:background="@drawable/baggrund_400x50"
     >
 
     <TextView
