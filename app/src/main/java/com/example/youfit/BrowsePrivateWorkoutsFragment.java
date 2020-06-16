@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Workout;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * Use the {@link BrowsePrivateWorkoutsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BrowsePrivateWorkoutsFragment extends Fragment {
+public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener {
 
     private static final String TAG = "BrowsePrivateFragment";
     ArrayList<Workout> workouts = new ArrayList<Workout>();
@@ -63,8 +64,8 @@ public class BrowsePrivateWorkoutsFragment extends Fragment {
     }
 
     public void onWorkoutClick(int position) {
-        Workout workout = workouts.get(position);
-        Log.i("BrowsePrivateFragment", "A workout has been clicked: " + workout.getName());
+        //Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
         //intent.putExtra("workout", workout);
         //startActivity(intent);

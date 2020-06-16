@@ -27,16 +27,19 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
 
     private Context mContext;
     private List<Workout> mWorkouts;
+    private OnWorkoutListener mOnWorkoutListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView workoutName;
         TextView workoutType;
         TextView workoutTime;
         TextView workoutDifficulty;
         Button startWorkOutButton;
         RelativeLayout detailLayout;
+        OnWorkoutListener onWorkoutListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnWorkoutListener onWorkoutListener) {
             super(itemView);
             workoutName = itemView.findViewById(R.id.workout_info_text);
             workoutType = itemView.findViewById(R.id.workout_type);
@@ -44,6 +47,11 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
             workoutDifficulty = itemView.findViewById(R.id.workout_difficulty);
             startWorkOutButton = itemView.findViewById(R.id.startworkoutfrombrowser_button);
             detailLayout = itemView.findViewById(R.id.browse_workout_layout);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onWorkoutListener.onWorkoutClick(getAdapterPosition());
         }
     }
 
@@ -57,12 +65,12 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_workoutlist,parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnWorkoutListener);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
         String workoutName = "Name: " + mWorkouts.get(position).getName();
@@ -77,14 +85,14 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         holder.detailLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "test!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mWorkouts.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.startWorkOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Button!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Workout!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -94,5 +102,9 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         return mWorkouts.size();
     }
 
+    public interface OnWorkoutListener
+    {
+        void onWorkoutClick(int Position);
+    }
 
 }
