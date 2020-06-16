@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Workout;
@@ -79,13 +80,20 @@ public class WorkoutFragment extends Fragment {
                     currentWorkout = new Workout();
                     currentWorkout.setName(exerciseSelectedTextView.getText().toString());
                     currentWorkout.setExercises(exercises);
+                    Log.i("EXERCISEFRAGMENT","WORKOUT CREATED");
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("newWorkout",currentWorkout);
+                    NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment,bundle);
+                }else {
+                    Toast.makeText(view.getContext(),
+                            "Please enter a name for your workout",
+                            Toast.LENGTH_SHORT).show();
                 }
 
-                Log.i("EXERCISEFRAGMENT","WORKOUT CREATED");
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("newWorkout",currentWorkout);
-                NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment,bundle);
+
                 // TODO - ADD TO USER AND FINISH TASK
+
+
 
             }
         });

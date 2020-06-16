@@ -22,6 +22,7 @@ public class Workout implements Parcelable {
     public Workout(){
         name = "";
     }
+
     public Workout(String name){
         this.name = name;
         workoutType = WorkoutType.DEFAULT;
