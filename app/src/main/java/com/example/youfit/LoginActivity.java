@@ -110,10 +110,12 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     onSuccesfullTask(task, "Welcome!");
+                    if (task.isSuccessful()) {
+                        goToMainActivity();
+                    }
+
                 }
             });
-
-            goToMainActivity();
         } else { //sign up event
 
             //load confirmPassword String
