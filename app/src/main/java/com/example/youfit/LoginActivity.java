@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.youfit.databinding.ActivityLoginBinding;
+import com.example.youfit.domain.Server;
 import com.example.youfit.domain.User;
 import com.example.youfit.domain.UserHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -152,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                         rootNode = FirebaseDatabase.getInstance();
                         databaseReference = rootNode.getReference("Users"); //get reference to database.
 
-                        User user = new User(mEmail,mPassword,"New User");
+                        User user = new User("New User");
 
                         databaseReference.child(userID).setValue(user);
                     }

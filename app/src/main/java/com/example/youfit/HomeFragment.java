@@ -1,5 +1,6 @@
 package com.example.youfit;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.Server;
+import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener {
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

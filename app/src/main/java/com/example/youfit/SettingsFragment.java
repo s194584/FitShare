@@ -14,8 +14,11 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.youfit.domain.Server;
+import com.example.youfit.domain.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsFragment extends Fragment{
@@ -29,6 +32,24 @@ public class SettingsFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final EditText nameEditText = view.findViewById(R.id.nameEditText);
+        nameEditText.setText(((MainActivity) getActivity()).getServer().getUsername());
+
+        view.findViewById(R.id.updateBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Server server = ((MainActivity) getActivity()).getServer();
+                User user = server.getCurrentUser();
+                if (user==null) {
+                    user = new User("New User");
+                }
+
+                user.setName(nameEditText.getText().toString());
+                server.updateCurrentUser(user);
+            }
+        });
+
 
         view.findViewById(R.id.logOutBtn).setOnClickListener(new View.OnClickListener() {
             @Override
