@@ -13,16 +13,16 @@
         android:layout_centerInParent="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/plannedWorkoutsRV"
-        android:layout_width="wrap_content"
-        android:layout_height="145dp"
+        android:id="@+id/privateWorkoutsRV"
+        android:layout_width="match_parent"
+        android:layout_height="584dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="390dp"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="194dp" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

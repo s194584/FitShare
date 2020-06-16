@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import org.xml.sax.helpers.DefaultHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +73,16 @@ public class Workout implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    public String getType() {
+        if (workoutType == WorkoutType.DEFAULT) {
+            return "Default";
+        } else if (workoutType == WorkoutType.STRENGTH) {
+            return "Strength";
+        } else {
+            return "Cardio";
+        }
     }
 
     public int getTime() {
