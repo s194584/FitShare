@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
     //click event for signin/signup button
     public void onSignIn(View view) {
         //Check validity of input, and give corresponding error message.
-        if (checkIfEmpty(this.editTextEmailAddress,"Email") &&
+        if (checkIfEmpty(this.editTextEmailAddress,"Email") ||
                 checkIfEmpty(this.editTextPassword,"Password")) {
             return;
         }
