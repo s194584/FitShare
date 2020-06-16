@@ -42,6 +42,10 @@ public class BrowsePrivateWorkoutsFragment extends Fragment {
         workouts.add(new Workout("boii", new ArrayList<Exercise>()));
         workouts.add(new Workout("Running", new ArrayList<Exercise>()));
         workouts.add(new Workout("quick one", new ArrayList<Exercise>()));
+        workouts.add(new Workout("wadup", new ArrayList<Exercise>()));
+        workouts.add(new Workout("okaeh", new ArrayList<Exercise>()));
+        workouts.add(new Workout("5x5", new ArrayList<Exercise>()));
+        workouts.add(new Workout("NO EXCUSES", new ArrayList<Exercise>()));
 
         initRecyclerView(view);
 
