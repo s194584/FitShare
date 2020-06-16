@@ -54,4 +54,12 @@ public class BrowsePublicWorkoutsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
+
+    public void onWorkoutClick(int position) {
+        Workout workout = workouts.get(position);
+        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workout.getName());
+        //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
+        //intent.putExtra("workout", workout);
+        //startActivity(intent);
+    }
 }
