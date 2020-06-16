@@ -98,8 +98,8 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
     @Override
     public void onWorkoutClick(int position) {
-        Log.i("HomeFragment", "A workout has been clicked");
         Workout workout = workouts.get(position);
+        Log.i("HomeFragment", "A workout has been clicked: " + workout.getName());
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
         //intent.putExtra("workout", workout);
         //startActivity(intent);
