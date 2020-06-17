@@ -29,7 +29,11 @@
         android:id="@+id/browseWorkoutsFragment"
         android:name="com.example.youfit.BrowseWorkoutsFragment"
         android:label="fragment_browse_workouts"
-        tools:layout="@layout/fragment_browse_workouts" />
+        tools:layout="@layout/fragment_browse_workouts" >
+        <action
+            android:id="@+id/action_browseWorkoutsFragment_to_viewWorkoutDetailsFragment"
+            app:destination="@id/viewWorkoutDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.youfit.SettingsFragment"
@@ -56,4 +60,9 @@
             android:id="@+id/action_workoutSettingsFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/viewWorkoutDetailsFragment"
+        android:name="com.example.youfit.ViewWorkoutDetailsFragment"
+        android:label="fragment_view_workout_details"
+        tools:layout="@layout/fragment_view_workout_details" />
 </navigation>

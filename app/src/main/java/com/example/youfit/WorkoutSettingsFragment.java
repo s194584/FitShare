@@ -32,7 +32,7 @@ public class WorkoutSettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if(getArguments()!=null){
-            currentWorkout = (Workout) getArguments().getParcelable("newWorkout");
+            currentWorkout = getArguments().getParcelable("newWorkout");
         } else{
             currentWorkout = new Workout();
         }
@@ -43,12 +43,11 @@ public class WorkoutSettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recurringChecks = getActivity().findViewById(R.id.recurringgroup_workout_settings);
-
+        // Setting Views based on currentWorkout
         EditText ed = getActivity().findViewById(R.id.edittext_workout_name_settings);
         ed.setText(currentWorkout.getName());
 
-        // Setting Views based on currentWorkout
+        recurringChecks = getActivity().findViewById(R.id.recurringgroup_workout_settings);
         ArrayList<Boolean> tempRecurring = currentWorkout.getRecurring();
         for(int i = 0; i < tempRecurring.size(); i++){
             ((CheckBox) recurringChecks.getChildAt(i)).setChecked(tempRecurring.get(i));
@@ -56,6 +55,7 @@ public class WorkoutSettingsFragment extends Fragment {
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.isNotifications());
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.isPublicWorkout());
 
+        // Complete button listener
         getActivity().findViewById(R.id.button_workout_settings_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,20 +66,13 @@ public class WorkoutSettingsFragment extends Fragment {
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment);
             }
         });
+
+        // Back button listener
         getActivity().findViewById(R.id.button_workout_settings_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentWorkout = saveWorkout(currentWorkout);
                 Bundle bundle = new Bundle();
-
-                ArrayList<Boolean> tempRecurring = new ArrayList<Boolean>(recurringChecks.getChildCount());
-                for(int i = 0; i < recurringChecks.getChildCount(); i++){
-                    tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
-                }
-                currentWorkout.setRecurring(tempRecurring);
-                currentWorkout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
-                currentWorkout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
-
-
                 bundle.putParcelable("newWorkout",currentWorkout);
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
             }
