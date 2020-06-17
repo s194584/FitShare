@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SettingsFragment">
 
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="1183dp"
+        android:layout_height="807dp"
+        android:src="@drawable/backgroound_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="wrap_content"
@@ -13,6 +23,8 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="101dp"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
         android:ems="10"
         android:hint="name"
         android:inputType="textEmailAddress"
