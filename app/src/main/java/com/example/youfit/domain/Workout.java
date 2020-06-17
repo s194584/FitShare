@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import org.xml.sax.helpers.DefaultHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +75,16 @@ public class Workout implements Parcelable {
         return name;
     }
 
+    public String getType() {
+        if (workoutType == WorkoutType.DEFAULT) {
+            return "Default";
+        } else if (workoutType == WorkoutType.STRENGTH) {
+            return "Strength";
+        } else {
+            return "Cardio";
+        }
+    }
+
     public int getTime() {
         int time = 0;
         for(Exercise x : exercises)
@@ -80,6 +92,13 @@ public class Workout implements Parcelable {
             time += x.getTime();
         }
         return time;
+    }
+
+    public String getTimeString() {
+        int time = getTime();
+        int minutes = time / 60;
+        int seconds = time % 60;
+        return seconds < 10 ? minutes + ":" + "0" + seconds : minutes + ":" + seconds;
     }
 
     public static final Creator<Workout> CREATOR = new Creator<Workout>() {

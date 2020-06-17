@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".BrowsePublicWorkoutsFragment"
+    android:padding="8dp"
+    android:id="@+id/browse_workout_layout"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/baggrund_400x50">
+
+
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:id="@+id/workout_info_text"
+        android:layout_width="309dp"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textSize="15sp"
+        android:layout_marginBottom="0dp" />
+
+    <TextView
+        android:id="@+id/workout_type"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:text="Type: Strength"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/workout_difficulty"
+        android:layout_below="@+id/workout_info_text" />
+
+    <TextView
+        android:id="@+id/workout_difficulty"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workout_info_text"
+        android:layout_marginTop="5dp"
+        android:text="Difficulty: Medium"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/workout_time"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/workout_type"
+        android:layout_below="@+id/workout_info_text"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="5dp"
+        android:text="Time: 120:00" />
+
+    <Button
+        android:id="@+id/startworkoutfrombrowser_button"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/workout_info_text"
+        android:text="Start "
+        android:textSize="11sp"
+        android:textAlignment="center"/>
+
+
+</RelativeLayout>

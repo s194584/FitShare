@@ -14,26 +14,37 @@ import java.util.List;
 
 public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdapter.ViewHolder>
 {
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         public TextView workoutName;
         public TextView workoutTime;
+        OnWorkoutListener onWorkoutListener;
 
-        public ViewHolder(View itemView)
+        public ViewHolder(View itemView, OnWorkoutListener onWorkoutListener)
         {
             super(itemView);
             workoutName = (TextView) itemView.findViewById(R.id.workoutNameText);
             workoutTime = (TextView) itemView.findViewById(R.id.workoutTimeText);
 
+            this.onWorkoutListener = onWorkoutListener;
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            onWorkoutListener.onWorkoutClick(getAdapterPosition());
         }
     }
 
     private List<Workout> mWorkouts;
+    private OnWorkoutListener mOnWorkoutListener;
 
-    public WorkoutDetailAdapter(List<Workout> workouts)
+    public WorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener)
     {
         mWorkouts = workouts;
+        this.mOnWorkoutListener = onWorkoutListener;
     }
 
     @Override
@@ -44,7 +55,7 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
 
         View workoutDetailView = inflater.inflate(R.layout.item_workout_detail, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(workoutDetailView);
+        ViewHolder viewHolder = new ViewHolder(workoutDetailView, mOnWorkoutListener);
         return viewHolder;
     }
 
@@ -64,5 +75,10 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     public int getItemCount()
     {
         return mWorkouts.size();
+    }
+
+    public interface OnWorkoutListener
+    {
+        void onWorkoutClick(int Position);
     }
 }

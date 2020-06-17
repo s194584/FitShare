@@ -52,4 +52,6 @@ public class BrowseWorkoutsFragment extends Fragment {
         adapter.addFragment(new BrowsePublicWorkoutsFragment(), "Community Workouts");
         viewPager.setAdapter(adapter);
     }
+
+
 }

@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.youfit.databinding.ActivityLoginBinding;
+import com.example.youfit.domain.Server;
 import com.example.youfit.domain.User;
 import com.example.youfit.domain.UserHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
     //click event for signin/signup button
     public void onSignIn(View view) {
         //Check validity of input, and give corresponding error message.
-        if (checkIfEmpty(this.editTextEmailAddress,"Email") &&
+        if (checkIfEmpty(this.editTextEmailAddress,"Email") ||
                 checkIfEmpty(this.editTextPassword,"Password")) {
             return;
         }
@@ -109,10 +110,12 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     onSuccesfullTask(task, "Welcome!");
+                    if (task.isSuccessful()) {
+                        goToMainActivity();
+                    }
+
                 }
             });
-
-            goToMainActivity();
         } else { //sign up event
 
             //load confirmPassword String
@@ -152,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                         rootNode = FirebaseDatabase.getInstance();
                         databaseReference = rootNode.getReference("Users"); //get reference to database.
 
-                        User user = new User(mEmail,mPassword,"New User");
+                        User user = new User("New User");
 
                         databaseReference.child(userID).setValue(user);
                     }
