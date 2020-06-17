@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
@@ -33,16 +34,11 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
         View view = inflater.inflate(R.layout.fragment_browse_private_workouts, container, false);
 
         Log.i("BrowsePrivateFragment", "2: Creating example data");
-        // Create example data
-        workouts.add(new Workout("MYcoolWorkout", new ArrayList<Exercise>()));
-        workouts.add(new Workout("Strong", new ArrayList<Exercise>()));
-        workouts.add(new Workout("boii", new ArrayList<Exercise>()));
-        workouts.add(new Workout("Running", new ArrayList<Exercise>()));
-        workouts.add(new Workout("quick one", new ArrayList<Exercise>()));
-        workouts.add(new Workout("wadup", new ArrayList<Exercise>()));
-        workouts.add(new Workout("okaeh", new ArrayList<Exercise>()));
-        workouts.add(new Workout("5x5", new ArrayList<Exercise>()));
-        workouts.add(new Workout("NO EXCUSES", new ArrayList<Exercise>()));
+
+        // Load workouts from server
+        Server server = ((MainActivity) getActivity()).getServer();
+        workouts = server.getCurrentUsersWorkouts();
+
 
         initRecyclerView(view);
 
@@ -62,15 +58,13 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
     @Override
     public void onStop() {
         super.onStop();
-        workouts.clear();
+        //workouts.clear();
     }
 
     public void onWorkoutClick(int position) {
         Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
-        //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
-        //intent.putExtra("workout", workout);
-        //startActivity(intent);
+
         Bundle bundle = new Bundle();
         bundle.putParcelable("WORKOUT", workouts.get(position));
         NavHostFragment.findNavController(BrowsePrivateWorkoutsFragment.this)

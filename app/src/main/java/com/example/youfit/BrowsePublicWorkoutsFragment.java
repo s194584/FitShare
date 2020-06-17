@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
@@ -31,12 +32,10 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         View view = inflater.inflate(R.layout.fragment_browse_public_workouts, container, false);
 
         Log.i("BrowsePrivateFragment", "2: Creating example data");
-        // Create example data
-        workouts.add(new Workout("1", new ArrayList<Exercise>()));
-        workouts.add(new Workout("2", new ArrayList<Exercise>()));
-        workouts.add(new Workout("3", new ArrayList<Exercise>()));
-        workouts.add(new Workout("4", new ArrayList<Exercise>()));
-        workouts.add(new Workout("5", new ArrayList<Exercise>()));
+        // Load workouts from server
+        Server server = ((MainActivity) getActivity()).getServer();
+        workouts = server.getPublicWorkouts();
+
 
         initRecyclerView(view);
 
@@ -56,20 +55,17 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
     @Override
     public void onStop() {
         super.onStop();
-        workouts.clear();
+        //workouts.clear();
     }
 
     public void onWorkoutClick(int position) {
         Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
+
         Bundle bundle = new Bundle();
         bundle.putParcelable("WORKOUT", workouts.get(position));
         NavHostFragment.findNavController(BrowsePublicWorkoutsFragment.this)
                 .navigate(R.id.action_browseWorkoutsFragment_to_viewWorkoutDetailsFragment, bundle);
-
-        //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
-        //intent.putExtra("workout", workout);
-        //startActivity(intent);
     }
 
     @Override

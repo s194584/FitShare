@@ -76,16 +76,6 @@ public class Workout implements Parcelable {
         return name;
     }
 
-    public String TypeAsString() {
-        if (workoutType.equals(WorkoutType.DEFAULT.name())) {
-            return "Default";
-        } else if (workoutType.equals(WorkoutType.STRENGTH.name())) {
-            return "Strength";
-        } else {
-            return "Cardio";
-        }
-    }
-
     public void setWorkoutType(String workoutType) {
         this.workoutType = workoutType;
     }
