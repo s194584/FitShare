@@ -29,6 +29,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     private final String TAG = "HomeFragment";
 
     ArrayList<Workout> workouts = new ArrayList<Workout>();
+   private WorkoutDetailAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Set welcome back text
+
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
         String username = server.getUsername();
         welcomeBackTest.setText("Welcome back " + username + "!");
@@ -66,7 +68,11 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         //make adapter
         Log.i("HomeFragment", "2: Making adapter");
         WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts, this,currentDay);
-        if(adapter == null)
+
+        //make adapter with sample data
+        Log.i("HomeFragment", "3: Making adapter");
+        mAdapter = new WorkoutDetailAdapter(workouts, this,currentDay);
+        if(mAdapter == null)
         {
             Log.i("HomeFragment", "ERROR: Could not create adapter");
         }
@@ -74,7 +80,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         //add adapter to recycle view
         Log.i("HomeFragment", "3: Adding adapter to recycler view");
         assert plannedWorkoutsRV != null;
-        plannedWorkoutsRV.setAdapter(adapter);
+        plannedWorkoutsRV.setAdapter(mAdapter);
 
         //Set layoutmanager
         Log.i("HomeFragment", "4: Set recycler views layout manager");
@@ -98,7 +104,6 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
                         .navigate(R.id.action_HomeFragment_to_workoutFragment);
             }
         });
-
     }
 
     @Override
