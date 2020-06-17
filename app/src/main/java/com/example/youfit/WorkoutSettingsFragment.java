@@ -61,9 +61,10 @@ public class WorkoutSettingsFragment extends Fragment {
             public void onClick(View view) {
                 currentWorkout = saveWorkout(currentWorkout);
                 Server server = ((MainActivity) getActivity()).getServer();
-                User user = server.getCurrentUser();
-                user.addSavedWorkout(currentWorkout);
-                server.updateCurrentUser(user);
+                server.addWorkout(currentWorkout);
+//                User user = server.getCurrentUser();
+//                user.addSavedWorkout(currentWorkout);
+//                server.updateCurrentUser(user);
 
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment);
             }

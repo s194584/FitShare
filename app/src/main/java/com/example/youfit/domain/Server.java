@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Server {
 
     protected String TAG = "Server";
@@ -24,6 +26,7 @@ public class Server {
     protected Activity activity;
 
     protected User currentUser;
+    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
     public Server(Activity activity) {
         this.activity = activity;
@@ -51,6 +54,30 @@ public class Server {
         databaseReference.child(userID).setValue(user);
     }
 
+    public void addWorkout(Workout workout) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
+
+            databaseReference.push().setValue(workout);
+        }
+
+    }
+
+    public void updateCurrentUserUsername (String name) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/name");
+
+            databaseReference.setValue(name);
+        }
+    }
+
+
     public void loadCurrentUser() {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
@@ -62,14 +89,24 @@ public class Server {
 
             // Attach a listener to read the data at our user reference
             databaseReference.addValueEventListener(new ValueEventListener() {
-
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        User user = dataSnapshot.getValue(User.class);
-                        currentUser = user;
+                    ArrayList<Workout> currentUsersWorkoutstmp = new ArrayList<>();
+                    User usertmp = new User();
 
-                        Log.w(TAG, "userLoaded" + user);
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
+                            if (!dataValues.hasChildren()) {
+                                usertmp.setName(dataValues.getValue().toString());
+                            } else {
+                                Workout workout = dataValues.getValue(Workout.class);
+                                usertmp.addWorkout(workout);
+                            }
+                        }
+//                        User user = dataSnapshot.getValue(User.class);
+                        currentUser = usertmp;
+
+                        Log.w(TAG, "userLoaded");
                     }
                 }
 

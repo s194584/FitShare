@@ -40,13 +40,7 @@ public class SettingsFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Server server = ((MainActivity) getActivity()).getServer();
-                User user = server.getCurrentUser();
-                if (user==null) {
-                    user = new User("New User");
-                }
-
-                user.setName(nameEditText.getText().toString());
-                server.updateCurrentUser(user);
+                server.updateCurrentUserUsername((nameEditText.getText().toString()));
             }
         });
 
