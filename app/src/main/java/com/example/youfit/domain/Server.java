@@ -58,19 +58,6 @@ public class Server {
         return (this.currentUser!= null) ? new ArrayList<Workout>(currentUsersWorkouts.values()) : new ArrayList<Workout>();
     }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void updateCurrentUser(User user) {
-        this.firebaseAuth = FirebaseAuth.getInstance();
-
-        String userID = firebaseAuth.getCurrentUser().getUid();
-        rootNode = FirebaseDatabase.getInstance();
-        databaseReference = rootNode.getReference("Users"); //get reference to database.
-        databaseReference.child(userID).setValue(user);
-    }
-
     public void addWorkout(Workout workout) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
@@ -246,8 +233,10 @@ public class Server {
                                 usertmp.setName(dataValues.getValue().toString());
                             } else {
                                 Workout workout = dataValues.getValue(Workout.class);
-                                currentUsersWorkouts.put(dataSnapshot.getKey(),workout);
-                                usertmp.addWorkout(workout);
+                                if (!workout.getName().isEmpty()) {
+                                    currentUsersWorkouts.put(dataSnapshot.getKey(),workout);
+                                    usertmp.addWorkout(workout);
+                                }
                             }
                         }
 //                        User user = dataSnapshot.getValue(User.class);
