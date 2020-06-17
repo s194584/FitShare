@@ -28,6 +28,7 @@ public class Server {
 
     protected User currentUser;
     protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
+    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
     public Server(Activity activity) {
         this.activity = activity;
@@ -36,26 +37,15 @@ public class Server {
     }
 
     public String getUsername() {
-        if (this.currentUser!=null) {
-            return currentUser.getName();
-        } else {
-            return "could not finde username";
-        }
+        return (this.currentUser!=null) ? currentUser.getName() : "could not finde username";
     }
 
     public ArrayList<Workout> getPublicWorkouts() {
-        if (this.currentUser!= null) {
-            return publicWorkouts;
-        }
-        return new ArrayList<Workout>();
+        return (this.currentUser!=null) ? publicWorkouts : new ArrayList<Workout>();
     }
 
-    public List<Workout> getCurrentUsersWorkouts() {
-        if (this.currentUser!= null) {
-            return currentUser.getSavedWorkouts();
-        } else {
-            return new ArrayList<Workout>();
-        }
+    public ArrayList<Workout> getCurrentUsersWorkouts() {
+        return (this.currentUser!= null) ? currentUsersWorkouts : new ArrayList<Workout>();
     }
 
     public User getCurrentUser() {
@@ -110,7 +100,7 @@ public class Server {
                     if (workout.isPublicWorkout()) {
                         addPublicWorkouts(workout,dataSnapshot.getKey());
                     }
-                    currentUser.addWorkout(workout);
+                    currentUsersWorkouts.add(workout);
                 }
 
                 @Override
@@ -144,7 +134,7 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("PublicWorkouts");
 
-            this.publicWorkouts.add(workout);
+//            this.publicWorkouts.add(workout); //TODO: is this really nessesary?
             databaseReference.child(key).setValue(workout); // add workout with same key as Users workout
         }
     }
@@ -212,6 +202,7 @@ public class Server {
                                 usertmp.setName(dataValues.getValue().toString());
                             } else {
                                 Workout workout = dataValues.getValue(Workout.class);
+                                currentUsersWorkouts.add(workout);
                                 usertmp.addWorkout(workout);
                             }
                         }

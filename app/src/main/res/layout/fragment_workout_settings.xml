@@ -6,6 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="1183dp"
+        android:layout_height="807dp"
+        android:src="@drawable/backgroound_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/box1"
+        android:layout_width="340dp"
+        android:layout_height="70dp"
+        android:background="@drawable/planned_workouts_bg"
+        app:layout_constraintBottom_toBottomOf="@id/recurringgroup_workout_settings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recurringgroup_workout_settings"
+        android:layout_marginBottom="10dp"/>
+
+    <View
+        android:id="@+id/box2"
+        android:layout_width="340dp"
+        android:layout_height="100dp"
+        android:background="@drawable/planned_workouts_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="100dp"/>
+
     <EditText
         android:id="@+id/edittext_workout_name_settings"
         android:layout_width="wrap_content"
@@ -13,6 +45,8 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Workout name"
+        android:textSize="24dp"
+        android:textColor="#FFFFFF"
         android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +75,7 @@
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Public"
+                android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
@@ -65,6 +100,7 @@
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Notifications"
+                android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
@@ -88,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
+                android:textColor="#000000"
                 android:text="Motivation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
@@ -112,13 +149,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/button_workout_settings_back"
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="back"
+        android:background="@drawable/arrow_button"
+        android:alpha=".7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,7 +164,7 @@
         android:id="@+id/recurringgroup_workout_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="112dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,6 +211,87 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/recurringgroup_workout_settings_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_workout_name_settings">
+
+        <TextView
+            android:id="@+id/checkbox_re_mon_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:layout_marginRight="17dp"
+            android:text="M"/>
+
+        <TextView
+            android:id="@+id/checkbox_re_wen_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:layout_marginRight="17dp"
+            android:text="T"/>
+
+        <TextView
+            android:id="@+id/checkbox_re_thu_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:layout_marginRight="17dp"
+            android:text="O"/>
+
+        <TextView
+            android:id="@+id/checkbox_re_fri_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:text="T"/>
+
+        <TextView
+            android:id="@+id/checkbox_re_sat_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:layout_marginLeft="17dp"
+            android:text="F"/>
+
+        <TextView
+            android:id="@+id/checkbox_re_sun_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:layout_marginLeft="17dp"
+            android:text="L"/>
+
+
+        <TextView
+            android:id="@+id/checkbox_re_tue_text"
+            android:layout_width="15dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#038C73"
+            android:layout_weight="1"
+            android:layout_marginLeft="17dp"
+            android:text="S"/>
 
     </LinearLayout>
 

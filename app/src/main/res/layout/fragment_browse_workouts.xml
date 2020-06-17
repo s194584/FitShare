@@ -4,8 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="45dp"
+    android:layout_marginBottom="0dp"
     tools:context=".BrowseWorkoutsFragment">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="1183dp"
+        android:layout_height="807dp"
+        android:src="@drawable/backgroound_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
