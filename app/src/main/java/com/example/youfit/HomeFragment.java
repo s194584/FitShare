@@ -23,6 +23,7 @@ import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener {
     private final String TAG = "HomeFragment";
@@ -38,14 +39,28 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Server server = ((MainActivity) getActivity()).getServer();
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Set welcome back tekst
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-        String username = ((MainActivity)getActivity()).getServer().getUsername();
+        String username = server.getUsername();
         welcomeBackTest.setText("Welcome back " + username + "!");
+        workouts = (ArrayList<Workout>) server.getCurrentUsersWorkouts();
+
+        for (Workout w: workouts) {
+            ArrayList<Boolean> temp = w.getRecurring();
+            for(int i = 0; i<7;i++){
+
+            }
+        }
+
+
+
+
+
 
         //Get recycler view
         Log.i("HomeFragment", "1: Getting recyclerView");

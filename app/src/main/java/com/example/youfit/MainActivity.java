@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.server = new Server(this);
 
         // setting up bottombarnavigation
         setUpNavigation();
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     public void setUpNavigation(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavHostFragment navHostFragment =       (NavHostFragment)getSupportFragmentManager()
+        NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment);
         NavigationUI.setupWithNavController(bottomNavigationView,
                 navHostFragment.getNavController());
