@@ -33,6 +33,9 @@ public class Exercise implements Parcelable {
 //
 //    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -64,10 +67,6 @@ public class Exercise implements Parcelable {
             return "Reps:";
         }
         return "Time:";
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setReps(int reps) {

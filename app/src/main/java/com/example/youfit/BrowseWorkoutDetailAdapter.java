@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Workout;
@@ -46,6 +47,7 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
             workoutTime = itemView.findViewById(R.id.workout_time);
             workoutDifficulty = itemView.findViewById(R.id.workout_difficulty);
             startWorkOutButton = itemView.findViewById(R.id.startworkoutfrombrowser_button);
+            this.onWorkoutListener = onWorkoutListener;
             detailLayout = itemView.findViewById(R.id.browse_workout_layout);
         }
 
@@ -55,10 +57,11 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         }
     }
 
-    public BrowseWorkoutDetailAdapter(Context mContext, List<Workout> workouts)
+    public BrowseWorkoutDetailAdapter(Context mContext, List<Workout> workouts, OnWorkoutListener onWorkoutListener)
     {
         mWorkouts = workouts;
         this.mContext = mContext;
+        this.mOnWorkoutListener = onWorkoutListener;
     }
 
     @NonNull
@@ -80,19 +83,20 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
 //        holder.workoutTime.setText(workoutTime);
 //        holder.workoutDifficulty.setText(workoutDifficulty);
 
-        holder.detailLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, mWorkouts.get(position).getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        holder.startWorkOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "Workout!!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.detailLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Toast.makeText(mContext, mWorkouts.get(position).getName(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//        holder.startWorkOutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(mContext, "Workout!!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

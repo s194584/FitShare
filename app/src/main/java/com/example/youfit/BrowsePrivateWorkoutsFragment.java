@@ -57,14 +57,14 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
     private void initRecyclerView(View view) {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = view.findViewById(R.id.privateWorkoutsRV);
-        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(),workouts);
+        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
     public void onWorkoutClick(int position) {
-        //Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
         //intent.putExtra("workout", workout);

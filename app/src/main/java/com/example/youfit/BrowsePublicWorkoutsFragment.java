@@ -17,11 +17,7 @@ import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BrowsePublicWorkoutsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener {
 
     private static final String TAG = "BrowsePublicFragment";
@@ -50,14 +46,14 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
     private void initRecyclerView(View view) {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
-        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(),workouts);
+        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
     public void onWorkoutClick(int position) {
-        //Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
         //intent.putExtra("workout", workout);
