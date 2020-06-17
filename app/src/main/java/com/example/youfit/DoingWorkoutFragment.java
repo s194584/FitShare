@@ -11,11 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.youfit.domain.Workout;
+
 import org.w3c.dom.Text;
 
 
 public class DoingWorkoutFragment extends Fragment {
 
+    int waterGoal = 2000;
     int setWaterAmount = 0;
     TextView setWaterAmountText;
     int totalWaterAmount = 0; //TODO firebase, baby
@@ -39,10 +42,20 @@ public class DoingWorkoutFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_doingworkout, container, false);
 
+        //TODO implement with firebase data
+        /*
+        int totalWorkoutTimeToday = 0;
+        for(Workout x : user.getDailyWorkouts())
+        {
+            totalWorkoutTimeToday += x.getTime();
+        }
+        waterGoal += 200*(totalWorkoutTimeToday/15);
+        */
+
         setWaterAmountText = view.findViewById(R.id.setWaterAmount_text);
         setWaterAmountText.setText(""+setWaterAmount);
         waterAmountText = view.findViewById(R.id.waterAmount_text);
-        waterAmountText.setText(""+totalWaterAmount + " mL / 2000 mL");
+        waterAmountText.setText(""+totalWaterAmount + " mL / " + waterGoal + " mL");
         addWaterButton = view.findViewById(R.id.addWaterButton);
         addWaterButton.setOnClickListener( new View.OnClickListener() {
 
@@ -68,10 +81,11 @@ public class DoingWorkoutFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+                //TODO Save values in firebase
                 totalWaterAmount += setWaterAmount;
                 setWaterAmount = 0;
                 setWaterAmountText.setText(""+setWaterAmount + " mL");
-                waterAmountText.setText(""+totalWaterAmount + " mL / 2000 mL");
+                waterAmountText.setText(""+totalWaterAmount + " mL / " + waterGoal + " mL");
                 if (totalWaterAmount >= 2000)
                 {
                     Toast toast = Toast.makeText(getActivity(),
