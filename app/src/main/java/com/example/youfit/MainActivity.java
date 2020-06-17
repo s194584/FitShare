@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
         this.server = new Server(this);
 
+        //TODO: Make waiting screen for database call back.
+
         // setting up bottombarnavigation
         setUpNavigation();
 

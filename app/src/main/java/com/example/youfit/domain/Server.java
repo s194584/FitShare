@@ -51,11 +51,25 @@ public class Server {
     }
 
     public ArrayList<Workout> getPublicWorkouts() {
-        return (this.currentUser!=null) ?  new ArrayList<Workout>(publicWorkouts.values()) : new ArrayList<Workout>();
+        ArrayList<Workout> publicWorkouts = getAllPublicWorkouts();
+        ArrayList<Workout> currentUsersWorkouts = getCurrentUsersWorkouts();
+
+        ArrayList<Workout> resultWorkouts = new ArrayList<>();
+        for (Workout workout: publicWorkouts) {
+            if (currentUsersWorkouts.contains(workout)) {
+                continue;
+            }
+            resultWorkouts.add(workout);
+        }
+        return resultWorkouts;
     }
 
     public ArrayList<Workout> getCurrentUsersWorkouts() {
         return (this.currentUser!= null) ? new ArrayList<Workout>(currentUsersWorkouts.values()) : new ArrayList<Workout>();
+    }
+
+    private ArrayList<Workout> getAllPublicWorkouts() {
+        return (this.currentUser!=null) ?  new ArrayList<Workout>(publicWorkouts.values()) : new ArrayList<Workout>();
     }
 
     public void addWorkout(Workout workout) {
