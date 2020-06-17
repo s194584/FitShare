@@ -30,7 +30,7 @@ public class Workout implements Parcelable {
         this.name = name;
         workoutType = WorkoutType.DEFAULT.name();
         for(int i = 0; i<7;i++) {
-            recurring.set(i,false);
+            recurring.add(i,false);
         }
     }
 
@@ -51,7 +51,7 @@ public class Workout implements Parcelable {
         name = in.readString();
         uniqueID = in.readString();
         time = in.readLong();
-        exercises = in.readArrayList(Workout.class.getClassLoader());
+        exercises = in.createTypedArrayList(Exercise.CREATOR);
 
         // Boolean settings
         in.readArrayList(recurring.getClass().getClassLoader());

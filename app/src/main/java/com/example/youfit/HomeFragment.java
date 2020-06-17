@@ -1,5 +1,6 @@
 package com.example.youfit;
 
+import android.content.Intent;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
@@ -28,14 +32,13 @@ import java.util.Calendar;
 public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener {
     private final String TAG = "HomeFragment";
 
-    ArrayList<Workout> workouts = new ArrayList<Workout>();
+    ArrayList<Workout> workouts = new ArrayList<>();
    private WorkoutDetailAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     @Override
@@ -65,9 +68,24 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
             Log.i("HomeFragment", "ERROR: Could not find recyclerView");
         }
 
-        //make adapter
-        Log.i("HomeFragment", "2: Making adapter");
-        WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts, this,currentDay);
+        // Create example data
+        Log.i("HomeFragment", "2: Creating example data");
+
+        //TODO Get Firebase data and fill in here
+        workouts.add(new Workout("1", new ArrayList<Exercise>()));
+        workouts.add(new Workout("2", new ArrayList<Exercise>()));
+        workouts.add(new Workout("3", new ArrayList<Exercise>()));
+        workouts.add(new Workout("4", new ArrayList<Exercise>()));
+        workouts.add(new Workout("5", new ArrayList<Exercise>()));
+        Exercise burpees = new Exercise("Burpees", "Time");
+        burpees.setTime(600000); // 10 min
+        for (Workout w : workouts){
+            w.addExercise(new Exercise("Pull ups", "Repetition"));
+            w.addExercise(new Exercise("Push ups", "Repetition"));
+            w.addExercise(new Exercise("Crunches", "Time"));
+            w.addExercise(new Exercise("Stretching", "Time"));
+            w.addExercise(burpees);
+        }
 
         //make adapter with sample data
         Log.i("HomeFragment", "3: Making adapter");
@@ -109,10 +127,9 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     @Override
     public void onWorkoutClick(int position) {
         Workout workout = workouts.get(position);
-        Log.i("HomeFragment", "A workout has been clicked: " + workout.getName());
-        //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
-        //intent.putExtra("workout", workout);
-        //startActivity(intent);
+        Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
+        intent.putExtra("workout", workout);
+        startActivity(intent);
     }
 
     @Override

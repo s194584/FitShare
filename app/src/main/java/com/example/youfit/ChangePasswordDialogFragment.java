@@ -25,7 +25,7 @@ public class ChangePasswordDialogFragment extends DialogFragment {
                 listener = (ChangePasswordDialogListener) context;
 
             } catch(ClassCastException e){
-                throw new ClassCastException(getActivity().toString() + " must implement ChangePasswordDialogFragment");
+                throw new ClassCastException(getActivity().toString() + " must implement ChangePasswordDialogListener");
             }
         }
 

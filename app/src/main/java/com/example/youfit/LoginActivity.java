@@ -1,7 +1,5 @@
 package com.example.youfit;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,22 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.youfit.databinding.ActivityLoginBinding;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.User;
-import com.example.youfit.domain.UserHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements ForgotPasswordDialogListener{
 
@@ -68,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
             goToMainActivity();
         }
 
+        // Forgot password dialog
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,16 +126,6 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
             //set loading bar visible
             this.progressBarSignIn.setVisibility(View.VISIBLE);
 
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showResetDialog();
-
-            }
-        });
-
-
-
             //registration of user
             this.firebaseAuth.createUserWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -193,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
         mBinding.setSignInMode(!mBinding.getSignInMode());
     }
 
+    // Confirm reset password button click on forgot-password-dialog
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, EditText email) {
         FirebaseAuth.getInstance().sendPasswordResetEmail(email.getText().toString())
@@ -209,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                 });
     }
 
+    // Cancel button click on forgot-password-dialog
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();

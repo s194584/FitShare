@@ -25,6 +25,7 @@ public class Exercise implements Parcelable {
     // Parcel constructor
     protected Exercise(Parcel in) {
         name = in.readString();
+        type = in.readString();
         reps = in.readInt();
         time = in.readLong();
     }
@@ -98,6 +99,7 @@ public class Exercise implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
+        parcel.writeString(type);
         parcel.writeInt(reps);
         parcel.writeLong(time);
     }

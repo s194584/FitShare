@@ -6,32 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/newEmail"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="206dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="480dp"
-        android:ems="10"
-        android:hint="Enter new email"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="132dp"
+        android:layout_marginBottom="580dp"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/confirmNewEmail"
+    <TextView
+        android:id="@+id/textViewExerciseType1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="144dp"
-        android:text="Change email"
+        android:layout_marginTop="189dp"
+        android:layout_marginBottom="372dp"
+        android:text="TextView"
+        android:textColor="#ff008577"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
