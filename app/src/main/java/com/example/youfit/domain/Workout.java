@@ -29,6 +29,9 @@ public class Workout implements Parcelable {
     public Workout(String name){
         this.name = name;
         workoutType = WorkoutType.DEFAULT.name();
+        for(int i = 0; i<7;i++) {
+            recurring.set(i,false);
+        }
     }
 
     public Workout(String name, String type){

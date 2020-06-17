@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Workout;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdapter.ViewHolder>
@@ -29,7 +30,6 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
             this.onWorkoutListener = onWorkoutListener;
 
             itemView.setOnClickListener(this);
-
         }
 
         @Override
@@ -40,11 +40,13 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
 
     private List<Workout> mWorkouts;
     private OnWorkoutListener mOnWorkoutListener;
+    private int weekOfDay;
 
-    public WorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener)
+    public WorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener, int weekOfDay)
     {
         mWorkouts = workouts;
         this.mOnWorkoutListener = onWorkoutListener;
+        this.weekOfDay = weekOfDay;
     }
 
     @Override
@@ -63,12 +65,16 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     public void onBindViewHolder(WorkoutDetailAdapter.ViewHolder viewHolder, int position)
     {
         Workout workout = mWorkouts.get(position);
-
         TextView textView = viewHolder.workoutName;
         textView.setText(workout.getName());
         TextView textView1 = viewHolder.workoutTime;
         textView1.setText(""+workout.getTime());
 
+        // Only show if it is on the correct day
+        if(workout.getRecurring()!=null&&workout.getRecurring().size()>1) {
+            if(workout.getRecurring().get(weekOfDay-1))
+                viewHolder.itemView.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.server = new Server(this);
 
         // setting up bottombarnavigation
         setUpNavigation();

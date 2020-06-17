@@ -41,6 +41,10 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Server server = ((MainActivity) getActivity()).getServer();
         int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        // Sunday = 0 is corrected to 7
+        if(currentDay==0){
+            currentDay = 7;
+        }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -48,18 +52,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
         String username = server.getUsername();
         welcomeBackTest.setText("Welcome back " + username + "!");
-        workouts = (ArrayList<Workout>) server.getCurrentUsersWorkouts();
-
-        for (Workout w: workouts) {
-            ArrayList<Boolean> temp = w.getRecurring();
-            for(int i = 0; i<7;i++){
-
-            }
-        }
-
-
-
-
+        workouts = server.getCurrentUsersWorkouts();
 
 
         //Get recycler view
@@ -71,17 +64,11 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         }
 
         // Create example data
-        Log.i("HomeFragment", "2: Creating example data");
-        //TODO Get Firebase data and fill in here
-        workouts.add(new Workout("1", new ArrayList<Exercise>()));
-        workouts.add(new Workout("2", new ArrayList<Exercise>()));
-        workouts.add(new Workout("3", new ArrayList<Exercise>()));
-        workouts.add(new Workout("4", new ArrayList<Exercise>()));
-        workouts.add(new Workout("5", new ArrayList<Exercise>()));
+        Log.i("HomeFragment", "2: Creating example data. EMPTY");
 
         //make adapter with sample data
         Log.i("HomeFragment", "3: Making adapter");
-        WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts, this);
+        WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts, this,currentDay);
         if(adapter == null)
         {
             Log.i("HomeFragment", "ERROR: Could not create adapter");
