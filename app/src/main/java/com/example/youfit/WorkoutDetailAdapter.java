@@ -1,9 +1,11 @@
 package com.example.youfit;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,13 +20,22 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     {
         public TextView workoutName;
         public TextView workoutTime;
+        public ImageButton startWorkout;
         OnWorkoutListener onWorkoutListener;
 
-        public ViewHolder(View itemView, OnWorkoutListener onWorkoutListener)
+        public ViewHolder(View itemView, final OnWorkoutListener onWorkoutListener)
         {
             super(itemView);
             workoutName = (TextView) itemView.findViewById(R.id.workoutNameText);
             workoutTime = (TextView) itemView.findViewById(R.id.workoutTimeText);
+            startWorkout = (ImageButton) itemView.findViewById(R.id.startWorkoutButton);
+            startWorkout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    mOnWorkoutListener.onButtonClick(getAdapterPosition());
+                }
+            });
 
             this.onWorkoutListener = onWorkoutListener;
 
@@ -80,5 +91,6 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     public interface OnWorkoutListener
     {
         void onWorkoutClick(int Position);
+        void onButtonClick(int Position);
     }
 }
