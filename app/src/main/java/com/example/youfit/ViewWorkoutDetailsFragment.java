@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     private static final String workoutString = "WORKOUT";
 
     private TextView workoutName;
+    private Button startWorkoutButton;
+    private Button deleteWorkoutButton;
 
     // TODO: Rename and change types of parameters
     private Workout mWorkout;
@@ -58,6 +61,22 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(getContext(), mWorkout.getName(), Toast.LENGTH_SHORT).show();
+        startWorkoutButton = view.findViewById(R.id.start_workout_button);
+        deleteWorkoutButton = view.findViewById(R.id.delete_workout_button);
+
+        startWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Starting", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Workout destroyed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

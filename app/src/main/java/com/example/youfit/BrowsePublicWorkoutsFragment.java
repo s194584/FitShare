@@ -59,7 +59,6 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
     }
 
     public void onWorkoutClick(int position) {
-        Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
 
         Bundle bundle = new Bundle();

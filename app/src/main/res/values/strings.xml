@@ -22,6 +22,8 @@
     <string name="add_exercise">Add exercise</string>
     <string name="workout_name">Workout name: </string>
     <string name="workout_type">Workout type: </string>
+    <string name="delete_workout">Delete workout</string>
+    <string name="start_workout">Start workout</string>
 
     <string-array name="rep_exercises">
         <item>Pull-up</item>
