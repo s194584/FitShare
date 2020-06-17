@@ -33,13 +33,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if(getArguments()!= null){
-            Workout temp =(Workout) getArguments().get("newWorkout");
-            if(temp != null){
-                // TODO - ADD WORKOUT TO CURRENT USER
-                Log.i(TAG,temp.getName());
-            }
-        }
+
     }
 
     @Override

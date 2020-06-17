@@ -62,23 +62,10 @@ public class WorkoutSettingsFragment extends Fragment {
                 currentWorkout = saveWorkout(currentWorkout);
                 Server server = ((MainActivity) getActivity()).getServer();
                 User user = server.getCurrentUser();
-
-                // TODO - SAVE THE WORKOUT IN THE USER
-                Bundle bundle = new Bundle();
                 user.addSavedWorkout(currentWorkout);
                 server.updateCurrentUser(user);
 
-                ArrayList<Boolean> tempRecurring = new ArrayList<Boolean>(recurringChecks.getChildCount());
-                for(int i = 0; i < recurringChecks.getChildCount(); i++){
-                    tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
-                }
-                currentWorkout.setRecurring(tempRecurring);
-                currentWorkout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
-                currentWorkout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
-
-
-                bundle.putParcelable("newWorkout",currentWorkout);
-                NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment,bundle);
+                NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment);
             }
         });
         getActivity().findViewById(R.id.button_workout_settings_back).setOnClickListener(new View.OnClickListener() {
