@@ -74,13 +74,11 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         Log.d(TAG, "onBindViewHolder: called.");
 
         String workoutName = "Name: " + mWorkouts.get(position).getName();
-        String workoutType = "Type: " + mWorkouts.get(position).getType();
-        String workoutTime = "Time: " + mWorkouts.get(position).getTimeString();
-        String workoutDifficulty = "Difficulty: Medium";
+        String workoutType = "Type: " + mWorkouts.get(position).TypeAsString();
         holder.workoutName.setText(workoutName);
         holder.workoutType.setText(workoutType);
-        holder.workoutTime.setText(workoutTime);
-        holder.workoutDifficulty.setText(workoutDifficulty);
+//        holder.workoutTime.setText(workoutTime);
+//        holder.workoutDifficulty.setText(workoutDifficulty);
 
         holder.detailLayout.setOnClickListener(new View.OnClickListener() {
             @Override

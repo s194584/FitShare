@@ -14,7 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.youfit.domain.Server;
+import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
+import com.example.youfit.domain.WorkoutType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WorkoutSettingsFragment extends Fragment {
 
@@ -42,9 +49,9 @@ public class WorkoutSettingsFragment extends Fragment {
         ed.setText(currentWorkout.getName());
 
         // Setting Views based on currentWorkout
-        boolean[] tempRecurring = currentWorkout.getRecurring();
-        for(int i = 0; i < recurringChecks.getChildCount(); i++){
-            ((CheckBox) recurringChecks.getChildAt(i)).setChecked(tempRecurring[i]);
+        ArrayList<Boolean> tempRecurring = currentWorkout.getRecurring();
+        for(int i = 0; i < tempRecurring.size(); i++){
+            ((CheckBox) recurringChecks.getChildAt(i)).setChecked(tempRecurring.get(i));
         }
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.isNotifications());
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.isPublicWorkout());
@@ -52,9 +59,14 @@ public class WorkoutSettingsFragment extends Fragment {
         getActivity().findViewById(R.id.button_workout_settings_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentWorkout = saveWorkout(currentWorkout);
+                Server server = ((MainActivity) getActivity()).getServer();
+                User user = server.getCurrentUser();
 
                 // TODO - SAVE THE WORKOUT IN THE USER
                 Bundle bundle = new Bundle();
+                user.addSavedWorkout(currentWorkout);
+                server.updateCurrentUser(user);
 
                 boolean[] tempRecurring = new boolean[recurringChecks.getChildCount()];
                 for(int i = 0; i < recurringChecks.getChildCount(); i++){
@@ -74,9 +86,9 @@ public class WorkoutSettingsFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
 
-                boolean[] tempRecurring = new boolean[recurringChecks.getChildCount()];
+                ArrayList<Boolean> tempRecurring = new ArrayList<Boolean>(recurringChecks.getChildCount());
                 for(int i = 0; i < recurringChecks.getChildCount(); i++){
-                    tempRecurring[i] = ((CheckBox) recurringChecks.getChildAt(i)).isChecked();
+                    tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
                 }
                 currentWorkout.setRecurring(tempRecurring);
                 currentWorkout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
@@ -88,4 +100,18 @@ public class WorkoutSettingsFragment extends Fragment {
             }
         });
     }
+
+    private Workout saveWorkout(Workout workout){
+        List<Boolean> tempRecurring = (Arrays.asList(new Boolean[recurringChecks.getChildCount()]));
+        for(int i = 0; i < recurringChecks.getChildCount(); i++){
+            tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
+        }
+
+        workout.setWorkoutType(WorkoutType.DEFAULT.name()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
+        workout.setRecurring(new ArrayList<Boolean>(tempRecurring));
+        workout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
+        workout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
+        return workout;
+    }
+
 }

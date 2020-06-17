@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     onSuccesfullTask(task, "Welcome!");
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful()) { //TODO: Remove this if statement. When Christians shit virker!
                         goToMainActivity();
                     }
 
@@ -167,6 +167,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
 
         }
     }
+
 
     private void onSuccesfullTask(Task<AuthResult> task, String succesMessage) {
         Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG);

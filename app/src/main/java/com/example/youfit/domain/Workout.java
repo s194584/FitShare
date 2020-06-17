@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.firebase.database.Exclude;
+
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
@@ -11,26 +13,25 @@ import java.util.List;
 
 public class Workout implements Parcelable {
     // Fields
-    private String name;
+    private String name ="";
     private String uniqueID; // Generated in database?
-    private String time = null;
+    private int time;
 
-    private ArrayList<Exercise> exercises = new ArrayList<>();;
-    private WorkoutType workoutType;
+    private ArrayList<Exercise> exercises = new ArrayList<>();
+    private String workoutType;
 
-    private boolean[] recurring = new boolean[7];
+    private ArrayList<Boolean> recurring = new ArrayList<>();
     private boolean notifications, publicWorkout;
 
-    public Workout(){
-        name = "";
-    }
+
+    public Workout(){ }
 
     public Workout(String name){
         this.name = name;
-        workoutType = WorkoutType.DEFAULT;
+        workoutType = WorkoutType.DEFAULT.name();
     }
 
-    public Workout(String name, WorkoutType type){
+    public Workout(String name, String type){
         this(name);
         workoutType = type;
     }
@@ -38,7 +39,7 @@ public class Workout implements Parcelable {
     public Workout(String name, ArrayList<Exercise> exercises){
         this(name);
         this.exercises=exercises;
-        workoutType = WorkoutType.DEFAULT;
+        workoutType = WorkoutType.DEFAULT.name();
 
         Log.i("Workout/Constructor", "Created a workout with an arraylist");
     }
@@ -46,11 +47,11 @@ public class Workout implements Parcelable {
     protected Workout(Parcel in) {
         name = in.readString();
         uniqueID = in.readString();
-        time = in.readString();
+        time = in.readInt();
         exercises = in.readArrayList(Workout.class.getClassLoader());
 
         // Boolean settings
-        in.readBooleanArray(recurring);
+        in.readArrayList(recurring.getClass().getClassLoader());
         int notiInt = in.readInt();
         notifications = (notiInt == 1);
         int pubInt = in.readInt();
@@ -75,14 +76,22 @@ public class Workout implements Parcelable {
         return name;
     }
 
-    public String getType() {
-        if (workoutType == WorkoutType.DEFAULT) {
+    public String TypeAsString() {
+        if (workoutType.equals(WorkoutType.DEFAULT.name())) {
             return "Default";
-        } else if (workoutType == WorkoutType.STRENGTH) {
+        } else if (workoutType.equals(WorkoutType.STRENGTH.name())) {
             return "Strength";
         } else {
             return "Cardio";
         }
+    }
+
+    public void setWorkoutType(String workoutType) {
+        this.workoutType = workoutType;
+    }
+
+    public String getWorkoutType() {
+        return this.workoutType;
     }
 
     public int getTime() {
@@ -94,7 +103,11 @@ public class Workout implements Parcelable {
         return time;
     }
 
-    public String getTimeString() {
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public String TimeAsString() {
         int time = getTime();
         int minutes = time / 60;
         int seconds = time % 60;
@@ -123,13 +136,15 @@ public class Workout implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(uniqueID);
-        parcel.writeString(time);
+        parcel.writeInt(time);
         parcel.writeTypedList(exercises);
-        parcel.writeBooleanArray(recurring);
+        parcel.writeList(recurring);
         parcel.writeInt(notifications ? 1 : 0);
         parcel.writeInt(publicWorkout ? 1 : 0);
 
     }
+
+
 
     public boolean isPublicWorkout() {
         return publicWorkout;
@@ -147,11 +162,11 @@ public class Workout implements Parcelable {
         this.notifications = notifications;
     }
 
-    public boolean[] getRecurring() {
+    public ArrayList<Boolean> getRecurring() {
         return recurring;
     }
 
-    public void setRecurring(boolean[] recurring) {
+    public void setRecurring(ArrayList<Boolean> recurring) {
         this.recurring = recurring;
     }
 

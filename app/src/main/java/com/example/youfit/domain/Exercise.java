@@ -5,17 +5,19 @@ import android.os.Parcelable;
 
 public class Exercise implements Parcelable {
 
-    protected ExerciseType type;
+    protected String type;
     protected String name;
     protected int reps = 0;
-    protected String time = null;
+    protected int time = 0;
+
+    public Exercise() { }
 
     public Exercise(String name) {
         this.name = name;
-        this.type = ExerciseType.REPETITION;
+        this.type = ExerciseType.REPETITION.name();
     }
 
-    public Exercise(String name, ExerciseType type) {
+    public Exercise(String name, String type) {
         this.name = name;
         this.type = type;
     }
@@ -24,10 +26,12 @@ public class Exercise implements Parcelable {
     protected Exercise(Parcel in) {
         name = in.readString();
         reps = in.readInt();
-        time = in.readString();
+        time = in.readInt();
     }
 
-
+//    public String getTypeString(E) {
+//
+//    }
 
 
     public String getName() {
@@ -37,20 +41,12 @@ public class Exercise implements Parcelable {
         this.name = name;
     }
 
-    public void setType(ExerciseType type) {
-        this.type = type;
-    }
-
-    public void setReps(int reps) {
-        this.reps = reps;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public ExerciseType getType() {
+    public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 
@@ -58,7 +54,7 @@ public class Exercise implements Parcelable {
         return reps;
     }
     public int getTime() {
-        return Integer.parseInt(time);
+        return time;
     }
     public String getAmount(){
         if(type == ExerciseType.REPETITION){
@@ -73,6 +69,17 @@ public class Exercise implements Parcelable {
         return "Time:";
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
 
     // Parcelable part
     public static final Creator<Exercise> CREATOR = new Creator<Exercise>() {
@@ -96,6 +103,6 @@ public class Exercise implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeInt(reps);
-        parcel.writeString(time);
+        parcel.writeInt(time);
     }
 }
