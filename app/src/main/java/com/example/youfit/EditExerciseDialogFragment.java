@@ -27,6 +27,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
     private final String TAG = "EditExerciseDialog";
     // Exercise
     private Exercise exercise;
+    private int pos;
 
     // UI elements
     AutoCompleteTextView autoCompleteTextView;
@@ -56,6 +57,8 @@ public class EditExerciseDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         exercise = getArguments().getParcelable("editExercise");
+        pos = getArguments().getInt("position");
+
         Log.i(TAG,exercise.toString());
         View inflatedView =inflater.inflate(R.layout.dialog_edit_exercise,container,false);
 
@@ -107,7 +110,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     exercise.setTime(Integer.parseInt(amountEditText.getText().toString()));
                 }
 
-                listener.onDialogSave(exercise,-1);
+                listener.onDialogSave(exercise,pos);
                 getDialog().dismiss();
             }
         });

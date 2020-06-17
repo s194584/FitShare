@@ -32,7 +32,7 @@ import com.example.youfit.domain.Workout;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class WorkoutFragment extends Fragment implements EditExerciseDialogFragment.EditExerciseDialogFragmentListener {
+public class WorkoutFragment extends Fragment implements EditExerciseDialogFragment.EditExerciseDialogFragmentListener, ExersiceAdapter.OnExerciseListener{
     private final String TAG = "WorkoutFragment";
 
 
@@ -75,7 +75,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new ExersiceAdapter(exercises);
+        mAdapter = new ExersiceAdapter(exercises,this);
         recyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,0) {
@@ -94,7 +94,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+                // Do nothing
             }
         });
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -104,11 +104,11 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
             public void onClick(View view) {
                 Exercise pause = new Exercise("Pause");
                 pause.setType(ExerciseType.TIME.name());
-                showEditExercise(pause);
+                showEditExercise(pause,-1);
             }
         });
 
-
+        // Go to Workout Settings
         getActivity().findViewById(R.id.button_workout_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,11 +124,6 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout", currentWorkout);
                 NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment, bundle);
-
-                // TODO - ADD TO USER AND FINISH TASK
-
-
-
             }
         });
 
@@ -136,7 +131,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
         addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showEditExercise(new Exercise(""));
+                showEditExercise(new Exercise(""),-1);
             }
         });
 //        addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
@@ -201,18 +196,30 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
 //        });
     }
 
-    public void showEditExercise(Exercise exercise){
+    public void showEditExercise(Exercise exercise,int position){
         EditExerciseDialogFragment dialog = new EditExerciseDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("editExercise",exercise);
+        bundle.putInt("position",position);
         dialog.setTargetFragment(WorkoutFragment.this,1);
         dialog.setArguments(bundle);
         dialog.show(getParentFragmentManager(),"EditExerciseDialogFragment");
     }
 
     @Override
-    public void onDialogSave(Exercise exercise,int position) {
-        exercises.add(exercise);
-        mAdapter.notifyItemInserted(exercises.size()-1);
+    public void onDialogSave(Exercise exercise, int position) {
+        if(position == -1){
+            exercises.add(exercise);
+            mAdapter.notifyItemInserted(exercises.size()-1);
+        } else {
+            Log.i(TAG,"Should change exercise.");
+            mAdapter.notifyItemChanged(position);
+        }
+
+    }
+
+    @Override
+    public void onExerciseClicked(int position) {
+        showEditExercise(exercises.get(position),position);
     }
 }
