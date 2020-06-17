@@ -3,6 +3,7 @@ package com.example.youfit;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,11 +53,28 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        workouts.clear();
+    }
+
     public void onWorkoutClick(int position) {
         Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("WORKOUT", workouts.get(position));
+        NavHostFragment.findNavController(BrowsePublicWorkoutsFragment.this)
+                .navigate(R.id.action_browseWorkoutsFragment_to_viewWorkoutDetailsFragment, bundle);
+
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
         //intent.putExtra("workout", workout);
         //startActivity(intent);
+    }
+
+    @Override
+    public void onButtonClick(int position) {
+        Toast.makeText(getContext(), "BUTTON: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
     }
 }

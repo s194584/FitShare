@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,15 +21,10 @@ import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BrowsePrivateWorkoutsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener {
 
     private static final String TAG = "BrowsePrivateFragment";
-    ArrayList<Workout> workouts = new ArrayList<Workout>();
+    private ArrayList<Workout> workouts = new ArrayList<Workout>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,11 +59,27 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        workouts.clear();
+    }
+
     public void onWorkoutClick(int position) {
         Toast.makeText(getContext(), "Clicked: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
         //Intent intent = new Intent(this, XXX.java); //TODO Display workout activity here
         //intent.putExtra("workout", workout);
         //startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("WORKOUT", workouts.get(position));
+        NavHostFragment.findNavController(BrowsePrivateWorkoutsFragment.this)
+                .navigate(R.id.action_browseWorkoutsFragment_to_viewWorkoutDetailsFragment, bundle);
+    }
+
+    @Override
+    public void onButtonClick(int position) {
+        Toast.makeText(getContext(), "BUTTON: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
     }
 }
