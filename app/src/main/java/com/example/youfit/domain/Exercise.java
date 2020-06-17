@@ -37,9 +37,6 @@ public class Exercise implements Parcelable {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getType() {
         return type;
@@ -57,13 +54,13 @@ public class Exercise implements Parcelable {
         return time;
     }
     public String getAmount(){
-        if(type == ExerciseType.REPETITION){
+        if(type.equals(ExerciseType.REPETITION.name())){
             return ""+reps;
         }
-        return time;
+        return ""+time;
     }
     public String repsOrTime(){
-        if(type == ExerciseType.REPETITION){
+        if(type.equals(ExerciseType.REPETITION.name())){
             return "Reps:";
         }
         return "Time:";

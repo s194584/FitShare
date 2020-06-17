@@ -103,7 +103,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
             @Override
             public void onClick(View view) {
                 Exercise pause = new Exercise("Pause");
-                pause.setType(ExerciseType.TIME);
+                pause.setType(ExerciseType.TIME.name());
                 showEditExercise(pause);
             }
         });

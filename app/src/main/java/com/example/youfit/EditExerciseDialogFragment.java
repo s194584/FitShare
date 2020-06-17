@@ -68,7 +68,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
         // RadioGroup
         radioGroup = inflatedView.findViewById(R.id.radioGroup);
 
-        if(exercise.getType() == ExerciseType.REPETITION){
+        if(exercise.getType().equals(ExerciseType.REPETITION.name())){
             radioGroup.check(R.id.radiobutton_edit_exercise_reps);
         }else{
             radioGroup.check(R.id.radiobutton_edit_exercise_time);
@@ -100,11 +100,11 @@ public class EditExerciseDialogFragment extends DialogFragment {
 
                 exercise.setName(autoCompleteTextView.getText().toString());
                 if(radioGroup.getCheckedRadioButtonId()==R.id.radiobutton_edit_exercise_reps){
-                    exercise.setType(ExerciseType.REPETITION);
+                    exercise.setType(ExerciseType.REPETITION.name());
                     exercise.setReps(Integer.parseInt(amountEditText.getText().toString()));
                 }else{
-                    exercise.setType(ExerciseType.TIME);
-                    exercise.setTime(""+Integer.parseInt(amountEditText.getText().toString()));
+                    exercise.setType(ExerciseType.TIME.name());
+                    exercise.setTime(Integer.parseInt(amountEditText.getText().toString()));
                 }
 
                 listener.onDialogSave(exercise,-1);

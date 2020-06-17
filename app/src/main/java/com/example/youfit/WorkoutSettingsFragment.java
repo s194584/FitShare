@@ -68,9 +68,9 @@ public class WorkoutSettingsFragment extends Fragment {
                 user.addSavedWorkout(currentWorkout);
                 server.updateCurrentUser(user);
 
-                boolean[] tempRecurring = new boolean[recurringChecks.getChildCount()];
+                ArrayList<Boolean> tempRecurring = new ArrayList<Boolean>(recurringChecks.getChildCount());
                 for(int i = 0; i < recurringChecks.getChildCount(); i++){
-                    tempRecurring[i] = ((CheckBox) recurringChecks.getChildAt(i)).isChecked();
+                    tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
                 }
                 currentWorkout.setRecurring(tempRecurring);
                 currentWorkout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
