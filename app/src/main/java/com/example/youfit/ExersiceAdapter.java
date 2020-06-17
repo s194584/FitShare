@@ -18,24 +18,38 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
     private final String TAG = "ExersiceAdapter";
 
     private List<Exercise> exercises;
+    private OnExerciseListener onExerciseListener;
+
+    public interface OnExerciseListener{
+        void onExerciseClicked(int position);
+    }
 
     // Creating a holder for the views used in RecyclerView
-    public static class ExerciseViewHolder extends RecyclerView.ViewHolder{
+    public static class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ExerciseDetailCardBinding mBinding;
-
-        public ExerciseViewHolder(ExerciseDetailCardBinding binding) {
+        private OnExerciseListener exerciseListener;
+        public ExerciseViewHolder(ExerciseDetailCardBinding binding, OnExerciseListener exerciseListener) {
             super(binding.getRoot());
             mBinding = binding;
+            this.exerciseListener = exerciseListener;
+
+            mBinding.getRoot().setOnClickListener(this);
         }
 
         public void bind(Exercise exercise){
             mBinding.setExercise(exercise);
             mBinding.executePendingBindings();
         }
+
+        @Override
+        public void onClick(View view) {
+            exerciseListener.onExerciseClicked(getAdapterPosition());
+        }
     }
 
-    public ExersiceAdapter(List<Exercise> exercises) {
+    public ExersiceAdapter(List<Exercise> exercises,OnExerciseListener onExerciseListener) {
         this.exercises = exercises;
+        this.onExerciseListener = onExerciseListener;
     }
 
     @Override
@@ -44,7 +58,7 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
         LayoutInflater li = LayoutInflater.from(parent.getContext());
         ExerciseDetailCardBinding edcb = ExerciseDetailCardBinding.inflate(li,parent,false);
 
-        ExerciseViewHolder viewHolder = new ExerciseViewHolder(edcb);
+        ExerciseViewHolder viewHolder = new ExerciseViewHolder(edcb,onExerciseListener);
 
         return viewHolder;
     }
@@ -52,6 +66,7 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         ((ExerciseViewHolder) holder).bind(exercises.get(position));
+
         ((ExerciseViewHolder) holder).mBinding.getRoot().findViewById(R.id.cancelExerciseImageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,5 +82,7 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return exercises.size();
     }
+
+
 
 }
