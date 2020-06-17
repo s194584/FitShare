@@ -50,14 +50,15 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         ((ExerciseViewHolder) holder).bind(exercises.get(position));
         ((ExerciseViewHolder) holder).mBinding.getRoot().findViewById(R.id.cancelExerciseImageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                exercises.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position,getItemCount());
+                int pos = holder.getAdapterPosition();
+                exercises.remove(pos);
+                notifyItemRemoved(pos);
+                notifyItemRangeChanged(pos,getItemCount());
             }
         });
     }
@@ -66,4 +67,5 @@ public class ExersiceAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return exercises.size();
     }
+
 }
