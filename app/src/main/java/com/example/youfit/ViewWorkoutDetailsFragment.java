@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 
 public class ViewWorkoutDetailsFragment extends Fragment {
@@ -81,6 +82,11 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Workout destroyed", Toast.LENGTH_SHORT).show();
+
+                //deletion from database
+                Server server = ((MainActivity) getActivity()).getServer();
+                server.removeWorkout(mWorkout);
+
             }
         });
 
