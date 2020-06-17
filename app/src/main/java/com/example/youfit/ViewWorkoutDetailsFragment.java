@@ -24,6 +24,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     private TextView workoutName;
     private Button startWorkoutButton;
     private Button deleteWorkoutButton;
+    private boolean fromPublic;
 
     // TODO: Rename and change types of parameters
     private Workout mWorkout;
@@ -47,6 +48,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mWorkout = getArguments().getParcelable(workoutString);
+            fromPublic = getArguments().getBoolean("public");
 
         }
     }
@@ -63,6 +65,10 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         startWorkoutButton = view.findViewById(R.id.start_workout_button);
         deleteWorkoutButton = view.findViewById(R.id.delete_workout_button);
+
+        if (fromPublic) {
+            deleteWorkoutButton.setVisibility(View.GONE);
+        }
 
         startWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -63,6 +63,7 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("WORKOUT", workouts.get(position));
+        bundle.putBoolean("public", true);
         NavHostFragment.findNavController(BrowsePublicWorkoutsFragment.this)
                 .navigate(R.id.action_browseWorkoutsFragment_to_viewWorkoutDetailsFragment, bundle);
     }
