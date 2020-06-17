@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
     }
 
     private void goToMainActivity() {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }

@@ -63,11 +63,8 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
             Log.i("HomeFragment", "ERROR: Could not find recyclerView");
         }
 
-        // Create example data
-        Log.i("HomeFragment", "2: Creating example data. EMPTY");
-
-        //make adapter with sample data
-        Log.i("HomeFragment", "3: Making adapter");
+        //make adapter
+        Log.i("HomeFragment", "2: Making adapter");
         WorkoutDetailAdapter adapter = new WorkoutDetailAdapter(workouts, this,currentDay);
         if(adapter == null)
         {
@@ -75,12 +72,12 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         }
 
         //add adapter to recycle view
-        Log.i("HomeFragment", "4: Adding adapter to recycler view");
+        Log.i("HomeFragment", "3: Adding adapter to recycler view");
         assert plannedWorkoutsRV != null;
         plannedWorkoutsRV.setAdapter(adapter);
 
         //Set layoutmanager
-        Log.i("HomeFragment", "5: Set recycler views layout manager");
+        Log.i("HomeFragment", "4: Set recycler views layout manager");
         plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //Make recycleView look good.
