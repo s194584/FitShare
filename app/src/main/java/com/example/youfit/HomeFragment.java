@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Set welcome back tekst
+        //Set welcome back text
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
         String username = server.getUsername();
         welcomeBackTest.setText("Welcome back " + username + "!");
