@@ -22,9 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/DoingWorkoutFragment"
-        android:name="com.example.youfit.DoingWorkoutFragment"
+        android:name="com.example.youfit.StatisticsFragment"
         android:label="fragment_second"
-        tools:layout="@layout/fragment_doingworkout" />
+        tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/browseWorkoutsFragment"
         android:name="com.example.youfit.BrowseWorkoutsFragment"

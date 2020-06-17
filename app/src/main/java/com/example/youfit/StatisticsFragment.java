@@ -7,16 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.youfit.domain.Workout;
 
-import org.w3c.dom.Text;
-
-
-public class DoingWorkoutFragment extends Fragment {
+public class StatisticsFragment extends Fragment {
 
     int waterGoal = 2000;
     int setWaterAmount = 0;
@@ -40,7 +35,7 @@ public class DoingWorkoutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_doingworkout, container, false);
+        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         //TODO implement with firebase data
         /*
