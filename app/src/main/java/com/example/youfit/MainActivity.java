@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     public void setUpNavigation(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavHostFragment navHostFragment =       (NavHostFragment)getSupportFragmentManager()
+        NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment);
         NavigationUI.setupWithNavController(bottomNavigationView,
                 navHostFragment.getNavController());
