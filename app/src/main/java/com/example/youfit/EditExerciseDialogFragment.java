@@ -107,7 +107,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     exercise.setReps(Integer.parseInt(amountEditText.getText().toString()));
                 }else{
                     exercise.setType(ExerciseType.TIME.name());
-                    exercise.setTime(Integer.parseInt(amountEditText.getText().toString()));
+                    exercise.setTime(Long.parseLong(amountEditText.getText().toString()));
                 }
 
                 listener.onDialogSave(exercise,pos);

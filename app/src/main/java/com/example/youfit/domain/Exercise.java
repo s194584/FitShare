@@ -8,7 +8,7 @@ public class Exercise implements Parcelable {
     protected String type;
     protected String name;
     protected int reps = 0;
-    protected int time = 0;
+    protected long time = 0;
 
     public Exercise() { }
 
@@ -26,7 +26,7 @@ public class Exercise implements Parcelable {
     protected Exercise(Parcel in) {
         name = in.readString();
         reps = in.readInt();
-        time = in.readInt();
+        time = in.readLong();
     }
 
 //    public String getTypeString(E) {
@@ -53,7 +53,7 @@ public class Exercise implements Parcelable {
     public int getReps() {
         return reps;
     }
-    public int getTime() {
+    public long getTime() {
         return time;
     }
     public String getAmount(){
@@ -73,7 +73,7 @@ public class Exercise implements Parcelable {
         this.reps = reps;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -99,6 +99,6 @@ public class Exercise implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeInt(reps);
-        parcel.writeInt(time);
+        parcel.writeLong(time);
     }
 }

@@ -15,7 +15,7 @@ public class Workout implements Parcelable {
     // Fields
     private String name ="";
     private String uniqueID; // Generated in database?
-    private int time;
+    private long time;
 
     private ArrayList<Exercise> exercises = new ArrayList<>();
     private String workoutType;
@@ -50,7 +50,7 @@ public class Workout implements Parcelable {
     protected Workout(Parcel in) {
         name = in.readString();
         uniqueID = in.readString();
-        time = in.readInt();
+        time = in.readLong();
         exercises = in.readArrayList(Workout.class.getClassLoader());
 
         // Boolean settings
@@ -87,8 +87,8 @@ public class Workout implements Parcelable {
         return this.workoutType;
     }
 
-    public int getTime() {
-        int time = 0;
+    public long getTime() {
+        long time = 0;
         for(Exercise x : exercises)
         {
             time += x.getTime();
@@ -96,14 +96,14 @@ public class Workout implements Parcelable {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
     public String TimeAsString() {
-        int time = getTime();
-        int minutes = time / 60;
-        int seconds = time % 60;
+        long time = getTime();
+        long minutes = time / 60;
+        long seconds = time % 60;
         return seconds < 10 ? minutes + ":" + "0" + seconds : minutes + ":" + seconds;
     }
 
@@ -129,7 +129,7 @@ public class Workout implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(uniqueID);
-        parcel.writeInt(time);
+        parcel.writeLong(time);
         parcel.writeTypedList(exercises);
         parcel.writeList(recurring);
         parcel.writeInt(notifications ? 1 : 0);

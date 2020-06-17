@@ -15,7 +15,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class Server {
 
@@ -27,8 +32,13 @@ public class Server {
     protected Activity activity;
 
     protected User currentUser;
-    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
-    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
+
+    //Firebase key --> Workout
+    protected HashMap<String,Workout> publicWorkouts = new HashMap<>();
+    protected HashMap<String,Workout> currentUsersWorkouts = new HashMap<>();
+
+//    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
+//    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
     public Server(Activity activity) {
         this.activity = activity;
@@ -41,24 +51,25 @@ public class Server {
     }
 
     public ArrayList<Workout> getPublicWorkouts() {
-        return (this.currentUser!=null) ? publicWorkouts : new ArrayList<Workout>();
+        ArrayList<Workout> publicWorkouts = getAllPublicWorkouts();
+        ArrayList<Workout> currentUsersWorkouts = getCurrentUsersWorkouts();
+
+        ArrayList<Workout> resultWorkouts = new ArrayList<>();
+        for (Workout workout: publicWorkouts) {
+            if (currentUsersWorkouts.contains(workout)) {
+                continue;
+            }
+            resultWorkouts.add(workout);
+        }
+        return resultWorkouts;
     }
 
     public ArrayList<Workout> getCurrentUsersWorkouts() {
-        return (this.currentUser!= null) ? currentUsersWorkouts : new ArrayList<Workout>();
+        return (this.currentUser!= null) ? new ArrayList<Workout>(currentUsersWorkouts.values()) : new ArrayList<Workout>();
     }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void updateCurrentUser(User user) {
-        this.firebaseAuth = FirebaseAuth.getInstance();
-
-        String userID = firebaseAuth.getCurrentUser().getUid();
-        rootNode = FirebaseDatabase.getInstance();
-        databaseReference = rootNode.getReference("Users"); //get reference to database.
-        databaseReference.child(userID).setValue(user);
+    private ArrayList<Workout> getAllPublicWorkouts() {
+        return (this.currentUser!=null) ?  new ArrayList<Workout>(publicWorkouts.values()) : new ArrayList<Workout>();
     }
 
     public void addWorkout(Workout workout) {
@@ -69,6 +80,26 @@ public class Server {
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
             databaseReference.push().setValue(workout);
+        }
+
+    }
+
+    public void removeWorkout(Workout workout) {
+        String key = "";
+        for (Map.Entry<String, Workout> entry : this.currentUsersWorkouts.entrySet()) {
+            if (Objects.equals(workout, entry.getValue())) {
+                key = (entry.getKey());
+                break;
+            }
+        }
+
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
+
+            databaseReference.child(key).removeValue();
         }
 
     }
@@ -100,7 +131,7 @@ public class Server {
                     if (workout.isPublicWorkout()) {
                         addPublicWorkouts(workout,dataSnapshot.getKey());
                     }
-                    currentUsersWorkouts.add(workout);
+                    currentUsersWorkouts.put(dataSnapshot.getKey(),workout);
                 }
 
                 @Override
@@ -110,7 +141,11 @@ public class Server {
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                    Workout workout = dataSnapshot.getValue(Workout.class);
+                    if (workout.isPublicWorkout()) {
+                        removePublicWorkouts(workout,dataSnapshot.getKey());
+                    }
+                    currentUsersWorkouts.remove(dataSnapshot.getKey());
                 }
 
                 @Override
@@ -124,6 +159,17 @@ public class Server {
                 }
             });
 
+        }
+    }
+
+    private void removePublicWorkouts(Workout workout, String key) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("PublicWorkouts");
+
+            databaseReference.child(key).removeValue();
         }
     }
 
@@ -152,7 +198,7 @@ public class Server {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
-                    publicWorkouts.add(workout);
+                    publicWorkouts.put(dataSnapshot.getKey(),workout);
                 }
 
                 @Override
@@ -162,7 +208,7 @@ public class Server {
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                    publicWorkouts.remove(dataSnapshot.getKey());
                 }
 
                 @Override
@@ -193,7 +239,6 @@ public class Server {
             databaseReference.addListenerForSingleValueEvent ( new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<Workout> currentUsersWorkoutstmp = new ArrayList<>();
                     User usertmp = new User();
 
                     if (dataSnapshot.exists()) {
@@ -202,8 +247,10 @@ public class Server {
                                 usertmp.setName(dataValues.getValue().toString());
                             } else {
                                 Workout workout = dataValues.getValue(Workout.class);
-                                currentUsersWorkouts.add(workout);
-                                usertmp.addWorkout(workout);
+                                if (!workout.getName().isEmpty()) {
+                                    currentUsersWorkouts.put(dataSnapshot.getKey(),workout);
+                                    usertmp.addWorkout(workout);
+                                }
                             }
                         }
 //                        User user = dataSnapshot.getValue(User.class);
