@@ -51,17 +51,15 @@ public class Server {
     }
 
     public ArrayList<Workout> getPublicWorkouts() {
-        ArrayList<Workout> publicWorkouts = getAllPublicWorkouts();
-        ArrayList<Workout> currentUsersWorkouts = getCurrentUsersWorkouts();
+        ArrayList<Workout> res = new ArrayList<>();
 
-        ArrayList<Workout> resultWorkouts = new ArrayList<>();
-        for (Workout workout: publicWorkouts) {
-            if (currentUsersWorkouts.contains(workout)) {
-                continue;
+        for (String key: publicWorkouts.keySet()) {
+            if (!currentUsersWorkouts.containsKey(key)) {
+                res.add(publicWorkouts.get(key));
             }
-            resultWorkouts.add(workout);
         }
-        return resultWorkouts;
+
+        return res;
     }
 
     public ArrayList<Workout> getCurrentUsersWorkouts() {
