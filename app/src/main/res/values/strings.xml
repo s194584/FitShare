@@ -2,14 +2,10 @@
     <string name="app_name">YouFit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
-    <string name="create_new_profile">Create new profile</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
     <string name="back">Back</string>
     <string name="create_workout">Complete</string>
-    <string name="choose_excersize">Choose your desired excersize</string>
+    <string name="choose_excersize">Choose your desired exercise</string>
     <string name="sign_out_dialog">Are you sure, you want to sign out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -25,6 +21,96 @@
     <string name="delete_workout">Delete workout</string>
     <string name="start_workout">Start workout</string>
     <string name="edit_workout">Edit workout</string>
+
+
+    #Home fragment strings
+    <string name="workouts">Workout(s): </string>
+    <string name="welcome_back">Welcome back </string>
+
+    #Statistics strings
+    <string name="statistics_header">Statistics: </string>
+    <string name="statistics_water_header">Water: </string>
+    <string name="statistics_water_default">0 mL</string>
+    <string name="statistics_water_total_default">0 / 2000 mL</string>
+    <string name="statistics_weekly_statistics">Weekly statistics: </string>
+    <string name="statistics_total_workouts">Total workouts: </string>
+    <string name="statistics_total_time">Total time: </string>
+    <string name="default_number">42</string>
+    <string name="statistics_all_time_statistics">All time statistics: </string>
+    <string name="background">Background</string>
+    <string name="baggrundbox">baggrundBox</string>
+    <string name="addwaterbutton">addWaterButton</string>
+    <string name="subtractwaterbutton">subtractWaterButton</string>
+    <string name="drinkwaterbutton">drinkWaterButton</string>
+
+    #String doWorkout
+    <string name="start">Start</string>
+    <string name="default_text">Default_Text</string>
+
+    #String editExercise
+    <string name="save">Save</string>
+    <string name="new_exercise_name">new exercise name</string>
+    <string name="amount">amount</string>
+    <string name="time">Time</string>
+    <string name="reps">Reps</string>
+
+    #ForgotPassword Strings
+    <string name="enter_email_to_reset_password">Enter email to reset password</string>
+
+    #Change Email Strings
+    <string name="enter_new_email">Enter new email</string>
+
+    #Create Workout String
+    <string name="name_of_workout">Name of workout</string>
+    <string name="set_setting">Set setting</string>
+    <string name="public_workout">Public Workout</string>
+    <string name="notification">Notification</string>
+
+    #Login fragment strings
+    <string name="create_new_profile">Create new profile</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+    #fragment settings strings
+    <string name="name">name</string>
+    <string name="log_out">Log out</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_email">Change email</string>
+    <string name="update">update</string>
+
+    #View Workout Details fragment
+    <string name="name_workout">Name: workout</string>
+    <string name="type_strength">Type: Strength</string>
+    <string name="estimated_time_120_00">Estimated time: 120:00</string>
+    <string name="creator_skinnyp3n1s123">Creator: SkinnyP3n1s123</string>
+
+    #fragment workout
+    <string name="add_pause">Add pause</string>
+    <string name="next">Next</string>
+
+    #Workout settings
+    <string name="notifications">Notifications</string>
+    <string name="motivation">Motivation</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="monday">M</string>
+    <string name="tuesday">T</string>
+    <string name="wednesday">W</string>
+    <string name="thursday">T</string>
+    <string name="friday">F</string>
+    <string name="saturday">S</string>
+    <string name="sunday">S</string>
+    <string name="public_string">Public</string>
+
+    #Item workout detail
+    <string name="workout_name_goes_here">Workout name goes here</string>
+    <string name="xx_yy">xx-yy</string>
+    <string name="name_withdots">Name:</string>
+    <string name="strength_withdots">Type: Strength</string>
+    <string name="difficulty_medium">Difficulty: Medium</string>
+    <string name="time_120_00">Time: 120:00</string>
+    <string name="start_withdots">Start</string>
 
     <string-array name="rep_exercises">
         <item>Pull-up</item>

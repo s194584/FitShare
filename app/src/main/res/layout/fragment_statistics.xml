@@ -14,19 +14,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/background" />
 
 
     <TextView
         android:id="@+id/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Statistics: "
+        android:text="@string/statistics_header"
         android:textColor="#FFFFFF"
-        android:textSize="48dp"
+        android:textSize="48sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintBottom_toTopOf="@id/box1"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginStart="10dp"/>
 
 
 
@@ -49,68 +50,72 @@
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1"
         android:layout_marginTop="0dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginStart="20dp"
+        android:contentDescription="@string/baggrundbox" />
     <TextView
         android:id="@+id/water_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Water: "
+        android:text="@string/statistics_water_header"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="30dp"/>
-    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_marginStart="30dp"/>
+    <ImageButton
         android:id="@+id/addWaterButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginBottom="80dp"
-        android:layout_marginLeft="160dp"
+        android:layout_marginStart="160dp"
         android:background="@drawable/plus_knap_lille"
         app:layout_constraintStart_toStartOf="@id/baggrund_box1"
-        app:layout_constraintBottom_toBottomOf="@id/box1"/>
-    <androidx.appcompat.widget.AppCompatImageButton
+        app:layout_constraintBottom_toBottomOf="@id/box1"
+        android:contentDescription="@string/addwaterbutton" />
+    <ImageButton
         android:id="@+id/subtractWaterButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/minus_knap_lille"
         app:layout_constraintStart_toStartOf="@id/baggrund_box1"
-        app:layout_constraintBottom_toBottomOf="@id/box1"/>
-    <androidx.appcompat.widget.AppCompatImageButton
+        app:layout_constraintBottom_toBottomOf="@id/box1"
+        android:contentDescription="@string/subtractwaterbutton" />
+    <ImageButton
         android:id="@+id/drinkWaterButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginBottom="81dp"
-        android:layout_marginLeft="219dp"
+        android:layout_marginStart="219dp"
         android:background="@drawable/drink_button"
         app:layout_constraintStart_toStartOf="@id/baggrund_box1"
-        app:layout_constraintBottom_toBottomOf="@id/box1"/>
+        app:layout_constraintBottom_toBottomOf="@id/box1"
+        android:contentDescription="@string/drinkwaterbutton" />
     <TextView
         android:id="@+id/setWaterAmount_text"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="XX mL"
+        android:text="@string/statistics_water_default"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1"
         android:layout_marginTop="82dp"
-        android:layout_marginLeft="80dp"/>
+        android:layout_marginStart="80dp"/>
     <TextView
         android:id="@+id/waterAmount_text"
         android:layout_width="287dp"
         android:layout_height="wrap_content"
-        android:text="XX / 2000 mL"
+        android:text="@string/statistics_water_total_default"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1"
         android:layout_marginTop="130dp"
-        android:layout_marginLeft="24dp"/>
+        android:layout_marginStart="24dp"/>
 
 
 
@@ -133,63 +138,63 @@
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="0dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginStart="20dp"
+        android:contentDescription="@string/baggrundbox" />
     <TextView
         android:id="@+id/Weekly_statistics_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weekly statistics: "
+        android:text="@string/statistics_weekly_statistics"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginStart="30dp" />
     <TextView
         android:id="@+id/total_workouts_weekly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total workouts: "
+        android:text="@string/statistics_total_workouts"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="75dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginStart="30dp" />
     <TextView
         android:id="@+id/total_workouts_time_weekly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total time: "
+        android:text="@string/statistics_total_time"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="125dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginStart="30dp" />
     <TextView
         android:id="@+id/total_workouts_weekly_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="XX"
+        android:text="@string/default_number"
         android:textColor="#038C73"
-        android:textSize="24dp"
-        android:gravity="right"
+        android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="75dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginEnd="40dp" />
     <TextView
         android:id="@+id/total_workouts_time_weekly_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="XX"
+        android:text="@string/default_number"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="125dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginEnd="40dp" />
 
 
 
@@ -212,62 +217,62 @@
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="0dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginStart="20dp"
+        android:contentDescription="@string/baggrundbox" />
     <TextView
         android:id="@+id/all_time_statistics_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All time statistics: "
+        android:text="@string/statistics_all_time_statistics"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginStart="30dp"/>
     <TextView
         android:id="@+id/total_workouts_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total workouts: "
+        android:text="@string/statistics_total_workouts"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="75dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginStart="30dp" />
     <TextView
         android:id="@+id/total_workouts_time_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total time: "
+        android:text="@string/statistics_total_time"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="125dp"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginStart="30dp" />
     <TextView
         android:id="@+id/total_workouts_total_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="XX"
+        android:text="@string/default_number"
         android:textColor="#038C73"
-        android:textSize="24dp"
-        android:gravity="right"
+        android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="75dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginEnd="40dp" />
     <TextView
         android:id="@+id/total_workouts_time_total_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="XX"
+        android:text="@string/default_number"
         android:textColor="#038C73"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="125dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginEnd="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

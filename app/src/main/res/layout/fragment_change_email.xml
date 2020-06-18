@@ -15,7 +15,7 @@
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="480dp"
         android:ems="10"
-        android:hint="Enter new email"
+        android:hint="@string/enter_new_email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
         android:layout_marginStart="143dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="144dp"
-        android:text="Change email"
+        android:text="@string/change_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newEmail" />

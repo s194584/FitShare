@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Workout name"
-        android:textSize="24dp"
+        android:hint="@string/workout_name"
+        android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="Public"
+                android:text="@string/public_string"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
@@ -84,7 +84,7 @@
                 android:id="@+id/toggle_workout_public"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton" />
+                android:text="@string/togglebutton" />
 
         </LinearLayout>
 
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="Notifications"
+                android:text="@string/notifications"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
@@ -109,7 +109,7 @@
                 android:id="@+id/toggle_workout_noticifations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton" />
+                android:text="@string/togglebutton" />
 
         </LinearLayout>
 
@@ -125,7 +125,7 @@
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textColor="#000000"
-                android:text="Motivation"
+                android:text="@string/motivation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
@@ -134,7 +134,7 @@
                 android:id="@+id/toggle_workout_motivation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton" />
+                android:text="@string/togglebutton" />
 
         </LinearLayout>
     </LinearLayout>
@@ -230,8 +230,8 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:layout_marginRight="17dp"
-            android:text="M"/>
+            android:layout_marginEnd="17dp"
+            android:text="@string/monday"/>
 
         <TextView
             android:id="@+id/checkbox_re_wen_text"
@@ -240,8 +240,8 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:layout_marginRight="17dp"
-            android:text="T"/>
+            android:layout_marginEnd="17dp"
+            android:text="@string/tuesday"/>
 
         <TextView
             android:id="@+id/checkbox_re_thu_text"
@@ -250,8 +250,8 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:layout_marginRight="17dp"
-            android:text="O"/>
+            android:layout_marginEnd="17dp"
+            android:text="@string/wednesday"/>
 
         <TextView
             android:id="@+id/checkbox_re_fri_text"
@@ -260,7 +260,7 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:text="T"/>
+            android:text="@string/thursday"/>
 
         <TextView
             android:id="@+id/checkbox_re_sat_text"
@@ -269,8 +269,8 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:layout_marginLeft="17dp"
-            android:text="F"/>
+            android:layout_marginStart="17dp"
+            android:text="@string/friday"/>
 
         <TextView
             android:id="@+id/checkbox_re_sun_text"
@@ -279,8 +279,8 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:layout_marginLeft="17dp"
-            android:text="L"/>
+            android:layout_marginStart="17dp"
+            android:text="@string/saturday"/>
 
 
         <TextView
@@ -290,8 +290,8 @@
             android:layout_height="wrap_content"
             android:textColor="#038C73"
             android:layout_weight="1"
-            android:layout_marginLeft="17dp"
-            android:text="S"/>
+            android:layout_marginStart="17dp"
+            android:text="@string/sunday"/>
 
     </LinearLayout>
 

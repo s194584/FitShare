@@ -27,13 +27,13 @@
                 android:id="@+id/radiobutton_edit_exercise_reps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reps" />
+                android:text="@string/reps" />
 
             <RadioButton
                 android:id="@+id/radiobutton_edit_exercise_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time" />
+                android:text="@string/time" />
         </RadioGroup>
 
         <EditText
@@ -46,7 +46,7 @@
             android:layout_toEndOf="@+id/radioGroup"
             android:ems="6"
             android:gravity="center"
-            android:hint="amount"
+            android:hint="@string/amount"
             android:inputType="number" />
 
     </LinearLayout>
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="16"
-        android:hint="new exercise name"
+        android:hint="@string/new_exercise_name"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintEnd_toStartOf="@+id/button_edit_exercise_save"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

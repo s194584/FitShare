@@ -22,7 +22,7 @@
             android:id="@+id/inputWorkout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name of workout" />
+            android:hint="@string/name_of_workout" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -55,7 +55,7 @@
         android:layout_marginStart="58dp"
         android:layout_marginTop="110dp"
         android:layout_marginEnd="288dp"
-        android:text="Set setting"
+        android:text="@string/set_setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
@@ -67,7 +67,7 @@
         android:layout_marginStart="185dp"
         android:layout_marginTop="110dp"
         android:layout_marginEnd="90dp"
-        android:text="Public Workout"
+        android:text="@string/public_workout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
@@ -79,7 +79,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="251dp"
-        android:text="Notification"
+        android:text="@string/notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setSettingTextView" />
@@ -91,7 +91,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="255dp"
-        android:text="Motivation"
+        android:text="@string/motivation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NotificationcheckBox" />

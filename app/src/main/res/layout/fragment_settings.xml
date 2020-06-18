@@ -46,9 +46,9 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="101dp"
         android:textColor="#000000"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:ems="10"
-        android:hint="name"
+        android:hint="@string/name"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="28dp"
-        android:text="Log out"
+        android:text="@string/log_out"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/changeEmail"  />
 
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="360dp"
-        android:text="Change Password"
+        android:text="@string/change_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="28dp"
-        android:text="Change email"
+        android:text="@string/change_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changePassword" />
 
@@ -101,7 +101,7 @@
         android:layout_marginStart="162dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="162dp"
-        android:text="update"
+        android:text="@string/update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />

@@ -18,7 +18,7 @@
         android:id="@+id/workout_info_text"
         android:layout_width="309dp"
         android:layout_height="wrap_content"
-        android:text="Name: "
+        android:text="@string/name_withdots"
         android:textSize="15sp"
         android:layout_marginBottom="0dp" />
 
@@ -26,11 +26,11 @@
         android:id="@+id/workout_type"
         android:layout_width="98dp"
         android:layout_height="wrap_content"
-        android:text="Type: Strength"
-        android:layout_marginLeft="7dp"
+        android:text="@string/strength_withdots"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="5dp"
         android:textSize="15sp"
-        android:layout_toRightOf="@id/workout_difficulty"
+        android:layout_toEndOf="@id/workout_difficulty"
         android:layout_below="@+id/workout_info_text" />
 
     <TextView
@@ -39,29 +39,30 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/workout_info_text"
         android:layout_marginTop="5dp"
-        android:text="Difficulty: Medium"
+        android:text="@string/difficulty_medium"
         android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/workout_time"
         android:layout_width="82dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/workout_type"
+        android:layout_toEndOf="@+id/workout_type"
         android:layout_below="@+id/workout_info_text"
-        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="5dp"
-        android:text="Time: 120:00" />
+        android:text="@string/time_120_00" />
 
     <Button
         android:id="@+id/startworkoutfrombrowser_button"
         android:layout_width="80dp"
         android:layout_height="45dp"
-        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="0dp"
-        android:layout_toRightOf="@id/workout_info_text"
-        android:text="Start "
-        android:textSize="11sp"
-        android:textAlignment="center"/>
+        android:layout_toEndOf="@id/workout_info_text"
+        android:text="@string/start_withdots"
+        android:textSize="11dp"
+        android:textAlignment="center"
+        tools:ignore="SpUsage" />
 
 
 </RelativeLayout>

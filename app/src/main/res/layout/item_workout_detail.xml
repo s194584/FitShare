@@ -2,6 +2,7 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="300dp"
     android:layout_height="46dp"
@@ -14,26 +15,27 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:src="@drawable/baggrund_400x50"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:id="@+id/workoutNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:paddingLeft="20dp"
+        android:layout_alignParentStart="true"
+        android:paddingStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="Workout name goes here"
-        android:textSize="16sp"/>
+        android:text="@string/workout_name_goes_here"
+        android:textSize="16sp"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/workoutTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:paddingRight="50dp"
-        android:text="xx-yy"
+        android:paddingEnd="50dp"
+        android:text="@string/xx_yy"
         android:textSize="16sp" />
 
     <ImageButton
@@ -42,7 +44,7 @@
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/play_knap"
-        android:layout_toRightOf="@id/baggrund"/>
+        android:layout_toEndOf="@id/baggrund"/>
 
 
 </RelativeLayout>
