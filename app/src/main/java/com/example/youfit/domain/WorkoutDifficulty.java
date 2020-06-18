@@ -4,5 +4,6 @@ public enum WorkoutDifficulty {
     BEGINNER,
     MEDIUM,
     HARD,
-    EXTREME
+    EXTREME,
+    UNDEFINED
 }

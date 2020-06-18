@@ -46,7 +46,7 @@
         android:layout_marginStart="165dp"
         android:layout_marginTop="15dp"
         android:text="@string/estimated_time_120_00"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/workout_creator_view"
@@ -56,7 +56,7 @@
         android:layout_marginStart="165dp"
         android:layout_marginTop="15dp"
         android:text="@string/creator_skinnyp3n1s123"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/workout_description"

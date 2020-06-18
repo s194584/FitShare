@@ -151,7 +151,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         workoutDescription = view.findViewById(R.id.workout_description);
 
         String workoutNameString = "Name: " + mWorkout.getName();
-        String workoutDifficultyString = "Difficulty: Medium";
+        String workoutDifficultyString = "Difficulty: " + mWorkout.formatDifficulty();
         String workoutTypeString = "Type: " + mWorkout.formatType();
         String workoutTimeString = "Estimated time: " + mWorkout.TimeAsString();
         String workoutCreatorString = "Creator: the_big_guy/girl";
@@ -159,7 +159,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
                 "        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex\n" +
                 "        ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n" +
                 "        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
-                "        sunt in culpa qui officia deserunt mollit anim id est laborum.";
+                "        sunt in culpa qui officia deserunt mollit anim id est laborum." + mWorkout.getDescription();
 
         workoutName.setText(workoutNameString);
         workoutDifficulty.setText(workoutDifficultyString);
