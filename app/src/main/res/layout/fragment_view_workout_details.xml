@@ -88,13 +88,13 @@
         android:text="@string/edit_workout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_exercise_details"
+        android:id="@+id/exercisedetailsRV"
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="420dp"
         android:layout_above="@+id/start_workout_button"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="35dp">
+        android:layout_marginBottom="30dp">
     </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

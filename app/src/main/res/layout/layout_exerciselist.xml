@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".BrowsePublicWorkoutsFragment"
+    android:padding="8dp"
+    android:id="@+id/view_exercises_layout"
+    android:layout_marginTop="5dp"
+    >
+
+
+    <TextView
+        android:id="@+id/exercise_name"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="namehere"
+        android:textSize="15sp"
+        android:layout_marginBottom="0dp" />
+</RelativeLayout>
