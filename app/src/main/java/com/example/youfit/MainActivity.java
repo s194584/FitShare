@@ -37,22 +37,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener {
+public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener {
+
+    protected String TAG = "Server";
 
     protected boolean alreadyLoggedIn = false;
     protected Server server;
+    private Server.OnServerSetupCompleteListener onServerSetupCompleteListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_main);
-
+//        findViewById(id.progress_bar).setVisibility(View.VISIBLE);
         this.server = new Server(this);
 
         //TODO: Make waiting screen for database call back.
-
-        // setting up bottombarnavigation
-        setUpNavigation();
 
     }
 
@@ -101,4 +100,11 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     }
 
 
+    @Override
+    public void onSetupComplete() {
+        Log.i(TAG,"Setting up views.");
+        setContentView(layout.activity_main);
+        setUpNavigation();
+//        findViewById(id.progress_bar).setVisibility(View.GONE);
+    }
 }

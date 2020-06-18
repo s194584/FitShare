@@ -1,7 +1,6 @@
 package com.example.youfit;
 
 import android.content.Intent;
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,19 +11,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.youfit.domain.Exercise;
-import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Server;
-import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +33,8 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
     ArrayList<Workout> workouts = new ArrayList<>();
    private WorkoutDetailAdapter mAdapter;
+   private RecyclerView plannedWorkoutsRV;
+   private int currentDay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,10 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Server server = ((MainActivity) getActivity()).getServer();
-        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-1;
         // Sunday = 0 is corrected to 7
-        if(currentDay==0){
-            currentDay = 7;
+        if(currentDay==-1){
+            currentDay = 6;
         }
         //Get layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
         //Get recycler view
         Log.i("HomeFragment", "2: Getting recyclerView");
-        RecyclerView  plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
+        plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
         if(plannedWorkoutsRV == null)
         {
             Log.i("HomeFragment", "ERROR: Could not find recyclerView");
@@ -71,7 +72,6 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
         //make adapter with sample data
         Log.i("HomeFragment", "3: Making adapter");
-        mAdapter = new WorkoutDetailAdapter(workouts, this,currentDay);
         if(mAdapter == null)
         {
             Log.i("HomeFragment", "ERROR: Could not create adapter");
@@ -80,7 +80,27 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         //add adapter to recycle view
         Log.i("HomeFragment", "3: Adding adapter to recycler view");
         assert plannedWorkoutsRV != null;
-        plannedWorkoutsRV.setAdapter(mAdapter);
+        Query userWorkoutsRef = FirebaseDatabase.getInstance().getReference("Users/" + server.getUserUID() + "/savedWorkouts");
+        userWorkoutsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG,"Data updated");
+                workouts.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Workout workout = ds.getValue(Workout.class);
+                    Log.i(TAG,workout.getName()+" is "+workout.getRecurring().get(currentDay));
+                    if (workout.getRecurring().get(currentDay)) {
+                        workouts.add(workout);
+                    }
+                }
+                plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, HomeFragment.this));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i(TAG,"Could not retrieve workouts.");
+            }
+        });
 
         //Set layoutmanager
         Log.i("HomeFragment", "4: Set recycler views layout manager");

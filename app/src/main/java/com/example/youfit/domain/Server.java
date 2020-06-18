@@ -32,7 +32,7 @@ public class Server {
     protected Activity activity;
 
     protected User currentUser;
-
+    private OnServerSetupCompleteListener onServerSetupCompleteListener;
     //Firebase key --> Workout
     protected HashMap<String,Workout> publicWorkouts = new HashMap<>();
     protected HashMap<String,Workout> currentUsersWorkouts = new HashMap<>();
@@ -40,14 +40,26 @@ public class Server {
 //    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
 //    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
+    public interface OnServerSetupCompleteListener
+    {
+        void onSetupComplete();
+    }
+
+
     public Server(Activity activity) {
         this.activity = activity;
         loadCurrentUser();
         loadPublicWorkouts();
+        onServerSetupCompleteListener = (OnServerSetupCompleteListener) activity;
+
     }
 
     public String getUsername() {
         return (this.currentUser!=null) ? currentUser.getName() : "could not finde username";
+    }
+
+    public String getUserUID(){
+        return this.firebaseAuth.getCurrentUser().getUid();
     }
 
     public ArrayList<Workout> getPublicWorkouts() {
@@ -191,6 +203,19 @@ public class Server {
             Log.w(TAG, "CurrentUser is not null");
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("PublicWorkouts");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.i(TAG,"Done loading initial data");
+                    onServerSetupCompleteListener.onSetupComplete();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
             databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
