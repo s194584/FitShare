@@ -16,11 +16,12 @@
 
     <TextView
         android:id="@+id/workout_info_text"
-        android:layout_width="309dp"
+        android:layout_width="316dp"
         android:layout_height="wrap_content"
         android:text="@string/name_withdots"
         android:textSize="15sp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="2dp"/>
 
     <TextView
         android:id="@+id/workout_type"
@@ -35,10 +36,11 @@
 
     <TextView
         android:id="@+id/workout_difficulty"
-        android:layout_width="115dp"
+        android:layout_width="122dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/workout_info_text"
         android:layout_marginTop="5dp"
+        android:layout_marginLeft="2dp"
         android:text="@string/difficulty_medium"
         android:layout_marginBottom="15dp"/>
 
@@ -54,14 +56,14 @@
 
     <Button
         android:id="@+id/startworkoutfrombrowser_button"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="45dp"
         android:layout_marginStart="7dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginEnd="5dp"
         android:layout_toEndOf="@id/workout_info_text"
         android:text="@string/start_withdots"
-        android:textSize="11dp"
         android:textAlignment="center"
+        android:textSize="11dp"
         tools:ignore="SpUsage" />
 
 

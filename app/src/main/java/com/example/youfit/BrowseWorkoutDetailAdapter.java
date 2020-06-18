@@ -88,7 +88,7 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         String workoutName = "Name: " + mWorkouts.get(position).getName();
         String workoutType = "Type: " + mWorkouts.get(position).formatType();
         String workoutTime = "Time: " + mWorkouts.get(position).TimeAsString();
-        String workoutDifficulty = "Difficulty: Medium";
+        String workoutDifficulty = "Difficulty: Beginner";
         holder.workoutName.setText(workoutName);
         holder.workoutType.setText(workoutType);
         holder.workoutTime.setText(workoutTime);
