@@ -49,45 +49,24 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         if(currentDay==0){
             currentDay = 7;
         }
-        // Inflate the layout for this fragment
+        //Get layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Set welcome back text
-
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
         String username = server.getUsername();
         welcomeBackTest.setText("Welcome back " + username + "!");
+
+        //get workouts
+        Log.i("HomeFragment", "1: Getting data");
         workouts = server.getCurrentUsersWorkouts();
 
-
         //Get recycler view
-        Log.i("HomeFragment", "1: Getting recyclerView");
+        Log.i("HomeFragment", "2: Getting recyclerView");
         RecyclerView  plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
         if(plannedWorkoutsRV == null)
         {
             Log.i("HomeFragment", "ERROR: Could not find recyclerView");
-        }
-
-        // Create example data
-        Log.i("HomeFragment", "2: Creating example data");
-
-        //TODO Get Firebase data and fill in here
-        workouts.add(new Workout("1", new ArrayList<Exercise>()));
-        workouts.add(new Workout("2", new ArrayList<Exercise>()));
-        workouts.add(new Workout("3", new ArrayList<Exercise>()));
-        workouts.add(new Workout("4", new ArrayList<Exercise>()));
-        workouts.add(new Workout("5", new ArrayList<Exercise>()));
-        Exercise pause = new Exercise("Pause", "Pause");
-        pause.setTime(30000); // 30 sec
-        Exercise burpees = new Exercise("Burpees", "Time");
-        burpees.setTime(600000); // 10 min
-        for (Workout w : workouts){
-            w.addExercise(new Exercise("Crunches", "Time"));
-            w.addExercise(new Exercise("Pull ups", "Repetition"));
-            w.addExercise(new Exercise("Push ups", "Repetition"));
-            w.addExercise(pause);
-            w.addExercise(new Exercise("Stretching", "Repetition"));
-            w.addExercise(burpees);
         }
 
         //make adapter with sample data
