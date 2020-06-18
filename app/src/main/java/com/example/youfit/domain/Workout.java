@@ -87,6 +87,16 @@ public class Workout implements Parcelable {
         return this.workoutType;
     }
 
+    public String formatType() {
+        String type = getWorkoutType();
+        if (type != null) {
+            String firstLetter = type.substring(0,1);
+            String rest = type.substring(1);
+            return firstLetter.toUpperCase() + rest.toLowerCase();
+        }
+        return null;
+    }
+
     public long getTime() {
         long time = 0;
         for(Exercise x : exercises)

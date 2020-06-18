@@ -86,7 +86,7 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         Log.d(TAG, "onBindViewHolder: called.");
 
         String workoutName = "Name: " + mWorkouts.get(position).getName();
-        String workoutType = "Type: " + formatType(mWorkouts.get(position).getWorkoutType());
+        String workoutType = "Type: " + mWorkouts.get(position).formatType();
         String workoutTime = "Time: " + mWorkouts.get(position).TimeAsString();
         String workoutDifficulty = "Difficulty: Medium";
         holder.workoutName.setText(workoutName);
@@ -105,15 +105,6 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         void onWorkoutClick(int Position);
         void onButtonClick(int Position);
 
-    }
-
-    public String formatType(String type) {
-        if (type != null) {
-            String firstLetter = type.substring(0,1);
-            String rest = type.substring(1);
-            return firstLetter.toUpperCase() + rest.toLowerCase();
-        }
-        return null;
     }
 
 }

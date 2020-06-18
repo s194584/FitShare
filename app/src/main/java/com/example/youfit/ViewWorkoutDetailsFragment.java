@@ -1,5 +1,7 @@
 package com.example.youfit;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +34,11 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     private static final String TAG = "ViewWorkoutDetailsFrag";
 
     private TextView workoutName;
+    private TextView workoutDifficulty;
+    private TextView workoutType;
+    private TextView workoutTime;
+    private TextView workoutCreator;
+    private TextView workoutDescription;
     private Button startWorkoutButton;
     private Button deleteWorkoutButton;
     private Button editWorkoutButton;
@@ -72,11 +80,8 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        startWorkoutButton = view.findViewById(R.id.start_workout_button);
-        deleteWorkoutButton = view.findViewById(R.id.delete_workout_button);
-        editWorkoutButton = view.findViewById(R.id.edit_workout_button);
 
-        exercises = mWorkout.getExercises();
+        formatAssets(view);
 
         if (fromPublic) {
             deleteWorkoutButton.setVisibility(View.GONE);
@@ -95,12 +100,29 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //deletion from database
-                Server server = ((MainActivity) getActivity()).getServer();
-                server.removeWorkout(mWorkout);
 
-                // go to previous fragment
-                getActivity().getSupportFragmentManager().popBackStack();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Do you want to delete workout " + mWorkout.getName() + "?")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //deletion from database
+                                Server server = ((MainActivity) getActivity()).getServer();
+                                server.removeWorkout(mWorkout);
+
+                                // go to previous fragment
+                                getActivity().getSupportFragmentManager().popBackStack();
+                            }
+                        }).setNegativeButton("Cancel", null);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        editWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -114,5 +136,40 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+    }
+
+    private void formatAssets(View view) {
+        startWorkoutButton = view.findViewById(R.id.start_workout_button);
+        deleteWorkoutButton = view.findViewById(R.id.delete_workout_button);
+        editWorkoutButton = view.findViewById(R.id.edit_workout_button);
+
+        workoutName = view.findViewById(R.id.workout_name_view);
+        workoutDifficulty = view.findViewById(R.id.workout_difficulty_view);
+        workoutType = view.findViewById(R.id.workout_type_view);
+        workoutTime = view.findViewById(R.id.workout_time_view);
+        workoutCreator = view.findViewById(R.id.workout_creator_view);
+        workoutDescription = view.findViewById(R.id.workout_description);
+
+        String workoutNameString = "Name: " + mWorkout.getName();
+        String workoutDifficultyString = "Difficulty: Medium";
+        String workoutTypeString = "Type: " + mWorkout.formatType();
+        String workoutTimeString = "Estimated time: " + mWorkout.TimeAsString();
+        String workoutCreatorString = "Creator: the_big_guy/girl";
+        String workoutDescriptionString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n" +
+                "        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex\n" +
+                "        ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n" +
+                "        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
+                "        sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+        workoutName.setText(workoutNameString);
+        workoutDifficulty.setText(workoutDifficultyString);
+        workoutType.setText(workoutTypeString);
+        workoutTime.setText(workoutTimeString);
+        workoutCreator.setText(workoutCreatorString);
+        workoutDescription.setText(workoutDescriptionString);
+
+        workoutDescription.setMovementMethod(new ScrollingMovementMethod());
+
+        exercises = mWorkout.getExercises();
     }
 }
