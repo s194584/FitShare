@@ -92,7 +92,6 @@
         android:layout_width="wrap_content"
         android:layout_height="400dp"
         android:layout_above="@+id/start_workout_button"
-        android:layout_="@+id/edittext_workout_name"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginBottom="35dp">
