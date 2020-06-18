@@ -61,22 +61,6 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         Log.i("HomeFragment", "1: Getting data");
         workouts = server.getCurrentUsersWorkouts();
 
-        // TODO: remove example data:
-        Exercise burpees = new Exercise("Burpees", "Repetition");
-        burpees.setReps(12);
-        Exercise pause = new Exercise("Pause", "Pause");
-        pause.setTime(20000);
-        Exercise stretching = new Exercise("Stretching", "Time");
-        stretching.setTime(60000);
-        Exercise pullUps = new Exercise("Pull-ups", "Repetition");
-        pullUps.setReps(8);
-        Workout w = new Workout("My workout");
-        w.addExercise(burpees);
-        w.addExercise(pause);
-        w.addExercise(pullUps);
-        w.addExercise(stretching);
-        workouts.add(w);
-
         //Get recycler view
         Log.i("HomeFragment", "2: Getting recyclerView");
         RecyclerView  plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
