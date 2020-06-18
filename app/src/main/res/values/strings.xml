@@ -120,6 +120,13 @@
         <item>Lunge</item>
         <item>Lunge jump</item>
         <item>Burpees</item>
+        <item>Tuck Jump</item>
+        <item>Bear Crawl</item>
+        <item>Plank to push-up</item>
+        <item>Pistol squats</item>
+        <item></item>
+        <item></item>
+        <item></item>
     </string-array>
 
     <string-array name="time_exercises">
@@ -129,6 +136,13 @@
         <item>Side Plank right</item>
         <item>Wall sit</item>
         <item>Superman</item>
+        <item>Mountain Climber</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
     </string-array>
 
 
