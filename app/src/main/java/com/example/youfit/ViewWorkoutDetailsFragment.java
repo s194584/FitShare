@@ -8,7 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,29 +19,31 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 
+import java.util.ArrayList;
+
 public class ViewWorkoutDetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String workoutString = "WORKOUT";
+    private static final String TAG = "ViewWorkoutDetailsFrag";
 
     private TextView workoutName;
     private Button startWorkoutButton;
     private Button deleteWorkoutButton;
+    private Button editWorkoutButton;
     private boolean fromPublic;
 
-    // TODO: Rename and change types of parameters
     private Workout mWorkout;
+    ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
 
     public ViewWorkoutDetailsFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static ViewWorkoutDetailsFragment newInstance(String param1) {
         ViewWorkoutDetailsFragment fragment = new ViewWorkoutDetailsFragment();
         Bundle args = new Bundle();
@@ -69,9 +74,13 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         startWorkoutButton = view.findViewById(R.id.start_workout_button);
         deleteWorkoutButton = view.findViewById(R.id.delete_workout_button);
+        editWorkoutButton = view.findViewById(R.id.edit_workout_button);
+
+        exercises = mWorkout.getExercises();
 
         if (fromPublic) {
             deleteWorkoutButton.setVisibility(View.GONE);
+            editWorkoutButton.setVisibility(View.GONE);
         }
 
         startWorkoutButton.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +103,16 @@ public class ViewWorkoutDetailsFragment extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
+        initRecyclerView(view);
+    }
+
+    private void initRecyclerView(View view) {
+        Log.d(TAG, "initRecyclerView: init recyclerview");
+        RecyclerView recyclerView = view.findViewById(R.id.exercisedetailsRV);
+        ClickWorkoutDetailAdapter adapter = new ClickWorkoutDetailAdapter(getContext(), exercises);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 }
