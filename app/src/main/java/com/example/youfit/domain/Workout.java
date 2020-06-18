@@ -101,7 +101,7 @@ public class Workout implements Parcelable {
     }
 
     public String TimeAsString() {
-        long time = getTime();
+        long time = getTime()/1000;
         long minutes = time / 60;
         long seconds = time % 60;
         return seconds < 10 ? minutes + ":" + "0" + seconds : minutes + ":" + seconds;

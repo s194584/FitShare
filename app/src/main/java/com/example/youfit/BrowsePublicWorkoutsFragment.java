@@ -1,5 +1,6 @@
 package com.example.youfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -52,12 +53,6 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        //workouts.clear();
-    }
-
     public void onWorkoutClick(int position) {
         Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
 
@@ -70,7 +65,11 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
 
     @Override
     public void onButtonClick(int position) {
-        Toast.makeText(getContext(), "BUTTON: " + workouts.get(position).getName(), Toast.LENGTH_SHORT).show();
-        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
+        Log.i("BrowsePublicFragment", "BUTTON CLICKED: " + workouts.get(position).getName());
+
+        Workout workout = workouts.get(position);
+        Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
+        intent.putExtra("workout", workout);
+        startActivity(intent);
     }
 }

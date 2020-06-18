@@ -1,10 +1,13 @@
 package com.example.youfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,19 +77,21 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         startWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Starting", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
+                intent.putExtra("workout", mWorkout);
+                startActivity(intent);
             }
         });
 
         deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Workout destroyed", Toast.LENGTH_SHORT).show();
-
                 //deletion from database
                 Server server = ((MainActivity) getActivity()).getServer();
                 server.removeWorkout(mWorkout);
 
+                // go to previous fragment
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 

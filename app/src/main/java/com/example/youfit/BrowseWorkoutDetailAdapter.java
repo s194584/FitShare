@@ -64,8 +64,6 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         public void onClick(View v) {
             onWorkoutListener.onWorkoutClick(getAdapterPosition());
         }
-
-
     }
 
     public BrowseWorkoutDetailAdapter(Context mContext, List<Workout> workouts, OnWorkoutListener onWorkoutListener)
@@ -95,21 +93,6 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         holder.workoutType.setText(workoutType);
         holder.workoutTime.setText(workoutTime);
         holder.workoutDifficulty.setText(workoutDifficulty);
-
-//        holder.detailLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mContext, mWorkouts.get(position).getName(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//
-//        holder.startWorkOutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mContext, "Workout!!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override
