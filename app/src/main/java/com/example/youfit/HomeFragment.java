@@ -110,9 +110,11 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     public void onWorkoutClick(int position) {
         Workout workout = workouts.get(position);
         Log.i("HomeFragment", "A workout has been clicked: " + workout.getName());
-        //intent intent = new Intent(this, xxx.java); //TODO show preview
-        //intent.putExtra("workout", workout);
-        //startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("WORKOUT", workouts.get(position));
+        bundle.putBoolean("public", false);
+        NavHostFragment.findNavController(HomeFragment.this)
+                .navigate(R.id.action_HomeFragment_to_ViewWorkoutDetailsFragment, bundle);
     }
 
     @Override
