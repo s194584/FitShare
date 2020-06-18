@@ -77,13 +77,16 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         workouts.add(new Workout("3", new ArrayList<Exercise>()));
         workouts.add(new Workout("4", new ArrayList<Exercise>()));
         workouts.add(new Workout("5", new ArrayList<Exercise>()));
+        Exercise pause = new Exercise("Pause", "Pause");
+        pause.setTime(30000); // 30 sec
         Exercise burpees = new Exercise("Burpees", "Time");
         burpees.setTime(600000); // 10 min
         for (Workout w : workouts){
+            w.addExercise(new Exercise("Crunches", "Time"));
             w.addExercise(new Exercise("Pull ups", "Repetition"));
             w.addExercise(new Exercise("Push ups", "Repetition"));
-            w.addExercise(new Exercise("Crunches", "Time"));
-            w.addExercise(new Exercise("Stretching", "Time"));
+            w.addExercise(pause);
+            w.addExercise(new Exercise("Stretching", "Repetition"));
             w.addExercise(burpees);
         }
 
@@ -127,18 +130,19 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     @Override
     public void onWorkoutClick(int position) {
         Workout workout = workouts.get(position);
-        Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
-        intent.putExtra("workout", workout);
-        startActivity(intent);
+        Log.i("HomeFragment", "A workout has been staarted");
+        //intent intent = new Intent(this, xxx.java); //TODO show preview
+        //intent.putExtra("workout", workout);
+        //startActivity(intent);
     }
 
     @Override
     public void onButtonClick(int position) {
+
         Workout workout = workouts.get(position);
-        Log.i("HomeFragment", "A workout has been staarted");
-        //intent intent = new Intent(this, xxx.java); //TODO start workout
-        //intent.putExtra("workout", workout);
-        //startActivity(intent);
+        Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
+        intent.putExtra("workout", workout);
+        startActivity(intent);
 
     }
 
