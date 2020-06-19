@@ -114,6 +114,8 @@
 
     # Dialogs
     <string name="exercise_no_exsist">Exercise does not exist. Give it a description</string>
+
+
     <string-array name="rep_exercises">
         <item>Pull-up</item>
         <item>Push-up</item>

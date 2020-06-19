@@ -36,6 +36,9 @@ public class EditExerciseDialogFragment extends DialogFragment {
     private int pos;
     private String description = "";
     private boolean wantNew;
+    private Context mContext;
+
+
     // UI elements
     AutoCompleteTextView autoCompleteTextView;
     EditText amountEditText;
@@ -56,13 +59,12 @@ public class EditExerciseDialogFragment extends DialogFragment {
         } catch(ClassCastException e){
                 Log.i("EditExerciseDialog","onAttach():  must implement EditExerciseDialogFragmentListener");
         }
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mContext = getActivity();
         exercise = getArguments().getParcelable("editExercise");
         pos = getArguments().getInt("position");
 
@@ -113,7 +115,8 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
+        // OnClick for Save button
+        ////////////////////////////////////////////////////////////////////////////////////////////
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,11 +128,17 @@ public class EditExerciseDialogFragment extends DialogFragment {
 
                 String name = autoCompleteTextView.getText().toString();
 
-                exerciseElement = ((MainActivity) getActivity()).getHashMap().getElement(name);
+                exerciseElement = ((MainActivity) mContext).getHashMap().getElement(name);
 
                 if (exerciseElement != null) {
-                    exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+                    exercise.setExerciseElement(exerciseElement);
+                    exercise.setAmount(Long.parseLong(amountEditText.getText().toString()));
+                    listener.onDialogSave(exercise, pos);
+                    getDialog().dismiss();
                 } else {
+
+                    // Save description dialog
+                    ////////////////////////////////////////////////////////////////////////////////////
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle(R.string.exercise_no_exsist);
                     final EditText input = new EditText(getActivity());
@@ -148,11 +157,11 @@ public class EditExerciseDialogFragment extends DialogFragment {
                             }
 
                             exerciseElement = new ExerciseElement(autoCompleteTextView.getText().toString(), type, description);
-                            ((MainActivity) getActivity()).getHashMap().addElement(exerciseElement);
+                            ((MainActivity) mContext).getHashMap().addElement(exerciseElement);
 
                             exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
-                            listener.onDialogSave(exercise, pos);
 
+                            listener.onDialogSave(exercise, pos);
                             dialogInterface.dismiss();
                         }
                     });
@@ -167,11 +176,13 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     });
                     builder.show();
                 }
+                ////////////////////////////////////////////////////////////////////////////////////
+
 
                 getDialog().dismiss();
             }
         });
-
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
         return inflatedView;
     }

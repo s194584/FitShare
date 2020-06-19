@@ -49,7 +49,6 @@ public class Exercise implements Parcelable {
     };
 
     public String getAmountString(){
-
         return ""+amount;
     }
 
@@ -94,8 +93,8 @@ public class Exercise implements Parcelable {
         this.exerciseElement = exerciseElement;
     }
 
-    public void setAmount(String amount)
+    public void setAmount(long amount)
     {
-        this.amount = Long.parseLong(amount);
+        this.amount = amount;
     }
 }
