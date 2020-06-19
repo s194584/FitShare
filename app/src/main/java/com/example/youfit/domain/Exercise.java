@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class Exercise implements Parcelable {
 
+    private ExerciseElement exerciseElement;
     protected String type;
     protected String name;
     protected int reps = 0;

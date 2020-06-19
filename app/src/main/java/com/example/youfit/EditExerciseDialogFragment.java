@@ -68,6 +68,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.rep_exercises));
         autoCompleteTextView.setAdapter(autocompleteAdapter);
         autoCompleteTextView.setText(exercise.getName());
+
         // RadioGroup
         radioGroup = inflatedView.findViewById(R.id.radioGroup);
 

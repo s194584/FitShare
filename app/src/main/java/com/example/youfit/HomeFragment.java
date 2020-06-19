@@ -46,8 +46,8 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Server server = ((MainActivity) getActivity()).getServer();
-        currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-1;
-        // Sunday = 0 is corrected to 7
+        currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2;
+        // Sunday = 1 is corrected to 6
         if(currentDay==-1){
             currentDay = 6;
         }
@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         welcomeBackTest.setText("Welcome back " + username + "!");
 
         //get workouts
-        Log.i("HomeFragment", "1: Getting data");
+        Log.i("HomeFragment", "1: Getting data and current day is: "+currentDay);
         workouts = server.getCurrentUsersWorkouts();
 
         //Get recycler view
