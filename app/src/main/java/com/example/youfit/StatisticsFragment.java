@@ -37,7 +37,7 @@ public class StatisticsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        //TODO implement with firebase data
+        //TODO implement with firebase data and uncomment
         /*
         int totalWorkoutTimeToday = 0;
         for(Workout x : user.getDailyWorkouts())
@@ -79,6 +79,10 @@ public class StatisticsFragment extends Fragment {
                 //TODO Save values in firebase
                 totalWaterAmount += setWaterAmount;
                 setWaterAmount = 0;
+                if(totalWaterAmount < 0)
+                {
+                    totalWaterAmount = 0;
+                }
                 setWaterAmountText.setText(""+setWaterAmount + " mL");
                 waterAmountText.setText(""+totalWaterAmount + " mL / " + waterGoal + " mL");
                 if (totalWaterAmount >= 2000)
