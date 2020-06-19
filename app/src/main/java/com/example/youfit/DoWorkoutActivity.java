@@ -2,14 +2,12 @@ package com.example.youfit;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -215,7 +213,7 @@ public class DoWorkoutActivity extends AppCompatActivity{
     }
 
     public void timerExercise(){
-        timeLeftInMilliseconds = currentExercise.getTime();
+        timeLeftInMilliseconds = Integer.parseInt(currentExercise.getAmountString());
         progressCircle.setMax((int) timeLeftInMilliseconds - 1000);
         progressCircle.setVisibility(View.VISIBLE);
         playPauseButton.setVisibility(View.VISIBLE);
@@ -228,12 +226,12 @@ public class DoWorkoutActivity extends AppCompatActivity{
         progressCircle.setVisibility(View.INVISIBLE);
         playPauseButton.setVisibility(View.INVISIBLE);
         stopButton.setVisibility(View.INVISIBLE);
-        temp = currentExercise.getReps() + "";
+        temp = currentExercise.getAmountString();
         currentTextViewExerciseType.setText(temp);
     }
 
     public void pause(){
-        timeLeftInMilliseconds = currentExercise.getTime();
+        timeLeftInMilliseconds = Integer.parseInt(currentExercise.getAmountString());
         START_TIME = timeLeftInMilliseconds;
         progressCircle.setMax((int) timeLeftInMilliseconds - 1000);
         progressCircle.setProgress(0);

@@ -4,18 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.google.firebase.database.Exclude;
-
-import org.xml.sax.helpers.DefaultHandler;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Workout implements Parcelable {
+    public String getUniqueID() {
+        return uniqueID;
+    }
+
     // Fields
     private String name ="";
     private String uniqueID; // Generated in database?
@@ -149,7 +144,7 @@ public class Workout implements Parcelable {
         long time = 0;
         for(Exercise x : exercises)
         {
-            time += x.getTime();
+            time += Integer.parseInt(x.getAmountString());
         }
         return time;
     }

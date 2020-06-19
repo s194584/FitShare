@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseElementList;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     protected boolean alreadyLoggedIn = false;
     protected Server server;
+    protected ExerciseElementList exerciseElementList = new ExerciseElementList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     public Server getServer() {
         return this.server;
+    }
+
+    public ExerciseElementList getHashMap()
+    {
+        return this.exerciseElementList;
     }
 
 

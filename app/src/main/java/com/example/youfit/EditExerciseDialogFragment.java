@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -21,7 +22,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EditExerciseDialogFragment extends DialogFragment {
     private final String TAG = "EditExerciseDialog";
@@ -63,11 +68,27 @@ public class EditExerciseDialogFragment extends DialogFragment {
         View inflatedView =inflater.inflate(R.layout.dialog_edit_exercise,container,false);
 
         // Auto complete setup
+        ArrayList<String> workoutNames = new ArrayList<String>(((MainActivity) getActivity()).getHashMap().getHashMap().keySet());
         autoCompleteTextView = inflatedView.findViewById(R.id.autoedittext_edit_exercise_name);
-        ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.rep_exercises));
+        final ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(),
+                R.layout.support_simple_spinner_dropdown_item, workoutNames);
         autoCompleteTextView.setAdapter(autocompleteAdapter);
         autoCompleteTextView.setText(exercise.getName());
+        autoCompleteTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String string = (String) parent.getItemAtPosition(position);
+                HashMap<String, ExerciseElement> hashmap = ((MainActivity) getActivity()).getHashMap().getHashMap();
+                ExerciseElement exerciseElement = hashmap.get(string);
+
+                
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         // RadioGroup
         radioGroup = inflatedView.findViewById(R.id.radioGroup);
 
@@ -101,14 +122,30 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     return;
                 }
 
-                exercise.setName(autoCompleteTextView.getText().toString());
-                if(radioGroup.getCheckedRadioButtonId()==R.id.radiobutton_edit_exercise_reps){
-                    exercise.setType(ExerciseType.REPETITION.name());
-                    exercise.setReps(Integer.parseInt(amountEditText.getText().toString()));
-                }else{
-                    exercise.setType(ExerciseType.TIME.name());
-                    exercise.setTime(Long.parseLong(amountEditText.getText().toString()));
-                }
+                String name = autoCompleteTextView.getText().toString();
+
+                ExerciseElement exerciseElement = ((MainActivity) getActivity()).getHashMap().getElement(name);
+
+                if(exerciseElement != null)
+                {
+                    exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+
+                }else
+                    {
+                        String type;
+                        if(radioGroup.getCheckedRadioButtonId()==R.id.radiobutton_edit_exercise_reps){
+                            type = ExerciseType.REPETITION.name();
+                        }else{
+                            type = ExerciseType.TIME.name();
+                        }
+
+                        exerciseElement = new ExerciseElement(autoCompleteTextView.getText().toString(), type, "" );
+
+                        ((MainActivity) getActivity()).getHashMap().addElement(exerciseElement);
+
+                        exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+                    }
+
 
                 listener.onDialogSave(exercise,pos);
                 getDialog().dismiss();

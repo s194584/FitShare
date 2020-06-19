@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
 
         //add adapter to recycle view
-        Log.i("HomeFragment", "3: Getting firebase data");
+        Log.i("HomeFragment", "3: Getting firebase date");
         assert plannedWorkoutsRV != null;
         DatabaseReference userWorkoutsRef = FirebaseDatabase.getInstance().getReference("Users/" + server.getUserUID() + "/savedWorkouts");
         userWorkoutsRef.addValueEventListener(new ValueEventListener() {
