@@ -1,5 +1,7 @@
 package com.example.youfit;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +16,9 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Server;
@@ -44,7 +48,12 @@ public class SettingsFragment extends Fragment{
             }
         });
 
-
+        ((Switch)view.findViewById(R.id.switch_notifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setupNotifications(b);
+            }
+        });
 
         view.findViewById(R.id.logOutBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +78,13 @@ public class SettingsFragment extends Fragment{
         });
     }
 
+    private void setupNotifications(boolean b) {
+        Notification.Builder builder = new Notification.Builder(getActivity());
+        builder.setContentText("Hey, got any workouts?")
+                .setContentTitle("Your favorite workout app")
+                .setPriority(Notification.PRIORITY_DEFAULT);
+    }
+
     private void showNoticeDialog() {
         DialogFragment noticeDialog = new SignOutDialogFragment();
         noticeDialog.show(getActivity().getSupportFragmentManager(), "signOut" );
@@ -78,4 +94,7 @@ public class SettingsFragment extends Fragment{
         DialogFragment passwordDialog = new ChangePasswordDialogFragment();
         passwordDialog.show(getActivity().getSupportFragmentManager(), "password_change");
     }
+
+
+
 }
