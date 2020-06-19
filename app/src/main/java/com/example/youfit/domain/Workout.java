@@ -12,6 +12,7 @@ public class Workout implements Parcelable {
     private String uniqueID;
     private long time;
     private String description;
+    private String creator;
 
     private ArrayList<Exercise> exercises = new ArrayList<>();
     private String workoutType;
@@ -122,12 +123,13 @@ public class Workout implements Parcelable {
         return this.workoutDifficulty;
     }
 
-
     public boolean getPublic() { return this.publicWorkout; }
+
+    public String getCreator() { return creator; }
 
     public String formatType() {
         String type = getWorkoutType();
-        if (type != null) {
+        if (type != null && type.length() > 0) {
             String firstLetter = type.substring(0,1);
             String rest = type.substring(1);
             return firstLetter.toUpperCase() + rest.toLowerCase();
@@ -221,4 +223,10 @@ public class Workout implements Parcelable {
     public void setName(String toString) {
         name = toString;
     }
+
+    public void setCreator(String creator) { this.creator = creator; }
+
+    public void setDescription(String description) {this.description = description; }
+
+    public void setWorkoutDifficulty(String workoutDifficulty) {this.workoutDifficulty = workoutDifficulty; }
 }

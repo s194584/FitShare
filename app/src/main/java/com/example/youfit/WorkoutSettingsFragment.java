@@ -1,12 +1,16 @@
 package com.example.youfit;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -26,9 +30,14 @@ import java.util.List;
 
 public class WorkoutSettingsFragment extends Fragment {
 
+    private String TAG = "WorkoutSettingsFragment";
     Workout currentWorkout;
     LinearLayout recurringChecks;
     String existingWorkoutKey;
+    EditText descriptionText;
+    Spinner typeSpinner;
+    Spinner difficultySpinner;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,8 +64,24 @@ public class WorkoutSettingsFragment extends Fragment {
         for(int i = 0; i < tempRecurring.size(); i++){
             ((CheckBox) recurringChecks.getChildAt(i)).setChecked(tempRecurring.get(i));
         }
+
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.isNotifications());
         ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.isPublicWorkout());
+
+        typeSpinner = ((Spinner) getActivity().findViewById(R.id.typespinner));
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_types, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+        setSelectedType();
+
+        difficultySpinner = ((Spinner) getActivity().findViewById(R.id.difficultyspinner));
+        ArrayAdapter<CharSequence> difficultyAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_difficulties, android.R.layout.simple_spinner_item);
+        difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        difficultySpinner.setAdapter(difficultyAdapter);
+        setSelectedDifficulty();
+
+        descriptionText = ((EditText) getActivity().findViewById(R.id.edittext_description));
+        descriptionText.setText(currentWorkout.getDescription());
 
         // Complete button listener
         getActivity().findViewById(R.id.button_workout_settings_complete).setOnClickListener(new View.OnClickListener() {
@@ -95,11 +120,44 @@ public class WorkoutSettingsFragment extends Fragment {
             tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
         }
 
-        workout.setWorkoutType(WorkoutType.DEFAULT.name()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
+        workout.setWorkoutType(typeSpinner.getSelectedItem().toString()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
+        workout.setWorkoutDifficulty(difficultySpinner.getSelectedItem().toString());
         workout.setRecurring(new ArrayList<Boolean>(tempRecurring));
         workout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
         workout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
+        workout.setDescription(descriptionText.getText().toString());
+        workout.setCreator(((MainActivity) getActivity()).getServer().getUsername());
         return workout;
     }
 
+    public void setSelectedType() {
+        if (currentWorkout.getWorkoutType() != null) {
+            if (currentWorkout.getWorkoutType().equals("Strength")) {
+                typeSpinner.setSelection(1);
+            } else if (currentWorkout.getWorkoutType().equals("Cardio")) {
+                typeSpinner.setSelection(2);
+            } else {
+                typeSpinner.setSelection(0);
+            }
+        }
+
+    }
+
+    public void setSelectedDifficulty() {
+        Log.d(TAG, "setSelectedDifficulty: tried: ");
+        if (currentWorkout.getWorkoutDifficulty() != null) {
+            if (currentWorkout.getWorkoutDifficulty().equals("Beginner")) {
+                difficultySpinner.setSelection(0);
+            } else if (currentWorkout.getWorkoutDifficulty().equals("Medium")) {
+                difficultySpinner.setSelection(1);
+            } else if (currentWorkout.getWorkoutDifficulty().equals("Hard")) {
+                difficultySpinner.setSelection(2);
+            } else if (currentWorkout.getWorkoutDifficulty().equals("Extreme")) {
+                difficultySpinner.setSelection(3);
+            }  else {
+                difficultySpinner.setSelection(4);
+            }
+        }
+
+    }
 }

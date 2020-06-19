@@ -101,6 +101,9 @@
     <string name="saturday">S</string>
     <string name="sunday">S</string>
     <string name="public_string">Public</string>
+    <string name="type_string">Set type:</string>
+    <string name="difficulty_string">Set difficulty:</string>
+    <string name="description_string">Workout description here</string>
 
     #Item workout detail
     <string name="workout_name_goes_here">Workout name goes here</string>
@@ -152,5 +155,18 @@
         <item>Cross body Mountain climbers</item>
     </string-array>
 
+    <string-array name="workout_types">
+        <item>Default</item>
+        <item>Strength</item>
+        <item>Cardio</item>
+    </string-array>
+
+    <string-array name="workout_difficulties">
+        <item>Beginner</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Extreme</item>
+        <item>Undefined</item>
+    </string-array>
 
 </resources>
