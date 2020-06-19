@@ -96,13 +96,7 @@ public class Server {
     }
 
     public void removeWorkout(Workout workout) {
-        String key = "";
-        for (Map.Entry<String, Workout> entry : this.currentUsersWorkouts.entrySet()) {
-            if (Objects.equals(workout, entry.getValue())) {
-                key = (entry.getKey());
-                break;
-            }
-        }
+        String key = getKey(workout);
 
         this.firebaseAuth = FirebaseAuth.getInstance();
 
@@ -115,12 +109,11 @@ public class Server {
 
     }
 
-    public void changeWorkout(Workout workout) {
+    public void changeWorkout(Workout workout, String key) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
             this.rootNode = FirebaseDatabase.getInstance();
-            String key = getKey(workout);
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
             if (this.currentUsersWorkouts.containsKey(key)) {
@@ -133,12 +126,6 @@ public class Server {
 
             databaseReference.child(key).setValue(workout);
         }
-    }
-
-    private void changePuplicWorkout(String key, Workout workout) {
-        this.publicWorkouts.put(key,workout);
-        DatabaseReference databaseReference = this.rootNode.getReference("PuplicWorkouts");
-        databaseReference.child(key).setValue(workout);
     }
 
 
@@ -205,9 +192,14 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("PublicWorkouts");
 
-//            this.publicWorkouts.add(workout); //TODO: is this really nessesary?
             databaseReference.child(key).setValue(workout); // add workout with same key as Users workout
         }
+    }
+
+    private void changePuplicWorkout(String key, Workout workout) {
+        this.publicWorkouts.put(key,workout);
+        DatabaseReference databaseReference = this.rootNode.getReference("PuplicWorkouts");
+        databaseReference.child(key).setValue(workout);
     }
 
 
@@ -296,7 +288,7 @@ public class Server {
         }
     }
 
-    private String getKey(Workout workout) {
+    public String getKey(Workout workout) {
         String key = "";
         for (Map.Entry<String, Workout> entry : this.currentUsersWorkouts.entrySet()) {
             if (Objects.equals(workout, entry.getValue())) {
