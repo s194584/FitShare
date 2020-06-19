@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 public class ExerciseElement implements Parcelable {
 
-    private String name;
-    private String type;
-    private String description;
+    private String name = "";
+    private String type = "";
+    private String description = "";
 
     public void setName(String name) {
         this.name = name;

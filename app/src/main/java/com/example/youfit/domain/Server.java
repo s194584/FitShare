@@ -52,7 +52,7 @@ public class Server {
     public Server(Activity activity) {
         this.activity = activity;
         loadCurrentUser();
-        loadPublicWorkouts();
+        //loadPublicWorkouts();
         onServerSetupCompleteListener = (OnServerSetupCompleteListener) activity;
 
     }
@@ -279,6 +279,18 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid());
 
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.i(TAG,"Done loading initial data");
+                    onServerSetupCompleteListener.onSetupComplete();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
             // Attach a listener to read the data at our user reference
             databaseReference.addListenerForSingleValueEvent ( new ValueEventListener() {

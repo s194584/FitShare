@@ -32,8 +32,10 @@ public class EditExerciseDialogFragment extends DialogFragment {
     private final String TAG = "EditExerciseDialog";
     // Exercise
     private Exercise exercise;
+    private ExerciseElement exerciseElement;
     private int pos;
-
+    private String description = "";
+    private boolean wantNew;
     // UI elements
     AutoCompleteTextView autoCompleteTextView;
     EditText amountEditText;
@@ -74,19 +76,18 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 R.layout.support_simple_spinner_dropdown_item, workoutNames);
         autoCompleteTextView.setAdapter(autocompleteAdapter);
         autoCompleteTextView.setText(exercise.getName());
-        autoCompleteTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String string = (String) parent.getItemAtPosition(position);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String string = (String) adapterView.getItemAtPosition(i);
                 HashMap<String, ExerciseElement> hashmap = ((MainActivity) getActivity()).getHashMap().getHashMap();
                 ExerciseElement exerciseElement = hashmap.get(string);
-
-                
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                Log.i(TAG,"Item selected. The type is: "+exerciseElement.getType());
+                if(exerciseElement.getType().equals(ExerciseType.REPETITION.name())){
+                    radioGroup.check(R.id.radiobutton_edit_exercise_reps);
+                }else{
+                    radioGroup.check(R.id.radiobutton_edit_exercise_time);
+                }
             }
         });
         // RadioGroup
@@ -117,37 +118,56 @@ public class EditExerciseDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 // Check that all inputs have been filled:
-                if(autoCompleteTextView.getText().toString().isEmpty() || amountEditText.getText().toString().isEmpty()){
-                    Toast.makeText(view.getContext(),"Not all fields has been filled.",Toast.LENGTH_SHORT);
+                if (autoCompleteTextView.getText().toString().isEmpty() || amountEditText.getText().toString().isEmpty()) {
+                    Toast.makeText(view.getContext(), "Not all fields has been filled.", Toast.LENGTH_SHORT);
                     return;
                 }
 
                 String name = autoCompleteTextView.getText().toString();
 
-                ExerciseElement exerciseElement = ((MainActivity) getActivity()).getHashMap().getElement(name);
+                exerciseElement = ((MainActivity) getActivity()).getHashMap().getElement(name);
 
-                if(exerciseElement != null)
-                {
+                if (exerciseElement != null) {
                     exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle(R.string.exercise_no_exsist);
+                    final EditText input = new EditText(getActivity());
+                    builder.setView(input);
 
-                }else
-                    {
-                        String type;
-                        if(radioGroup.getCheckedRadioButtonId()==R.id.radiobutton_edit_exercise_reps){
-                            type = ExerciseType.REPETITION.name();
-                        }else{
-                            type = ExerciseType.TIME.name();
+                    builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            description = input.getText().toString();
+
+                            String type;
+                            if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_reps) {
+                                type = ExerciseType.REPETITION.name();
+                            } else {
+                                type = ExerciseType.TIME.name();
+                            }
+
+                            exerciseElement = new ExerciseElement(autoCompleteTextView.getText().toString(), type, description);
+                            ((MainActivity) getActivity()).getHashMap().addElement(exerciseElement);
+
+                            exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+                            listener.onDialogSave(exercise, pos);
+
+                            dialogInterface.dismiss();
                         }
+                    });
 
-                        exerciseElement = new ExerciseElement(autoCompleteTextView.getText().toString(), type, "" );
-
-                        ((MainActivity) getActivity()).getHashMap().addElement(exerciseElement);
-
-                        exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
-                    }
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                listener.onDialogSave(exercise,pos);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
+
                 getDialog().dismiss();
             }
         });

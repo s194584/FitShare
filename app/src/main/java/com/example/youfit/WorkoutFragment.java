@@ -27,6 +27,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Workout;
 
@@ -138,7 +139,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
         addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showEditExercise(new Exercise(""),-1);
+                showEditExercise(new Exercise(new ExerciseElement()),-1);
             }
         });
 //        addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
