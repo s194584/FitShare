@@ -58,7 +58,9 @@
         android:label="WorkoutSettingsFragment" >
         <action
             android:id="@+id/action_workoutSettingsFragment_to_workoutFragment"
-            app:destination="@id/workoutFragment" />
+            app:destination="@id/workoutFragment"
+            app:popUpTo="@id/workoutFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_workoutSettingsFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
@@ -67,5 +69,9 @@
         android:id="@+id/viewWorkoutDetailsFragment"
         android:name="com.example.youfit.ViewWorkoutDetailsFragment"
         android:label="fragment_view_workout_details"
-        tools:layout="@layout/fragment_view_workout_details" />
+        tools:layout="@layout/fragment_view_workout_details" >
+        <action
+            android:id="@+id/action_viewWorkoutDetailsFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
 </navigation>

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,8 @@ import com.example.youfit.domain.Workout;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 public class WorkoutFragment extends Fragment implements EditExerciseDialogFragment.EditExerciseDialogFragmentListener, ExersiceAdapter.OnExerciseListener{
     private final String TAG = "WorkoutFragment";
 
@@ -49,6 +52,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workout, container, false);
     }
@@ -123,7 +127,11 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
                 Log.i("EXERCISEFRAGMENT", "WORKOUT CREATED");
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout", currentWorkout);
-                NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment, bundle);
+                NavHostController navController = (NavHostController) NavHostFragment.findNavController(WorkoutFragment.this);
+                navController.navigate(R.id.action_workoutFragment_to_workoutSettingsFragment, bundle);
+                navController.popBackStack(R.id.workoutSettingsFragment,false);
+//                navController.popBackStack(R.id.workoutFragment,false);
+
             }
         });
 

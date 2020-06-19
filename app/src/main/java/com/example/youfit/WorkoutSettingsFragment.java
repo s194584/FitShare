@@ -12,6 +12,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.youfit.domain.Server;
@@ -30,7 +31,6 @@ public class WorkoutSettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         if(getArguments()!=null){
             currentWorkout = getArguments().getParcelable("newWorkout");
         } else{
@@ -74,7 +74,9 @@ public class WorkoutSettingsFragment extends Fragment {
                 currentWorkout = saveWorkout(currentWorkout);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout",currentWorkout);
-                NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
+                NavHostController navController = (NavHostController) NavHostFragment.findNavController(WorkoutSettingsFragment.this);
+                navController.getBackStackEntry(R.id.workoutFragment);
+                navController.navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
             }
         });
     }

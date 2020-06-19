@@ -53,11 +53,10 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     private OnWorkoutListener mOnWorkoutListener;
     private int weekOfDay;
 
-    public WorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener, int weekOfDay)
+    public WorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener)
     {
         mWorkouts = workouts;
         this.mOnWorkoutListener = onWorkoutListener;
-        this.weekOfDay = weekOfDay;
     }
 
     @Override
@@ -80,12 +79,6 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
         textView.setText(workout.getName());
         TextView textView1 = viewHolder.workoutTime;
         textView1.setText(""+workout.getTime());
-
-        // Only show if it is on the correct day
-        if(workout.getRecurring()!=null&&workout.getRecurring().size()>1) {
-            if(workout.getRecurring().get(weekOfDay-1))
-                viewHolder.itemView.setVisibility(View.GONE);
-        }
     }
 
     @Override

@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <include
         android:id="@+id/include"
-        layout="@layout/content_main" />
-
-
+        layout="@layout/content_main"
+        tools:layout_editor_absoluteX="-194dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -22,5 +23,14 @@
         app:layout_constraintEnd_toStartOf="@+id/include"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
+
+    <include
+        layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
