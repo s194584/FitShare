@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         welcomeBackTest.setText("Welcome back " + username + "!");
 
         //get workouts
-        Log.i("HomeFragment", "1: Getting data");
+        Log.i("HomeFragment", "1: Getting data and current day is: "+currentDay);
         workouts = server.getCurrentUsersWorkouts();
 
         //Get recycler view

@@ -105,6 +105,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+
+    <Switch
+        android:id="@+id/switch_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="Nofitications"
+        app:layout_constraintBottom_toBottomOf="@+id/xxx"
+        app:layout_constraintEnd_toEndOf="@+id/xxx"
+        app:layout_constraintStart_toEndOf="@+id/logOutBtn"
+        app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

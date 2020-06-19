@@ -107,7 +107,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
         });
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        getActivity().findViewById(R.id.addPauseBtn).setOnClickListener(new View.OnClickListener() {
+        getActivity().findViewById(R.id.addPauseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Exercise pause = new Exercise("Pause");
@@ -135,7 +135,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
             }
         });
 
-        Button addExcersizeBtn = view.findViewById(R.id.addExerciseBtn);
+        Button addExcersizeBtn = view.findViewById(R.id.addExerciseButton);
         addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
