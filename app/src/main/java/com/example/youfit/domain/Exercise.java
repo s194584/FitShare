@@ -12,6 +12,13 @@ public class Exercise implements Parcelable {
 
     public Exercise() { }
 
+    public Exercise(Exercise exercise) {
+        this.type= exercise.type;
+        this.name = exercise.name;
+        this.reps = exercise.reps;
+        this.time = exercise.time;
+    }
+
     public Exercise(String name) {
         this.name = name;
         this.type = ExerciseType.REPETITION.name();

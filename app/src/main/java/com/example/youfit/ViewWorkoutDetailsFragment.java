@@ -124,8 +124,10 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("newWorkout", mWorkout);
+                Workout workout = new Workout(mWorkout);
+                bundle.putParcelable("newWorkout", workout);
                 bundle.putBoolean("isWorkoutExisting", true);
+                bundle.putString("key", ((MainActivity) getActivity()).getServer().getKey(mWorkout));
                 NavHostFragment.findNavController(ViewWorkoutDetailsFragment.this)
                         .navigate(R.id.action_viewWorkoutDetailsFragment_to_workoutFragment, bundle);
             }

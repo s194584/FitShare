@@ -28,14 +28,17 @@ public class WorkoutSettingsFragment extends Fragment {
 
     Workout currentWorkout;
     LinearLayout recurringChecks;
+    String existingWorkoutKey;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(getArguments()!=null){
             currentWorkout = getArguments().getParcelable("newWorkout");
+            existingWorkoutKey = getArguments().getString("key");
         } else{
             currentWorkout = new Workout();
         }
+
         return inflater.inflate(R.layout.fragment_workout_settings, container, false);
     }
 
@@ -61,7 +64,12 @@ public class WorkoutSettingsFragment extends Fragment {
             public void onClick(View view) {
                 currentWorkout = saveWorkout(currentWorkout);
                 Server server = ((MainActivity) getActivity()).getServer();
-                server.addWorkout(currentWorkout);
+
+                if (existingWorkoutKey.isEmpty()) {
+                    server.addWorkout(currentWorkout);
+                } else {
+                    server.changeWorkout(currentWorkout, existingWorkoutKey);
+                }
 
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment);
             }
@@ -75,6 +83,7 @@ public class WorkoutSettingsFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout",currentWorkout);
                 bundle.putBoolean("isWorkoutExisting", false);
+                bundle.putString("key", existingWorkoutKey);
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
             }
         });
