@@ -10,10 +10,6 @@
     android:background="@drawable/baggrund_400x50">
 
 
-
-    <!-- TODO: Update blank fragment layout -->
-
-
     <TextView
         android:id="@+id/workout_info_text"
         android:layout_width="316dp"

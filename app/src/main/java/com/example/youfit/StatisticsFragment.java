@@ -16,20 +16,20 @@ public class StatisticsFragment extends Fragment {
     int waterGoal = 2000;
     int setWaterAmount = 0;
     TextView setWaterAmountText;
-    int totalWaterAmount = 0; //TODO firebase, baby
+    int totalWaterAmount = 0; //TODO firebase, baby. Probably just an integer.
     TextView waterAmountText;
     androidx.appcompat.widget.AppCompatImageButton addWaterButton;
     androidx.appcompat.widget.AppCompatImageButton subtractWaterButton;
     androidx.appcompat.widget.AppCompatImageButton drinkButton;
 
-    int totalWorkoutsWeekly = 0; //TODO firebase, baby
+    int totalWorkoutsWeekly = 0; //TODO firebase, baby. Gotta be a list of dates and how long they took.
     TextView totalWorkoutsWeeklyText;
-    int totalTimeWeekly = 0; //TODO firebase, baby
+    int totalTimeWeekly = 0; //TODO firebase, baby. Yup, that would be the "how long it took" part
     TextView totalTimeWeeklyText;
 
-    int totalWorkoutsTotal = 0; //TODO firebase, baby
+    int totalWorkoutsTotal = 0; //TODO firebase, baby. Probably just an integer.
     TextView totalWorkoutsTotalText;
-    int totalTimeTotal = 0; //TODO firebase, baby
+    int totalTimeTotal = 0; //TODO firebase, baby. Propably just an integer. Might be relevant to make it hours when number get heigh enough.
     TextView totalTimeTotalText;
 
     @Override
@@ -37,7 +37,7 @@ public class StatisticsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        //TODO implement with firebase data and uncomment
+        //TODO implement with data from firebase, uncomment and fix.
         /*
         int totalWorkoutTimeToday = 0;
         for(Workout x : user.getDailyWorkouts())
