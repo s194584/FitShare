@@ -49,8 +49,6 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<Exercise> exercises = new ArrayList<>();
     protected Workout currentWorkout;
-    protected Workout existingWorkout;
-    boolean isWorkoutExisting;
     String existingWorkoutKey;
 
     @Override
@@ -64,16 +62,12 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
-            if (getArguments().getBoolean("existingWorkout")) {
-              existingWorkout = (Workout) getArguments().get("newWorkout");
-
-              currentWorkout = new Workout(existingWorkout.getName());
-
-            }
             this.currentWorkout = (Workout) getArguments().get("newWorkout");
+            existingWorkoutKey = getArguments().getString("key");
             exercises = currentWorkout.getExercises();
         } else{
             currentWorkout = new Workout();
+            existingWorkoutKey = "";
         }
     }
 
@@ -136,7 +130,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
                 Log.i("EXERCISEFRAGMENT", "WORKOUT CREATED");
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout", currentWorkout);
-
+                bundle.putString("key", existingWorkoutKey);
                 NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment, bundle);
             }
         });

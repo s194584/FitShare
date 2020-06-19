@@ -8,6 +8,10 @@ import com.google.firebase.database.Exclude;
 
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +28,6 @@ public class Workout implements Parcelable {
 
     private ArrayList<Boolean> recurring = new ArrayList<>();
     private boolean notifications, publicWorkout;
-
 
     public Workout(){ }
 
@@ -70,17 +73,21 @@ public class Workout implements Parcelable {
         Log.i("Workout/Constructor", "Created a workout with parcel");
     }
 
-    public Workout(String name, String uniqueID, long time, String description, ArrayList<Exercise> exercises, String workoutType, String workoutDifficulty, ArrayList<Boolean> recurring, boolean notifications, boolean publicWorkout) {
-        this.name = name;
-        this.uniqueID = uniqueID;
-        this.time = time;
-        this.description = description;
-        this.exercises = exercises;
-        this.workoutType = workoutType;
-        this.workoutDifficulty = workoutDifficulty;
-        this.recurring = recurring;
-        this.notifications = notifications;
-        this.publicWorkout = publicWorkout;
+    public Workout(Workout workout) {
+        this.name = workout.name;
+        this.time = workout.time;
+        this.description = workout.description;
+        this.workoutType = workout.workoutType;
+        this.workoutDifficulty = workout.workoutDifficulty;
+        this.recurring = workout.recurring;
+        this.notifications = workout.notifications;
+        this.publicWorkout = workout.publicWorkout;
+
+        ArrayList<Exercise> tempExercises = new ArrayList<>();
+        for (Exercise e: workout.exercises) {
+            tempExercises.add(new Exercise(e));
+        }
+        this.exercises = tempExercises;
     }
 
     public void addExercise (Exercise exercise) {
@@ -114,6 +121,9 @@ public class Workout implements Parcelable {
     public String getWorkoutDifficulty() {
         return this.workoutDifficulty;
     }
+
+
+    public boolean getPublic() { return this.publicWorkout; }
 
     public String formatType() {
         String type = getWorkoutType();
