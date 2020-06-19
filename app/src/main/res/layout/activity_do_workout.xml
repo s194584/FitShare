@@ -46,14 +46,27 @@
 
     <SeekBar
         android:id="@+id/seekBar"
-        android:layout_width="364dp"
+        android:layout_width="300dp"
         android:layout_height="25dp"
+        android:layout_marginRight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.963" />
+
+    <Chronometer
+        android:id="@+id/totalWorkoutTime"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/view_flipper"
+        app:layout_constraintVertical_bias="0.888" />
 
     <ViewFlipper
         android:id="@+id/view_flipper"

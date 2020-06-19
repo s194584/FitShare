@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 import com.google.firebase.database.DataSnapshot;
