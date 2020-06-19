@@ -90,7 +90,8 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 }else{
                     radioGroup.check(R.id.radiobutton_edit_exercise_time);
                 }
-                radioGroup.setEnabled(false);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setClickable(false);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setClickable(false);
             }
         });
         // RadioGroup
