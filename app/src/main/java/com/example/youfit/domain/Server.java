@@ -37,38 +37,38 @@ public class Server {
     protected User currentUser;
     private OnServerSetupCompleteListener onServerSetupCompleteListener;
     //Firebase key --> Workout
-    protected HashMap<String,Workout> publicWorkouts = new HashMap<>();
-    protected HashMap<String,Workout> currentUsersWorkouts = new HashMap<>();
+    protected HashMap<String, Workout> publicWorkouts = new HashMap<>();
+    protected HashMap<String, Workout> currentUsersWorkouts = new HashMap<>();
+    protected HashMap<String, ExerciseElement> preDefinedExercises = new HashMap<>();
 
 //    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
 //    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
-    public interface OnServerSetupCompleteListener
-    {
+    public interface OnServerSetupCompleteListener {
         void onSetupComplete();
     }
 
 
     public Server(Activity activity) {
+        onServerSetupCompleteListener = (OnServerSetupCompleteListener) activity;
         this.activity = activity;
         loadCurrentUser();
-        //loadPublicWorkouts();
-        onServerSetupCompleteListener = (OnServerSetupCompleteListener) activity;
-
+//        loadPublicWorkouts();
+        loadPreDefinedExercises();
     }
 
     public String getUsername() {
-        return (this.currentUser!=null) ? currentUser.getName() : "could not finde username";
+        return (this.currentUser != null) ? currentUser.getName() : "could not finde username";
     }
 
-    public String getUserUID(){
+    public String getUserUID() {
         return this.firebaseAuth.getCurrentUser().getUid();
     }
 
     public ArrayList<Workout> getPublicWorkouts() {
         ArrayList<Workout> res = new ArrayList<>();
 
-        for (String key: publicWorkouts.keySet()) {
+        for (String key : publicWorkouts.keySet()) {
             if (!currentUsersWorkouts.containsKey(key)) {
                 res.add(publicWorkouts.get(key));
             }
@@ -78,14 +78,14 @@ public class Server {
     }
 
     public ArrayList<Workout> getCurrentUsersWorkouts() {
-        return (this.currentUser!= null) ? new ArrayList<Workout>(currentUsersWorkouts.values()) : new ArrayList<Workout>();
+        return (this.currentUser != null) ? new ArrayList<Workout>(currentUsersWorkouts.values()) : new ArrayList<Workout>();
     }
 
     private ArrayList<Workout> getAllPublicWorkouts() {
-        return (this.currentUser!=null) ?  new ArrayList<Workout>(publicWorkouts.values()) : new ArrayList<Workout>();
+        return (this.currentUser != null) ? new ArrayList<Workout>(publicWorkouts.values()) : new ArrayList<Workout>();
     }
 
-    public void updateCurrentUserUsername (String name) {
+    public void updateCurrentUserUsername(String name) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
@@ -132,10 +132,10 @@ public class Server {
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
             if (this.currentUsersWorkouts.containsKey(key)) {
-                this.currentUsersWorkouts.put(key,workout);
+                this.currentUsersWorkouts.put(key, workout);
             }
             if (workout.isPublicWorkout()) {
-                changePuplicWorkout(key,workout);
+                changePuplicWorkout(key, workout);
             }
 
 
@@ -149,16 +149,16 @@ public class Server {
 
         if (firebaseAuth.getCurrentUser() != null) {
             this.rootNode = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid()+ "/savedWorkouts");
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
             databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
                     if (workout.isPublicWorkout()) {
-                        addPublicWorkouts(workout,dataSnapshot.getKey());
+                        addPublicWorkouts(workout, dataSnapshot.getKey());
                     }
-                    currentUsersWorkouts.put(dataSnapshot.getKey(),workout);
+                    currentUsersWorkouts.put(dataSnapshot.getKey(), workout);
                 }
 
                 @Override
@@ -170,7 +170,7 @@ public class Server {
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
                     if (workout.isPublicWorkout()) {
-                        removePublicWorkouts(workout,dataSnapshot.getKey());
+                        removePublicWorkouts(workout, dataSnapshot.getKey());
                     }
                     currentUsersWorkouts.remove(dataSnapshot.getKey());
                 }
@@ -212,7 +212,7 @@ public class Server {
     }
 
     private void changePuplicWorkout(String key, Workout workout) {
-        this.publicWorkouts.put(key,workout);
+        this.publicWorkouts.put(key, workout);
         DatabaseReference databaseReference = this.rootNode.getReference("PuplicWorkouts");
         databaseReference.child(key).setValue(workout);
     }
@@ -228,7 +228,7 @@ public class Server {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.i(TAG,"Done loading initial data");
+                    Log.i(TAG, "Done loading initial data");
                     onServerSetupCompleteListener.onSetupComplete();
                 }
 
@@ -242,7 +242,7 @@ public class Server {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
-                    publicWorkouts.put(dataSnapshot.getKey(),workout);
+                    publicWorkouts.put(dataSnapshot.getKey(), workout);
                 }
 
                 @Override
@@ -282,8 +282,8 @@ public class Server {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.i(TAG,"Done loading initial data");
-                    onServerSetupCompleteListener.onSetupComplete();
+                    Log.i(TAG, "Done loading initial data");
+//                    onServerSetupCompleteListener.onSetupComplete();
                 }
 
                 @Override
@@ -293,7 +293,7 @@ public class Server {
             });
 
             // Attach a listener to read the data at our user reference
-            databaseReference.addListenerForSingleValueEvent ( new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.w(TAG, "userLoaded_1");
@@ -306,7 +306,7 @@ public class Server {
                             } else {
                                 Workout workout = dataValues.getValue(Workout.class);
                                 if (!workout.getName().isEmpty()) {
-                                    currentUsersWorkouts.put(dataSnapshot.getKey(),workout);
+                                    currentUsersWorkouts.put(dataSnapshot.getKey(), workout);
                                     usertmp.addWorkout(workout);
                                 }
                             }
@@ -345,8 +345,81 @@ public class Server {
         DatabaseReference databaseReference = this.rootNode.getReference();
 
 
-
     }
 
+    private void loadPreDefinedExercises() {
+        this.firebaseAuth = FirebaseAuth.getInstance();
 
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("DefinedExercises");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.i(TAG,"Done loading initial data");
+                    onServerSetupCompleteListener.onSetupComplete();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            databaseReference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    ExerciseElement exercise = dataSnapshot.getValue(ExerciseElement.class);
+                    preDefinedExercises.put(dataSnapshot.getKey(),exercise);
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    preDefinedExercises.remove(dataSnapshot.getKey());
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+    }
+
+    public void addPreDefinedExercise(ExerciseElement exerciseElement, String key) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("DefinedExercises");
+
+            databaseReference.child(key).setValue(exerciseElement); // add workout with same key as Users workout
+        }
+    }
+    public void removePreDefinedExercise(ExerciseElement exerciseElement, String key) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("DefinedExercises");
+
+            databaseReference.child(key).removeValue();
+        }
+    }
+
+    public HashMap<String, ExerciseElement> getPreDefinedExercises() {
+        return preDefinedExercises;
+    }
 }

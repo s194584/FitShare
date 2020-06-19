@@ -90,6 +90,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 }else{
                     radioGroup.check(R.id.radiobutton_edit_exercise_time);
                 }
+                radioGroup.setEnabled(false);
             }
         });
         // RadioGroup
@@ -157,7 +158,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
                             }
 
                             exerciseElement = new ExerciseElement(autoCompleteTextView.getText().toString(), type, description);
-                            ((MainActivity) mContext).getHashMap().addElement(exerciseElement);
+                            ((MainActivity) mContext).addPreDefinedExercise(exerciseElement);
 
                             exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
 

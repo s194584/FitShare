@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseElementList;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
@@ -105,12 +106,17 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         return this.exerciseElementList;
     }
 
+    public void addPreDefinedExercise(ExerciseElement exerciseElement){
+        exerciseElementList.addElement(exerciseElement);
+        server.addPreDefinedExercise(exerciseElement,exerciseElement.getName());
+    }
 
     @Override
     public void onSetupComplete() {
         Log.i(TAG,"Setting up views.");
         setContentView(layout.activity_main);
         setUpNavigation();
+        exerciseElementList.setHashMap(server.getPreDefinedExercises());
 //        findViewById(id.progress_bar).setVisibility(View.GONE);
     }
 }

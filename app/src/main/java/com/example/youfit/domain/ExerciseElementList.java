@@ -22,6 +22,10 @@ public class ExerciseElementList {
         hashMap.put(exerciseElement.getName(), exerciseElement);
     }
 
+    public void setHashMap(HashMap<String, ExerciseElement> hashMap) {
+        this.hashMap = hashMap;
+    }
+
     public ExerciseElement getElement(String name)
     {
         return hashMap.get(name);
