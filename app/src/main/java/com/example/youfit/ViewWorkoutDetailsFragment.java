@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -122,7 +123,11 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         editWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i("ViewWorkoutDetails", "A workout has been clicked");
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("newWorkout", mWorkout);
+                NavHostFragment.findNavController(ViewWorkoutDetailsFragment.this)
+                        .navigate(R.id.action_viewWorkoutDetailsFragment_to_workoutFragment, bundle);
             }
         });
 
