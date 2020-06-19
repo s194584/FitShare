@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:autofillHints="Email" />
+        android:hint="Email" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:ems="10"
-        android:autofillHints="@string/password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:autofillHints="@string/password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:visibility="@{signInMode ? View.GONE : View.VISIBLE}"
         app:layout_constraintEnd_toEndOf="parent"
