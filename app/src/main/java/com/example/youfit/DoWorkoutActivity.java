@@ -42,7 +42,6 @@ public class DoWorkoutActivity extends AppCompatActivity{
     private String temp;
 
     private ArrayList<Exercise> exercises = new ArrayList<>();
-
     private Workout workout;
     private Exercise currentExercise;
     private TextView currentTextViewExerciseType;

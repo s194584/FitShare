@@ -31,18 +31,13 @@ public class Server {
 
     protected FirebaseAuth firebaseAuth;
     protected FirebaseDatabase rootNode;
-    protected DatabaseReference databaseReference;
     protected Activity activity;
 
     protected User currentUser;
     private OnServerSetupCompleteListener onServerSetupCompleteListener;
-    //Firebase key --> Workout
     protected HashMap<String, Workout> publicWorkouts = new HashMap<>();
     protected HashMap<String, Workout> currentUsersWorkouts = new HashMap<>();
     protected HashMap<String, ExerciseElement> preDefinedExercises = new HashMap<>();
-
-//    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
-//    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
     public interface OnServerSetupCompleteListener {
         void onSetupComplete();
@@ -137,7 +132,6 @@ public class Server {
             if (workout.isPublicWorkout()) {
                 changePuplicWorkout(key, workout);
             }
-
 
             databaseReference.child(key).setValue(workout);
         }
@@ -311,7 +305,7 @@ public class Server {
                                 }
                             }
                         }
-//                        User user = dataSnapshot.getValue(User.class);
+//                        User user = dataSnapshot.getValue(User.class); //TODO CLEANUP is this still relevant?
                         currentUser = usertmp;
                         loadCurrentUsersWorkouts();
 
@@ -354,7 +348,7 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("DefinedExercises");
 
-//            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //TODO CLEANUP, is this still relevant?
 //                @Override
 //                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                    Log.i(TAG,"Done loading initial data");

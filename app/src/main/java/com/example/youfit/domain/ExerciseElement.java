@@ -1,7 +1,9 @@
 package com.example.youfit.domain;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class ExerciseElement implements Parcelable {
 
@@ -9,33 +11,26 @@ public class ExerciseElement implements Parcelable {
     private String type = "";
     private String description = "";
 
-    public void setName(String name) {
-        this.name = name;
+    public ExerciseElement() //For firebase
+    {
+
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    @SuppressLint("LongLogTag")
     public ExerciseElement (String name, String type, String description)
     {
         this.name = name;
         this.type = type;
         this.description = description;
+
+        Log.i("ExerciseElement/constructor", "created an exerciseElement from name, type and description");
+
     }
 
     protected ExerciseElement(Parcel in) {
         name = in.readString();
         type = in.readString();
         description = in.readString();
-    }
-
-    public ExerciseElement()
-    {
 
     }
 
@@ -50,6 +45,18 @@ public class ExerciseElement implements Parcelable {
             return new ExerciseElement[size];
         }
     };
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getName()
     {
@@ -80,7 +87,4 @@ public class ExerciseElement implements Parcelable {
 
 }
 
-// TODO implement this.
-// TODO Make hashmaps of names, exercise for autofill in create workout.
-// TODO Add workouts and descriptions for workouts.
 

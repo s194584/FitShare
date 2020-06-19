@@ -53,7 +53,6 @@ public class StatisticsFragment extends Fragment {
         waterAmountText.setText(""+totalWaterAmount + " mL / " + waterGoal + " mL");
         addWaterButton = view.findViewById(R.id.addWaterButton);
         addWaterButton.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 setWaterAmount += 100;
@@ -76,6 +75,7 @@ public class StatisticsFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+
                 //TODO Save values in firebase
                 totalWaterAmount += setWaterAmount;
                 setWaterAmount = 0;
@@ -88,24 +88,24 @@ public class StatisticsFragment extends Fragment {
                 if (totalWaterAmount >= 2000)
                 {
                     Toast toast = Toast.makeText(getActivity(),
-                            "Congratulations, you've reached your water goal! Good job! you are awesome!",
+                            "Congratulations, you've reached your water goal! Good job! you are awesome!", //TODO maybe this should be a string rescource
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
             }
         });
 
+        //Find and set weekly
         totalWorkoutsWeeklyText = view.findViewById(R.id.total_workouts_weekly_text);
         totalWorkoutsWeeklyText.setText(""+totalWorkoutsWeekly);
         totalTimeWeeklyText = view.findViewById(R.id.total_workouts_time_weekly_text);
         totalTimeWeeklyText.setText(""+totalTimeWeekly);
 
+        //Find and set total
         totalWorkoutsTotalText = view.findViewById(R.id.total_workouts_total_text);
         totalWorkoutsTotalText.setText(""+totalWorkoutsTotal);
         totalTimeTotalText = view.findViewById(R.id.total_workouts_time_total_text);
         totalTimeTotalText.setText(""+totalTimeTotal);
-
-
 
         // Inflate the layout for this fragment
         return view;

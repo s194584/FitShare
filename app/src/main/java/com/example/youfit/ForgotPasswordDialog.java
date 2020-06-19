@@ -1,10 +1,12 @@
 package com.example.youfit;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,10 +26,11 @@ public class ForgotPasswordDialog extends DialogFragment {
 
     EditText email;
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onAttach(@NonNull Context context) {
         if (context == null){
-            System.out.println("Context is null");
+            Log.i("ForgotPasswordDialogListener", "Context is null");
         }
         else {
             super.onAttach(context);

@@ -7,13 +7,9 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class Workout implements Parcelable {
-    public String getUniqueID() {
-        return uniqueID;
-    }
 
-    // Fields
     private String name ="";
-    private String uniqueID; // Generated in database?
+    private String uniqueID;
     private long time;
     private String description;
 
@@ -24,7 +20,7 @@ public class Workout implements Parcelable {
     private ArrayList<Boolean> recurring = new ArrayList<>();
     private boolean notifications, publicWorkout;
 
-    public Workout(){ }
+    public Workout(){ } //Empty constructor for firebase
 
     public Workout(String name){
         this.name = name;
@@ -34,6 +30,7 @@ public class Workout implements Parcelable {
         for(int i = 0; i<7;i++) {
             recurring.add(i,false);
         }
+        Log.i("Workout/Constructor", "Created a workout from name");
     }
 
     public Workout(String name, String type){
@@ -41,6 +38,8 @@ public class Workout implements Parcelable {
         workoutType = type;
         workoutDifficulty = WorkoutDifficulty.UNDEFINED.name();
         description = "This is a workout description";
+
+        Log.i("Workout/Constructor", "Created a workout from name and type");
     }
 
     public Workout(String name, ArrayList<Exercise> exercises){
@@ -50,7 +49,7 @@ public class Workout implements Parcelable {
         workoutDifficulty = WorkoutDifficulty.UNDEFINED.name();
         description = "This is a workout description";
 
-        Log.i("Workout/Constructor", "Created a workout with an arraylist");
+        Log.i("Workout/Constructor", "Created a workout from name and arraylist");
     }
 
     protected Workout(Parcel in) {
@@ -65,7 +64,7 @@ public class Workout implements Parcelable {
         notifications = (notiInt == 1);
         int pubInt = in.readInt();
         publicWorkout = (pubInt == 1);
-        Log.i("Workout/Constructor", "Created a workout with parcel");
+        Log.i("Workout/Constructor", "Created a workout from a parcel");
     }
 
     public Workout(Workout workout) {
@@ -83,6 +82,12 @@ public class Workout implements Parcelable {
             tempExercises.add(new Exercise(e));
         }
         this.exercises = tempExercises;
+
+        Log.i("Workout/Constructor", "Created a workout from a workout");
+    }
+
+    public String getUniqueID() {
+        return uniqueID;
     }
 
     public void addExercise (Exercise exercise) {
@@ -172,7 +177,6 @@ public class Workout implements Parcelable {
         }
     };
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -189,8 +193,6 @@ public class Workout implements Parcelable {
         parcel.writeInt(publicWorkout ? 1 : 0);
 
     }
-
-
 
     public boolean isPublicWorkout() {
         return publicWorkout;

@@ -2,41 +2,22 @@ package com.example.youfit;
 
 import com.example.youfit.R.*;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseElementList;
 import com.example.youfit.domain.Server;
-import com.example.youfit.domain.Workout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener {
@@ -117,6 +98,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         setContentView(layout.activity_main);
         setUpNavigation();
         exerciseElementList.setHashMap(server.getPreDefinedExercises());
-//        findViewById(id.progress_bar).setVisibility(View.GONE);
+//        findViewById(id.progress_bar).setVisibility(View.GONE); //TODO
     }
 }

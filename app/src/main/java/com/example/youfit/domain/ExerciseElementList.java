@@ -1,5 +1,7 @@
 package com.example.youfit.domain;
 
+import android.util.Log;
+
 import java.util.HashMap;
 
 public class ExerciseElementList {
@@ -9,7 +11,7 @@ public class ExerciseElementList {
     public ExerciseElementList ()
     {
         hashMap = new HashMap<>();
-        //TODO add all those fancy precoded exercises, dammmmnnnn.
+        Log.i("ExerciseElementList", "Created new exerciseElementList");
     }
 
     public HashMap getHashMap()
@@ -20,6 +22,7 @@ public class ExerciseElementList {
     public void addElement(ExerciseElement exerciseElement)
     {
         hashMap.put(exerciseElement.getName(), exerciseElement);
+        Log.i("ExerciseElementList", "added element: " + exerciseElement.getName() + " to hashMap");
     }
 
     public void setHashMap(HashMap<String, ExerciseElement> hashMap) {

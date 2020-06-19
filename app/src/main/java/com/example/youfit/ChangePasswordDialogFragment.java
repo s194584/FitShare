@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,10 +15,12 @@ public class ChangePasswordDialogFragment extends DialogFragment {
 
     ChangePasswordDialogListener listener;
 
+    private String TAG = "ChangePasswordDialogFragment";
+
     @Override
     public void onAttach(@NonNull Context context) {
         if (context == null){
-            System.out.println("Context is null");
+            Log.i(TAG, "Context is null");
         }
         else {
             super.onAttach(context);

@@ -1,40 +1,28 @@
 package com.example.youfit;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.ExerciseElement;
-import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class WorkoutFragment extends Fragment implements EditExerciseDialogFragment.EditExerciseDialogFragmentListener, ExersiceAdapter.OnExerciseListener{
     private final String TAG = "WorkoutFragment";
@@ -44,6 +32,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
     private String exerciseSelected;
 
     EditText nameEditText;
+
     // New recycle view
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -142,7 +131,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
                 showEditExercise(new Exercise(new ExerciseElement()),-1);
             }
         });
-//        addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
+//        addExcersizeBtn.setOnClickListener(new View.OnClickListener() { //TODO Do we need this?
 //            @Override
 //            public void onClick(View v) {
 //                showEditExercise();

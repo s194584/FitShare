@@ -29,15 +29,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditExerciseDialogFragment extends DialogFragment {
+
     private final String TAG = "EditExerciseDialog";
-    // Exercise
     private Exercise exercise;
     private ExerciseElement exerciseElement;
     private int pos;
     private String description = "";
     private boolean wantNew;
     private Context mContext;
-
 
     // UI elements
     AutoCompleteTextView autoCompleteTextView;
@@ -57,47 +56,61 @@ public class EditExerciseDialogFragment extends DialogFragment {
         try{
             listener = (EditExerciseDialogFragmentListener) getTargetFragment();
         } catch(ClassCastException e){
-                Log.i("EditExerciseDialog","onAttach():  must implement EditExerciseDialogFragmentListener");
+                Log.i(TAG,"onAttach():  must implement EditExerciseDialogFragmentListener");
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         mContext = getActivity();
         exercise = getArguments().getParcelable("editExercise");
         pos = getArguments().getInt("position");
 
-        Log.i(TAG,exercise.toString());
+        Log.i(TAG, "Excercise to be edited: " + exercise.toString());
+
+        //Get view
         View inflatedView =inflater.inflate(R.layout.dialog_edit_exercise,container,false);
 
         // Auto complete setup
         ArrayList<String> workoutNames = new ArrayList<String>(((MainActivity) getActivity()).getHashMap().getHashMap().keySet());
+
         autoCompleteTextView = inflatedView.findViewById(R.id.autoedittext_edit_exercise_name);
-        final ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(),
-                R.layout.support_simple_spinner_dropdown_item, workoutNames);
+
+        final ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, workoutNames);
+
         autoCompleteTextView.setAdapter(autocompleteAdapter);
         autoCompleteTextView.setText(exercise.getName());
+
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String string = (String) adapterView.getItemAtPosition(i);
+
+                //Get exercise info
+                String name = (String) adapterView.getItemAtPosition(i);
                 HashMap<String, ExerciseElement> hashmap = ((MainActivity) getActivity()).getHashMap().getHashMap();
-                ExerciseElement exerciseElement = hashmap.get(string);
+                ExerciseElement exerciseElement = hashmap.get(name);
+
                 Log.i(TAG,"Item selected. The type is: "+exerciseElement.getType());
+
+                //Set type
                 if(exerciseElement.getType().equals(ExerciseType.REPETITION.name())){
                     radioGroup.check(R.id.radiobutton_edit_exercise_reps);
                 }else{
                     radioGroup.check(R.id.radiobutton_edit_exercise_time);
                 }
+
+                //Lock type
                 radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setClickable(false);
                 radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setClickable(false);
             }
         });
+
         // RadioGroup
         radioGroup = inflatedView.findViewById(R.id.radioGroup);
 
-        if(exercise.getType().equals(ExerciseType.REPETITION.name())){
+        if(exercise.getType().equals(ExerciseType.REPETITION.name())){ //TODO malthe, skal vi stadig bruge dette? Gør den det ikke lige over?
             radioGroup.check(R.id.radiobutton_edit_exercise_reps);
         }else{
             radioGroup.check(R.id.radiobutton_edit_exercise_time);
@@ -117,35 +130,38 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+
         // OnClick for Save button
-        ////////////////////////////////////////////////////////////////////////////////////////////
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Check that all inputs have been filled:
+
+                // Check that all inputs have been filled, else make toast:
                 if (autoCompleteTextView.getText().toString().isEmpty() || amountEditText.getText().toString().isEmpty()) {
                     Toast.makeText(view.getContext(), "Not all fields has been filled.", Toast.LENGTH_SHORT);
                     return;
                 }
 
+                //Get exercise name
                 String name = autoCompleteTextView.getText().toString();
-
                 exerciseElement = ((MainActivity) mContext).getHashMap().getElement(name);
 
+                //Check if element already excists. If not, create new element
                 if (exerciseElement != null) {
                     exercise.setExerciseElement(exerciseElement);
                     exercise.setAmount(Long.parseLong(amountEditText.getText().toString()));
                     listener.onDialogSave(exercise, pos);
                     getDialog().dismiss();
-                } else {
+                }
+                    else {
 
                     // Save description dialog
-                    ////////////////////////////////////////////////////////////////////////////////////
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle(R.string.exercise_no_exsist);
                     final EditText input = new EditText(getActivity());
                     builder.setView(input);
 
+                    //Set dialog button for making description
                     builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -168,28 +184,25 @@ public class EditExerciseDialogFragment extends DialogFragment {
                         }
                     });
 
+                    //Set dialog button for no description
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
-
                             dialogInterface.dismiss();
                         }
                     });
+
                     builder.show();
                 }
-                ////////////////////////////////////////////////////////////////////////////////////
-
 
                 getDialog().dismiss();
             }
         });
-        ////////////////////////////////////////////////////////////////////////////////////////////
 
         return inflatedView;
     }
 
-//    @NonNull
+//    @NonNull //TODO skal det her stadig være her?
 //    @Override
 //    public Dialog onDialogCreate(@Nullable Bundle savedInstanceState) {
 //        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());

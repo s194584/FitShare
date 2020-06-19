@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +20,7 @@ public class SignOutDialogFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         if (context == null){
-            System.out.println("Context is null");
+            Log.i("SignOutDialogFragment", "Context is null");
         }
         else {
             super.onAttach(context);

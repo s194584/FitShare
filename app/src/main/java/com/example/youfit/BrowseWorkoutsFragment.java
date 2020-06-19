@@ -27,8 +27,8 @@ public class BrowseWorkoutsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_browse_workouts, container, false);
     }
 
@@ -43,7 +43,6 @@ public class BrowseWorkoutsFragment extends Fragment {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

@@ -141,12 +141,8 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
                         User user = new User("New User");
                         databaseReference.child(userID).setValue(user);
                     }
-
-
                 }
             });
-
-
         }
     }
 

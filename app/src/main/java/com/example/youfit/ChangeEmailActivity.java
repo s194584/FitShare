@@ -36,7 +36,7 @@ public class ChangeEmailActivity extends Activity{
             public void onClick(View v) {
                 if (checkIfEmpty(newEmail, "Email")){
                     return;
-                    // Missing check for actual email address
+                    // TODO Missing check for actual email address
                 } else {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     user.updateEmail(String.valueOf(newEmail.getText()));

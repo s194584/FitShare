@@ -27,25 +27,22 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
     ArrayList<Workout> workouts = new ArrayList<Workout>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Log.i(TAG, "1: Creating inflator");
         View view = inflater.inflate(R.layout.fragment_browse_public_workouts, container, false);
 
-        Log.i("BrowsePrivateFragment", "2: Creating example data");
-        // Load workouts from server
+        Log.i(TAG, "2: Getting data from firebase");
         Server server = ((MainActivity) getActivity()).getServer();
         workouts = server.getPublicWorkouts();
 
-
+        Log.i(TAG, "3: Initiating recyclerview");
         initRecyclerView(view);
 
-        // Inflate the layout for this fragment
         return view;
     }
 
     private void initRecyclerView(View view) {
-        Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
         BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts, this);
         recyclerView.setAdapter(adapter);
@@ -54,7 +51,7 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
     }
 
     public void onWorkoutClick(int position) {
-        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
+        Log.i(TAG, "A workout has been clicked: " + workouts.get(position).getName());
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("WORKOUT", workouts.get(position));
@@ -65,7 +62,7 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
 
     @Override
     public void onButtonClick(int position) {
-        Log.i("BrowsePublicFragment", "BUTTON CLICKED: " + workouts.get(position).getName());
+        Log.i(TAG, "A button has been clicked: " + workouts.get(position).getName());
 
         Workout workout = workouts.get(position);
         Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
