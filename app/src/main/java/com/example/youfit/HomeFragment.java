@@ -71,16 +71,9 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
             Log.i("HomeFragment", "ERROR: Could not find recyclerView");
         }
 
-        //make adapter with sample data
-
-        Log.i("HomeFragment", "3: Making adapter");
-        if(mAdapter == null)
-        {
-            Log.i("HomeFragment", "ERROR: Could not create adapter");
-        }
 
         //add adapter to recycle view
-        Log.i("HomeFragment", "3: Adding adapter to recycler view");
+        Log.i("HomeFragment", "3: Getting firebase data");
         assert plannedWorkoutsRV != null;
         DatabaseReference userWorkoutsRef = FirebaseDatabase.getInstance().getReference("Users/" + server.getUserUID() + "/savedWorkouts");
         userWorkoutsRef.addValueEventListener(new ValueEventListener() {
@@ -95,6 +88,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
                         workouts.add(workout);
                     }
                 }
+                Log.i("HomeFragment", "3: Making and adding adapter");
                 plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, HomeFragment.this));
             }
 
