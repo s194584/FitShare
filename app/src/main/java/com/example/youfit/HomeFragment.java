@@ -21,6 +21,7 @@ import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -80,7 +81,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         //add adapter to recycle view
         Log.i("HomeFragment", "3: Adding adapter to recycler view");
         assert plannedWorkoutsRV != null;
-        Query userWorkoutsRef = FirebaseDatabase.getInstance().getReference("Users/" + server.getUserUID() + "/savedWorkouts");
+        DatabaseReference userWorkoutsRef = FirebaseDatabase.getInstance().getReference("Users/" + server.getUserUID() + "/savedWorkouts");
         userWorkoutsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

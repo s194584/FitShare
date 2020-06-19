@@ -222,6 +222,7 @@ public class Server {
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
                     publicWorkouts.put(dataSnapshot.getKey(),workout);
+
                 }
 
                 @Override

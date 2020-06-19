@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     protected boolean alreadyLoggedIn = false;
     protected Server server;
-    private Server.OnServerSetupCompleteListener onServerSetupCompleteListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
