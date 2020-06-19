@@ -101,7 +101,6 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage("Do you want to delete workout " + mWorkout.getName() + "?")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -142,7 +141,6 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         ClickWorkoutDetailAdapter adapter = new ClickWorkoutDetailAdapter(getContext(), exercises);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
     }
 
     private void formatAssets(View view) {
@@ -161,12 +159,8 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         String workoutDifficultyString = "Difficulty: " + mWorkout.formatDifficulty();
         String workoutTypeString = "Type: " + mWorkout.formatType();
         String workoutTimeString = "Estimated time: " + mWorkout.TimeAsString();
-        String workoutCreatorString = "Creator: the_big_guy/girl";
-        String workoutDescriptionString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n" +
-                "        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex\n" +
-                "        ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n" +
-                "        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,\n" +
-                "        sunt in culpa qui officia deserunt mollit anim id est laborum." + mWorkout.getDescription();
+        String workoutCreatorString = "Creator: " + mWorkout.getCreator();
+        String workoutDescriptionString = "Description: " + mWorkout.getDescription();
 
         workoutName.setText(workoutNameString);
         workoutDifficulty.setText(workoutDifficultyString);
