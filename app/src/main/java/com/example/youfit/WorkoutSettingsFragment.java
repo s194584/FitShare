@@ -74,9 +74,8 @@ public class WorkoutSettingsFragment extends Fragment {
                 currentWorkout = saveWorkout(currentWorkout);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout",currentWorkout);
-                NavHostController navController = (NavHostController) NavHostFragment.findNavController(WorkoutSettingsFragment.this);
-                navController.getBackStackEntry(R.id.workoutFragment);
-                navController.navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
+                bundle.putBoolean("isWorkoutExisting", false);
+                NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_workoutFragment,bundle);
             }
         });
     }

@@ -49,6 +49,9 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<Exercise> exercises = new ArrayList<>();
     protected Workout currentWorkout;
+    protected Workout existingWorkout;
+    boolean isWorkoutExisting;
+    String existingWorkoutKey;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,6 +64,12 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
+            if (getArguments().getBoolean("existingWorkout")) {
+              existingWorkout = (Workout) getArguments().get("newWorkout");
+
+              currentWorkout = new Workout(existingWorkout.getName());
+
+            }
             this.currentWorkout = (Workout) getArguments().get("newWorkout");
             exercises = currentWorkout.getExercises();
         } else{
@@ -127,11 +136,8 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
                 Log.i("EXERCISEFRAGMENT", "WORKOUT CREATED");
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout", currentWorkout);
-                NavHostController navController = (NavHostController) NavHostFragment.findNavController(WorkoutFragment.this);
-                navController.navigate(R.id.action_workoutFragment_to_workoutSettingsFragment, bundle);
-                navController.popBackStack(R.id.workoutSettingsFragment,false);
-//                navController.popBackStack(R.id.workoutFragment,false);
 
+                NavHostFragment.findNavController(WorkoutFragment.this).navigate(R.id.action_workoutFragment_to_workoutSettingsFragment, bundle);
             }
         });
 

@@ -70,6 +70,18 @@ public class Workout implements Parcelable {
         Log.i("Workout/Constructor", "Created a workout with parcel");
     }
 
+    public Workout(String name, String uniqueID, long time, String description, ArrayList<Exercise> exercises, String workoutType, String workoutDifficulty, ArrayList<Boolean> recurring, boolean notifications, boolean publicWorkout) {
+        this.name = name;
+        this.uniqueID = uniqueID;
+        this.time = time;
+        this.description = description;
+        this.exercises = exercises;
+        this.workoutType = workoutType;
+        this.workoutDifficulty = workoutDifficulty;
+        this.recurring = recurring;
+        this.notifications = notifications;
+        this.publicWorkout = publicWorkout;
+    }
 
     public void addExercise (Exercise exercise) {
         this.exercises.add(exercise);

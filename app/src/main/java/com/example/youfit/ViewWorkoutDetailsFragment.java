@@ -123,9 +123,9 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         editWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("ViewWorkoutDetails", "A workout has been clicked");
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newWorkout", mWorkout);
+                bundle.putBoolean("isWorkoutExisting", true);
                 NavHostFragment.findNavController(ViewWorkoutDetailsFragment.this)
                         .navigate(R.id.action_viewWorkoutDetailsFragment_to_workoutFragment, bundle);
             }
