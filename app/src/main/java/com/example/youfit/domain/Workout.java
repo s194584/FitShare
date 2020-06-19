@@ -16,9 +16,11 @@ public class Workout implements Parcelable {
     private String name ="";
     private String uniqueID; // Generated in database?
     private long time;
+    private String description;
 
     private ArrayList<Exercise> exercises = new ArrayList<>();
     private String workoutType;
+    private String workoutDifficulty;
 
     private ArrayList<Boolean> recurring = new ArrayList<>();
     private boolean notifications, publicWorkout;
@@ -29,6 +31,8 @@ public class Workout implements Parcelable {
     public Workout(String name){
         this.name = name;
         workoutType = WorkoutType.DEFAULT.name();
+        workoutDifficulty = WorkoutDifficulty.UNDEFINED.name();
+        description = "This is a workout description";
         for(int i = 0; i<7;i++) {
             recurring.add(i,false);
         }
@@ -37,12 +41,16 @@ public class Workout implements Parcelable {
     public Workout(String name, String type){
         this(name);
         workoutType = type;
+        workoutDifficulty = WorkoutDifficulty.UNDEFINED.name();
+        description = "This is a workout description";
     }
 
     public Workout(String name, ArrayList<Exercise> exercises){
         this(name);
         this.exercises=exercises;
         workoutType = WorkoutType.DEFAULT.name();
+        workoutDifficulty = WorkoutDifficulty.UNDEFINED.name();
+        description = "This is a workout description";
 
         Log.i("Workout/Constructor", "Created a workout with an arraylist");
     }
@@ -83,8 +91,16 @@ public class Workout implements Parcelable {
         this.workoutType = workoutType;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getWorkoutType() {
         return this.workoutType;
+    }
+
+    public String getWorkoutDifficulty() {
+        return this.workoutDifficulty;
     }
 
     public String formatType() {
@@ -92,6 +108,16 @@ public class Workout implements Parcelable {
         if (type != null) {
             String firstLetter = type.substring(0,1);
             String rest = type.substring(1);
+            return firstLetter.toUpperCase() + rest.toLowerCase();
+        }
+        return null;
+    }
+
+    public String formatDifficulty() {
+        String difficulty = getWorkoutDifficulty();
+        if (difficulty != null) {
+            String firstLetter = difficulty.substring(0,1);
+            String rest = difficulty.substring(1);
             return firstLetter.toUpperCase() + rest.toLowerCase();
         }
         return null;

@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         }
 
         //make adapter with sample data
+
         Log.i("HomeFragment", "3: Making adapter");
         if(mAdapter == null)
         {
