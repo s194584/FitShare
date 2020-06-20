@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.ExerciseElement;
+import com.example.youfit.domain.ExerciseType;
 import com.example.youfit.domain.Workout;
 
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
         getActivity().findViewById(R.id.addPauseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Exercise pause = new Exercise("Pause");
+                Exercise pause = new Exercise(new ExerciseElement("Pause", ExerciseType.PAUSE.name(),"You take a breather."));
                 showEditExercise(pause,-1);
             }
         });

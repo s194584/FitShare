@@ -4,6 +4,7 @@
 
     <!--For FireBase-->
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,13 @@
         </activity>
         <activity android:name=".DoWorkoutActivity">
         </activity>
+
+        <receiver android:name="com.example.youfit.AlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.youfit.alarmAction" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

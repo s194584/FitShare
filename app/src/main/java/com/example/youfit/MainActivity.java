@@ -3,11 +3,16 @@ package com.example.youfit;
 import com.example.youfit.R.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         super.onCreate(savedInstanceState);
 //        findViewById(id.progress_bar).setVisibility(View.VISIBLE);
         this.server = new Server(this);
-
-
+        createNotificationChannel();
         //TODO: Make waiting screen for database call back.
 
     }
@@ -99,6 +103,23 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         setContentView(layout.activity_main);
         setUpNavigation();
         exerciseElementList.setHashMap(server.getPreDefinedExercises());
-//        findViewById(id.progress_bar).setVisibility(View.GONE); //TODO
     }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(getString(R.string.CHANNEL_ID), name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
 }

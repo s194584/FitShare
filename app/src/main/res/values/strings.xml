@@ -21,6 +21,11 @@
     <string name="start_workout">Start workout</string>
     <string name="edit_workout">Edit workout</string>
 
+    # Main activity strings
+    <string name="CHANNEL_ID">FORNOTI</string>
+    <string name="channel_name">notificationChannel</string>
+    <string name="channel_description">This is a channel for notifications</string>
+    <string name="ALARM_ACTION">com.example.youfit.alarmAction</string>
 
     #Home fragment strings
     <string name="workouts">Workout(s): </string>

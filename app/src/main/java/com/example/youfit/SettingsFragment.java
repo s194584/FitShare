@@ -1,18 +1,29 @@
 package com.example.youfit;
 
+import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.AlarmManagerCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +36,10 @@ import com.example.youfit.domain.Server;
 import com.example.youfit.domain.User;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SettingsFragment extends Fragment{
+import java.util.Calendar;
 
+public class SettingsFragment extends Fragment{
+    private final String TAG = "SettingsFragment";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -60,7 +73,8 @@ public class SettingsFragment extends Fragment{
         ((Switch)view.findViewById(R.id.switch_notifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                setupNotifications(b);
+//                setupNotifications(b);
+                setNotificationAlarm(b);
             }
         });
 
@@ -87,11 +101,20 @@ public class SettingsFragment extends Fragment{
         });
     }
 
-    private void setupNotifications(boolean b) {
-        Notification.Builder builder = new Notification.Builder(getActivity());
-        builder.setContentText("Hey, got any workouts?")
-                .setContentTitle("Your favorite workout app")
-                .setPriority(Notification.PRIORITY_DEFAULT);
+
+    private void setNotificationAlarm(boolean b){
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY,8);
+
+        Intent notificationIntent = new Intent(getActivity(),AlarmReceiver.class);
+        notificationIntent.setAction(getString(R.string.ALARM_ACTION));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(),0, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Log.i(TAG, "setNotificationAlarm: setting an alarm");
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent);
+
     }
 
     private void showNoticeDialog() {
