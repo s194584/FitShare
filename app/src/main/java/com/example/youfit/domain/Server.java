@@ -1,11 +1,16 @@
 package com.example.youfit.domain;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.youfit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +44,13 @@ public class Server {
     protected HashMap<String, Workout> currentUsersWorkouts = new HashMap<>();
     protected HashMap<String, ExerciseElement> preDefinedExercises = new HashMap<>();
 
-    public interface OnServerSetupCompleteListener {
+    protected ProgressDialog loadingDialog;
+
+//    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
+//    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
+
+    public interface OnServerSetupCompleteListener
+    {
         void onSetupComplete();
     }
 
@@ -47,7 +58,7 @@ public class Server {
     public Server(Activity activity) {
         onServerSetupCompleteListener = (OnServerSetupCompleteListener) activity;
         this.activity = activity;
-        loadCurrentUser();
+        setLoadingDialog();
         loadPublicWorkouts();
         loadPreDefinedExercises();
     }
@@ -80,7 +91,18 @@ public class Server {
         return (this.currentUser != null) ? new ArrayList<Workout>(publicWorkouts.values()) : new ArrayList<Workout>();
     }
 
-    public void updateCurrentUserUsername(String name) {
+    public void setLoadingDialog() {
+        this.loadingDialog = new ProgressDialog(activity);
+        this.loadingDialog.setMessage("Application is loading");
+        this.loadingDialog.setCancelable(false);
+        this.loadingDialog.setProgress(0);
+        this.loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        this.loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+        this.loadingDialog.show();
+    }
+
+
+    public void updateCurrentUserUsername (String name) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
@@ -100,13 +122,17 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
-            databaseReference.push().setValue(workout);
+
+            String key = databaseReference.push().getKey();
+            workout.setUniqueID(key);
+            databaseReference.child(key).setValue(workout);
         }
 
     }
 
     public void removeWorkout(Workout workout) {
         String key = getKey(workout);
+        setLoadingDialog();
 
         this.firebaseAuth = FirebaseAuth.getInstance();
 
@@ -114,7 +140,12 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
-            databaseReference.child(key).removeValue();
+            databaseReference.child(workout.getUniqueID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    loadingDialog.dismiss();
+                }
+            });
         }
 
     }
@@ -138,7 +169,7 @@ public class Server {
     }
 
 
-    private void loadCurrentUsersWorkouts() {
+    public void loadCurrentUsersWorkouts() {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
@@ -172,6 +203,28 @@ public class Server {
                 @Override
                 public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+    }
+
+    public void loadCurrentUsersWorkouts2(final DatabaseListener listener) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid()+ "/savedWorkouts");
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    listener.onComplete(dataSnapshot);
                 }
 
                 @Override
@@ -223,7 +276,7 @@ public class Server {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.i(TAG, "Done loading initial data");
-//                    onServerSetupCompleteListener.onSetupComplete();
+                    onServerSetupCompleteListener.onSetupComplete();
                 }
 
                 @Override
@@ -264,7 +317,7 @@ public class Server {
     }
 
 
-    private void loadCurrentUser() {
+    public void loadCurrentUser(final DatabaseListener databaseListener) {
         Log.w(TAG, "Starting to load server");
         this.firebaseAuth = FirebaseAuth.getInstance();
 
@@ -277,7 +330,6 @@ public class Server {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.i(TAG, "Done loading initial data");
-                    onServerSetupCompleteListener.onSetupComplete();
                 }
 
                 @Override
@@ -297,6 +349,7 @@ public class Server {
                         for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
                             if (!dataValues.hasChildren()) {
                                 usertmp.setName(dataValues.getValue().toString());
+                                databaseListener.onComplete(dataValues);
                             } else {
                                 Workout workout = dataValues.getValue(Workout.class);
                                 if (!workout.getName().isEmpty()) {
@@ -305,9 +358,9 @@ public class Server {
                                 }
                             }
                         }
-//                        User user = dataSnapshot.getValue(User.class); //TODO CLEANUP is this still relevant?
                         currentUser = usertmp;
                         loadCurrentUsersWorkouts();
+                        loadingDialog.dismiss();
 
                         Log.w(TAG, "userLoaded");
                     }

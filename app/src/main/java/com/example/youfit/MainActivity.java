@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 //        findViewById(id.progress_bar).setVisibility(View.VISIBLE);
         this.server = new Server(this);
 
+
         //TODO: Make waiting screen for database call back.
 
     }

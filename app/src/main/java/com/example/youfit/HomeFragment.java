@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
@@ -44,6 +45,26 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         setHasOptionsMenu(true);
     }
 
+    private class UsernameListener implements DatabaseListener {
+
+        private View view;
+
+        UsernameListener(View view) {
+            this.view = view;
+        }
+
+        public void onStart() {
+            Log.i("UsernameListener", "onStart");
+        }
+
+        public void onComplete(DataSnapshot dataSnapshot) {
+            String username = dataSnapshot.getValue().toString();
+            Log.i("UsernameListener", "on complete got username:" + username);
+            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+            welcomeBackTest.setText("Welcome back " + username + "!");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Server server = ((MainActivity) getActivity()).getServer();
@@ -58,9 +79,11 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Set welcome back text
-        TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-        String username = server.getUsername();
-        welcomeBackTest.setText("Welcome back " + username + "!");
+        UsernameListener listener = new UsernameListener(view);
+        server.loadCurrentUser(listener);
+//        TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+//        String username = server.getUsername();
+//        welcomeBackTest.setText("Welcome back " + username + "!");
 
         //get workouts
         Log.i("HomeFragment", "1: Getting data and current day is: "+currentDay);

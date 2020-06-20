@@ -127,6 +127,7 @@ public class Workout implements Parcelable {
 
     public String getCreator() { return creator; }
 
+
     public String formatType() {
         String type = getWorkoutType();
         if (type != null && type.length() > 0) {
@@ -229,4 +230,8 @@ public class Workout implements Parcelable {
     public void setDescription(String description) {this.description = description; }
 
     public void setWorkoutDifficulty(String workoutDifficulty) {this.workoutDifficulty = workoutDifficulty; }
+
+    public void setUniqueID(String uniqueID) {
+        this.uniqueID = uniqueID;
+    }
 }

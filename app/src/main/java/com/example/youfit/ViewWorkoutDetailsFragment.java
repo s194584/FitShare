@@ -110,9 +110,8 @@ public class ViewWorkoutDetailsFragment extends Fragment {
                                 //deletion from database
                                 Server server = ((MainActivity) getActivity()).getServer();
                                 server.removeWorkout(mWorkout);
-
                                 // go to previous fragment
-                                getActivity().getSupportFragmentManager().popBackStack();
+                                NavHostFragment.findNavController(ViewWorkoutDetailsFragment.this).popBackStack();
                             }
                         }).setNegativeButton("Cancel", null);
                 AlertDialog alert = builder.create();
