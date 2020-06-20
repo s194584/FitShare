@@ -141,6 +141,12 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     return;
                 }
 
+                if(autoCompleteTextView.getText().toString().length() > 20)
+                {
+                    Toast.makeText(view.getContext(), "Exercise name should not be longer than 20 characters", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 //Get exercise name
                 String name = autoCompleteTextView.getText().toString();
                 exerciseElement = ((MainActivity) mContext).getHashMap().getElement(name);
