@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/button_workout_settings_back"
         android:layout_width="43dp"
         android:layout_height="43dp"
@@ -332,7 +332,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/togglebuttonslayout">
+            app:layout_constraintTop_toBottomOf="@id/togglebuttonslayout">
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -340,7 +340,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/togglebuttonslayout">
+                app:layout_constraintTop_toBottomOf="@id/togglebuttonslayout">
 
                 <TextView
                     android:id="@+id/workoutsettings_typeview"
