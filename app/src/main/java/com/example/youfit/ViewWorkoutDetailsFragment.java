@@ -156,8 +156,8 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         workoutDescription = view.findViewById(R.id.workout_description);
 
         String workoutNameString = "Name: " + mWorkout.getName();
-        String workoutDifficultyString = "Difficulty: " + mWorkout.formatDifficulty();
-        String workoutTypeString = "Type: " + mWorkout.formatType();
+        String workoutDifficultyString = "Difficulty: " + Utility.formatEnum(mWorkout.getWorkoutDifficulty());
+        String workoutTypeString = "Type: " + Utility.formatEnum(mWorkout.getWorkoutType());
         String workoutTimeString = "Estimated time: " + mWorkout.TimeAsString();
         String workoutCreatorString = "Creator: " + mWorkout.getCreator();
         String workoutDescriptionString = "Description: " + mWorkout.getDescription();
@@ -173,4 +173,5 @@ public class ViewWorkoutDetailsFragment extends Fragment {
 
         exercises = mWorkout.getExercises();
     }
+
 }
