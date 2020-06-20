@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -120,8 +121,8 @@ public class WorkoutSettingsFragment extends Fragment {
             tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
         }
 
-        workout.setWorkoutType(typeSpinner.getSelectedItem().toString()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
-        workout.setWorkoutDifficulty(difficultySpinner.getSelectedItem().toString());
+        workout.setWorkoutType(typeSpinner.getSelectedItem().toString().toUpperCase()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
+        workout.setWorkoutDifficulty(difficultySpinner.getSelectedItem().toString().toUpperCase());
         workout.setRecurring(new ArrayList<Boolean>(tempRecurring));
         workout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
         workout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
@@ -158,6 +159,11 @@ public class WorkoutSettingsFragment extends Fragment {
                 difficultySpinner.setSelection(4);
             }
         }
+    }
 
+    @Override
+    public void onResume() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        super.onResume();
     }
 }

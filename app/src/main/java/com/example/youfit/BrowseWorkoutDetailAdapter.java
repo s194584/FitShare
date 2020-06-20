@@ -86,7 +86,7 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         Log.d(TAG, "onBindViewHolder: called.");
 
         String workoutName = "Name: " + mWorkouts.get(position).getName();
-        String workoutType = "Type: " + mWorkouts.get(position).formatType();
+        String workoutType = "Type: " + Utility.formatEnum(mWorkouts.get(position).getWorkoutType());
         String workoutTime = "Time: " + mWorkouts.get(position).TimeAsString();
 
         String workoutDifficulty = "Difficulty: " + mWorkouts.get(position).getWorkoutDifficulty();
