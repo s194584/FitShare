@@ -44,7 +44,16 @@ public class SettingsFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Server server = ((MainActivity) getActivity()).getServer();
-                server.updateCurrentUserUsername((nameEditText.getText().toString()));
+                String newName = nameEditText.getText().toString();
+                if(newName.length() < 27 && newName.length() > 3)
+                {
+                    server.updateCurrentUserUsername(newName);
+                    Toast.makeText(getContext(),"Username updated", Toast.LENGTH_LONG).show();
+                }else
+                    {
+                        Toast.makeText(getContext(),"Username must be between 3 and 26 characters",Toast.LENGTH_LONG).show();
+                    }
+
             }
         });
 
