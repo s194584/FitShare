@@ -92,7 +92,7 @@ public class WorkoutSettingsFragment extends Fragment {
                 } else {
                     server.changeWorkout(currentWorkout, existingWorkoutKey);
                 }
-                
+
                 NavHostFragment.findNavController(WorkoutSettingsFragment.this).popBackStack(R.id.HomeFragment,false);
             }
         });
