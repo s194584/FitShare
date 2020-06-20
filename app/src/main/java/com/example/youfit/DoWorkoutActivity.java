@@ -2,15 +2,11 @@ package com.example.youfit;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,6 +28,8 @@ public class DoWorkoutActivity extends AppCompatActivity{
 
     private ViewFlipper flipper;
     private TextView textExerciseTime, textExerciseReps, timeText, repsText;
+    private TextView textExerciseTime2, textExerciseReps2, timeText2, repsText2;
+    private TextView currentExerciseTime, currentExerciseReps, currentTimeText, currentRepsText;
     private int counter;
 
     private SeekBar seekBar;
@@ -49,19 +47,24 @@ public class DoWorkoutActivity extends AppCompatActivity{
     private Workout workout;
     private Exercise currentExercise;
 
-    private FloatingActionButton playPauseButton;
-    private FloatingActionButton stopButton;
+    private FloatingActionButton playPauseButton1, playPauseButton2, currentPlayPauseButton;
+    private FloatingActionButton stopButton1, stopButton2, currentStopButton;
 
-    private ProgressBar progressCircle;
+    private ProgressBar progressCircle1, progressCircle2, currentProgressCircle;
 
     private Chronometer totalWorkoutTime;
 
     private Button endWorkout;
 
+    private boolean isTimeView1 = false;
+    private boolean isRepsView1 = false;
+
+    private View currentViewId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_do_workout2);
+        setContentView(R.layout.activity_do_workout);
 
         // Initialization of stuff
         init();
@@ -116,26 +119,87 @@ public class DoWorkoutActivity extends AppCompatActivity{
         counter = 0;
 
         flipper = findViewById(R.id.view_flipper1);
+
+        /* To get smooth swipe effect no watter what exercise constellation,
+        * we initialize two copies of the same views for reps and timed exercises
+        */
+
+        // View 1
         textExerciseTime = findViewById(R.id.exerciseText1);
         textExerciseReps = findViewById(R.id.exerciseText2);
         timeText = findViewById(R.id.timeText);
         repsText = findViewById(R.id.textReps);
+        playPauseButton1 = findViewById(R.id.playPauseButton1);
+        stopButton1 = findViewById(R.id.stopButton1);
+        progressCircle1 = findViewById(R.id.progressCircle1);
+
+        // View 2
+        textExerciseTime2 = findViewById(R.id.exerciseText3);
+        textExerciseReps2 = findViewById(R.id.exerciseText4);
+        timeText2 = findViewById(R.id.timeText2);
+        repsText2 = findViewById(R.id.textReps2);
+        playPauseButton2 = findViewById(R.id.playPauseButton2);
+        stopButton2 = findViewById(R.id.stopButton2);
+        progressCircle2 = findViewById(R.id.progressCircle2);
 
         seekBar = findViewById(R.id.seekBar1);
         seekBar.setMax(exercises.size());
 
-        playPauseButton = findViewById(R.id.playPauseButton1);
-        stopButton = findViewById(R.id.stopButton1);
-        progressCircle = findViewById(R.id.progressCircle1);
         totalWorkoutTime = findViewById(R.id.totalWorkoutTime1);
 
         endWorkout = findViewById(R.id.endWorkout);
 
+        currentExerciseTime = new TextView(getApplicationContext());
+        currentExerciseReps = new TextView(getApplicationContext());
+        currentTimeText = new TextView(getApplicationContext());
+        currentRepsText = new TextView(getApplicationContext());
+
+        currentProgressCircle = progressCircle1;
+        currentPlayPauseButton = playPauseButton1;
+        currentStopButton = stopButton1;
+        currentViewId = findViewById(R.id.viewTime);
+
+    }
+
+    private void changeView(){
+
+        if (isTime() || isPause()){
+            if (isTimeView1){
+                currentViewId = findViewById(R.id.viewTime2);
+                currentPlayPauseButton = playPauseButton2;
+                currentStopButton = stopButton2;
+                currentExerciseTime = textExerciseTime2;
+                currentProgressCircle = progressCircle2;
+                isTimeView1 = false;
+            }
+            else {
+                currentViewId = findViewById(R.id.viewTime);
+                currentPlayPauseButton = playPauseButton1;
+                currentStopButton = stopButton1;
+                currentExerciseTime = textExerciseTime;
+                currentProgressCircle = progressCircle1;
+                isTimeView1 = true;
+            }
+        }
+        else {
+            if (isRepsView1){
+                currentViewId = findViewById(R.id.viewReps2);
+                currentExerciseReps = textExerciseReps2;
+                currentRepsText = repsText2;
+                isRepsView1 = false;
+            }
+            else {
+                currentViewId = findViewById(R.id.viewReps);
+                currentExerciseReps = textExerciseReps;
+                currentRepsText = repsText;
+                isRepsView1 = true;
+            }
+        }
     }
 
     private void swiped(String swipeDirection){
         seekBar.setProgress(counter);
-        progressCircle.setProgress(0);
+        currentProgressCircle.setProgress(0);
 
         if (swipeDirection.equals("left")){
             swipeLeft();
@@ -149,26 +213,33 @@ public class DoWorkoutActivity extends AppCompatActivity{
 
     private void updateView() {
         if (isTime()){
-            textExerciseTime.setText(currentExercise.getName());
+
+            changeView();
+
+            currentExerciseTime.setText(currentExercise.getName());
             if (timeRunning){
                 resetTimer();
             }
-            flipper.setDisplayedChild(flipper.indexOfChild(findViewById(R.id.viewTime)));
+            flipper.setDisplayedChild(flipper.indexOfChild(currentViewId));
             timerExercise();
 
         }
         else if (isPause()){
-            textExerciseTime.setText(currentExercise.getName());
+            changeView();
+
+            currentExerciseTime.setText(currentExercise.getName());
             if (timeRunning){
                 resetTimer();
             }
-            flipper.setDisplayedChild(flipper.indexOfChild(findViewById(R.id.viewTime)));
+            flipper.setDisplayedChild(flipper.indexOfChild(currentViewId));
             pause();
 
         }
         else if (isReps()){
-            textExerciseReps.setText(currentExercise.getName());
-            flipper.setDisplayedChild(flipper.indexOfChild(findViewById(R.id.viewReps)));
+            changeView();
+
+            currentExerciseReps.setText(currentExercise.getName());
+            flipper.setDisplayedChild(flipper.indexOfChild(currentViewId));
             repsExercise();
         }
     }
@@ -204,25 +275,25 @@ public class DoWorkoutActivity extends AppCompatActivity{
     public void timerExercise(){
         timeLeftInMilliseconds = currentExercise.getAmount();
         START_TIME = timeLeftInMilliseconds;
-        progressCircle.setMax((int) START_TIME - 1000);
-        progressCircle.setProgress(0);
-        playPauseButton.setVisibility(View.VISIBLE);
-        stopButton.setVisibility(View.VISIBLE);
+        currentProgressCircle.setMax((int) START_TIME - 1000);
+        currentProgressCircle.setProgress(0);
+        currentPlayPauseButton.setVisibility(View.VISIBLE);
+        currentStopButton.setVisibility(View.VISIBLE);
         showTimedExercise();
     }
 
     public void repsExercise(){
         temp = currentExercise.getAmountString() + "";
-        repsText.setText(temp);
+        currentRepsText.setText(temp);
     }
 
     public void pause(){
         timeLeftInMilliseconds = Integer.parseInt(currentExercise.getAmountString());
         START_TIME = timeLeftInMilliseconds;
-        progressCircle.setMax((int) START_TIME - 1000);
-        progressCircle.setProgress(0);
-        playPauseButton.setVisibility(View.INVISIBLE);
-        stopButton.setVisibility(View.INVISIBLE);
+        currentProgressCircle.setMax((int) START_TIME - 1000);
+        currentProgressCircle.setProgress(0);
+        currentPlayPauseButton.setVisibility(View.INVISIBLE);
+        currentStopButton.setVisibility(View.INVISIBLE);
         showTimedExercise();
         startTimer();
     }
@@ -233,23 +304,23 @@ public class DoWorkoutActivity extends AppCompatActivity{
         updateTimer();
 
         if (isTime()){
-            playPauseButton.setOnClickListener(new View.OnClickListener() {
+            currentPlayPauseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!timeRunning){
                         startTimer();
                         totalWorkoutTime.start();
-                        playPauseButton.setImageResource(R.drawable.ic_baseline_pause_24);
+                        currentPlayPauseButton.setImageResource(R.drawable.ic_baseline_pause_24);
                     }
                     else {
                         stopTimer();
                         totalWorkoutTime.stop();
-                        playPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+                        currentPlayPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24);
                     }
                 }
             });
 
-            stopButton.setOnClickListener(new View.OnClickListener() {
+            currentStopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     resetTimer();
@@ -260,10 +331,10 @@ public class DoWorkoutActivity extends AppCompatActivity{
     }
 
     private void resetTimer() {
-        progressCircle.setProgress(0);
+        currentProgressCircle.setProgress(0);
         timeLeftInMilliseconds = START_TIME;
         updateTimer();
-        playPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+        currentPlayPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24);
         stopTimer();
     }
 
@@ -271,23 +342,23 @@ public class DoWorkoutActivity extends AppCompatActivity{
         timer = new CountDownTimer(timeLeftInMilliseconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                updateProgressBer(millisUntilFinished);
+                updateProgressBar(millisUntilFinished);
                 timeLeftInMilliseconds = millisUntilFinished;
                 updateTimer();
             }
 
             @Override
             public void onFinish() {
-                progressCircle.setProgress(progressCircle.getMax());
-                playPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24);
+                currentProgressCircle.setProgress(currentProgressCircle.getMax());
+                currentPlayPauseButton.setImageResource(R.drawable.ic_baseline_play_arrow_24);
                 timeRunning = false;
             }
         }.start();
         timeRunning = true;
     }
 
-    private void updateProgressBer(long millisUntilFinished){
-        progressCircle.setProgress((int) START_TIME - (int) millisUntilFinished);
+    private void updateProgressBar(long millisUntilFinished){
+        currentProgressCircle.setProgress((int) START_TIME - (int) millisUntilFinished);
     }
 
     private void updateTimer() {
@@ -301,7 +372,12 @@ public class DoWorkoutActivity extends AppCompatActivity{
             timeLeftText += sec;
         }
 
-        timeText.setText(timeLeftText);
+        if (isTimeView1){
+            timeText.setText(timeLeftText);
+        }
+        else {
+            timeText2.setText(timeLeftText);
+        }
     }
 
     private void stopTimer(){
