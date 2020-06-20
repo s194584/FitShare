@@ -116,6 +116,11 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(nameEditText.getText().toString().length() > 20)
+                {
+                    Toast.makeText(view.getContext(), "Workoutname should not be longer than 20 characters", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 currentWorkout.setName(nameEditText.getText().toString());
                 currentWorkout.setExercises(exercises);
                 Log.i("EXERCISEFRAGMENT", "WORKOUT CREATED");
