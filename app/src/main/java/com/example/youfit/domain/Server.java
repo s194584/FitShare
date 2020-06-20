@@ -41,8 +41,7 @@ public class Server {
 //    protected ArrayList<Workout> publicWorkouts = new ArrayList<>();
 //    protected ArrayList<Workout> currentUsersWorkouts = new ArrayList<>();
 
-    public interface OnServerSetupCompleteListener
-    {
+    public interface OnServerSetupCompleteListener {
         void onSetupComplete();
     }
 
@@ -94,7 +93,7 @@ public class Server {
     }
 
 
-    public void updateCurrentUserUsername (String name) {
+    public void updateCurrentUserUsername(String name) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
@@ -213,7 +212,7 @@ public class Server {
 
         if (firebaseAuth.getCurrentUser() != null) {
             this.rootNode = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid()+ "/savedWorkouts");
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -327,25 +326,24 @@ public class Server {
                     Log.w(TAG, "userLoaded_1");
                     User usertmp = new User();
 
-                    if (dataSnapshot.exists()) {
-                        databaseListener.onComplete(dataSnapshot);
-                        for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
-                            if (!dataValues.hasChildren()) {
-                                usertmp.setName(dataValues.getValue().toString());
-                            } else {
-                                Workout workout = dataValues.getValue(Workout.class);
-                                if (!workout.getName().isEmpty()) {
-                                    currentUsersWorkouts.put(dataSnapshot.getKey(), workout);
-                                    usertmp.addWorkout(workout);
-                                }
+                    databaseListener.onComplete(dataSnapshot);
+                    for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
+                        if (!dataValues.hasChildren()) {
+                            usertmp.setName(dataValues.getValue().toString());
+                        } else {
+                            Workout workout = dataValues.getValue(Workout.class);
+                            if (!workout.getName().isEmpty()) {
+                                currentUsersWorkouts.put(dataSnapshot.getKey(), workout);
+                                usertmp.addWorkout(workout);
                             }
                         }
-                        currentUser = usertmp;
-                        loadCurrentUsersWorkouts();
-                        loadingDialog.dismiss();
-
-                        Log.w(TAG, "userLoaded");
                     }
+                    currentUser = usertmp;
+                    loadCurrentUsersWorkouts();
+                    loadingDialog.dismiss();
+
+                    Log.w(TAG, "userLoaded");
+
                 }
 
                 @Override
@@ -389,7 +387,7 @@ public class Server {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     ExerciseElement exercise = dataSnapshot.getValue(ExerciseElement.class);
-                    preDefinedExercises.put(dataSnapshot.getKey(),exercise);
+                    preDefinedExercises.put(dataSnapshot.getKey(), exercise);
                 }
 
                 @Override
@@ -426,6 +424,7 @@ public class Server {
             databaseReference.child(key).setValue(exerciseElement); // add workout with same key as Users workout
         }
     }
+
     public void removePreDefinedExercise(ExerciseElement exerciseElement, String key) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 

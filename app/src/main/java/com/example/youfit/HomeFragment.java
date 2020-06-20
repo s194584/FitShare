@@ -58,8 +58,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
             ArrayList<Workout> workoutsTmp = new ArrayList<>();
             for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
                 if (!dataValues.hasChildren()) {
-                    String username = dataValues.getValue().toString();
-                    curretUsername = username;
+                    curretUsername = dataValues.getValue().toString();
                     Log.i("UsernameListener", "on complete got username:" + curretUsername);
                     TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
                     welcomeBackTest.setText("Welcome back " + curretUsername + "!");
@@ -83,8 +82,11 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
 
     public void initRecyclerView(View view) {
         Log.i(TAG, "RecyclerView, workouts: " + workouts);
-        plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
-        plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, HomeFragment.this));
+        for (Workout workout: workouts) {
+            Log.i(TAG, "RecyclerView, workouts: " + workout.getName());
+        }
+        RecyclerView plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
+        plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, this));
 
         plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -108,21 +110,27 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         //Get layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Set welcome back text
-        if (!loaded) {
-            Log.i("HomeFragment", "loaded: " + loaded);
-            UserListener listener = new UserListener(view);
-            server.loadCurrentUser(listener);
-            loaded=true;
-        } else {
-            Log.i("HomeFragment", "loaded: " + loaded);
-            Log.i("HomeFragment", "name is: " + curretUsername);
-            Log.i("HomeFragment", "workouts are: " + workouts);
-            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-            welcomeBackTest.setText("Welcome back " + curretUsername + "!");
+        UserListener listener = new UserListener(view);
+        server.loadCurrentUser(listener);
 
-            initRecyclerView(view);
-        }
+
+        //TODO: For some reason this implementation does not work when it is set to loaded
+        // I do not know why. Problem is we now constantly create listeners this could potentially be a problem
+        //Set welcome back text
+//        if (!loaded) {
+//            Log.i("HomeFragment", "loaded: " + loaded);
+//            UserListener listener = new UserListener(view);
+//            server.loadCurrentUser(listener);
+//            loaded=true;
+//        } else {
+//            Log.i("HomeFragment", "loaded: " + loaded);
+//            Log.i("HomeFragment", "name is: " + curretUsername);
+//            Log.i("HomeFragment", "workouts are: " + workouts);
+//            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+//            welcomeBackTest.setText("Welcome back " + curretUsername + "!");
+//
+//            initRecyclerView(view);
+//        }
 
         return view;
     }
