@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.ExerciseElement;
@@ -55,6 +57,8 @@ public class DoWorkoutActivity extends AppCompatActivity{
     private Chronometer totalWorkoutTime;
 
     private Button endWorkout;
+
+    private ImageButton infoButton;
 
     private boolean isTimeView1 = false;
     private boolean isRepsView1 = false;
@@ -119,6 +123,16 @@ public class DoWorkoutActivity extends AppCompatActivity{
         counter = 0;
 
         flipper = findViewById(R.id.view_flipper1);
+
+        //Set info button
+        infoButton = findViewById(R.id.info_button);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment infoDialog = ExerciseInfoDialogFragment.newInstance(currentExercise);
+                infoDialog.show(getSupportFragmentManager(), "info");
+            }
+        });
 
         /* To get smooth swipe effect no watter what exercise constellation,
         * we initialize two copies of the same views for reps and timed exercises
