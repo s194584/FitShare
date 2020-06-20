@@ -115,7 +115,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 Log.i("DIALOG FRAGMENT", "HIT CANCEL BUTTON");
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
