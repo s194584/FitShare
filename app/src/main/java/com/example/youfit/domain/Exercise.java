@@ -21,7 +21,8 @@ public class Exercise implements Parcelable {
 
     public Exercise(String name) //This is for pauses
     {
-        this.exerciseElement = new ExerciseElement("Pause",ExerciseType.PAUSE.name(),"You take a breather.");
+        Log.i("Exercise", "A PAUSE WAS CREATED");
+        this.exerciseElement = new ExerciseElement(name, "PAUSE","You take a breather.");
         this.amount = 0;
 
         Log.i("Exercise/constructor", "created a pause");

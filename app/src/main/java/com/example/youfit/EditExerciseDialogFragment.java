@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,14 +35,15 @@ public class EditExerciseDialogFragment extends DialogFragment {
     private ExerciseElement exerciseElement;
     private int pos;
     private String description = "";
-    private boolean wantNew;
     private Context mContext;
 
     // UI elements
     AutoCompleteTextView autoCompleteTextView;
-    EditText amountEditText;
+    EditText amountEditText, timeTextSec, timeTextMin;
     RadioGroup radioGroup;
     Button cancelButton, saveButton;
+    ViewFlipper flipper;
+    View inflatedView;
 
     public interface EditExerciseDialogFragmentListener{
         public void onDialogSave(Exercise exercise, int position);
@@ -63,25 +65,9 @@ public class EditExerciseDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mContext = getActivity();
-        exercise = getArguments().getParcelable("editExercise");
-        pos = getArguments().getInt("position");
+        init(inflater, container);
 
-        Log.i(TAG, "Excercise to be edited: " + exercise.toString());
-
-        //Get view
-        View inflatedView =inflater.inflate(R.layout.dialog_edit_exercise,container,false);
-
-        // Auto complete setup
-        ArrayList<String> workoutNames = new ArrayList<String>(((MainActivity) getActivity()).getHashMap().getHashMap().keySet());
-
-        autoCompleteTextView = inflatedView.findViewById(R.id.autoedittext_edit_exercise_name);
-
-        final ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, workoutNames);
-
-        autoCompleteTextView.setAdapter(autocompleteAdapter);
-        autoCompleteTextView.setText(exercise.retrieveName());
-
+        // Determines type if user selects predefined exercise
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -96,63 +82,94 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 //Set type
                 if(exerciseElement.getType().equals(ExerciseType.REPETITION.name())){
                     radioGroup.check(R.id.radiobutton_edit_exercise_reps);
+                    flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_reps)));
                 }else{
                     radioGroup.check(R.id.radiobutton_edit_exercise_time);
+                    flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));
                 }
 
                 //Lock type
-                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setClickable(false);
-                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setClickable(false);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(false);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(false);
             }
         });
 
-        // RadioGroup
-        radioGroup = inflatedView.findViewById(R.id.radioGroup);
+        // Change type
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radiobutton_edit_exercise_reps){
+                    radioGroup.check(R.id.radiobutton_edit_exercise_reps);
+                    flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_reps)));
+                }
 
-        if(exercise.retrieveType().equals(ExerciseType.REPETITION.name())){ //TODO malthe, skal vi stadig bruge dette? Gør den det ikke lige over?
-            radioGroup.check(R.id.radiobutton_edit_exercise_reps);
-        }else{
-            radioGroup.check(R.id.radiobutton_edit_exercise_time);
-        }
+                if (checkedId == R.id.radiobutton_edit_exercise_time){
+                    radioGroup.check(R.id.radiobutton_edit_exercise_time);
+                    flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));
+                }
+            }
+        });
 
-        // Amount text
-        amountEditText = inflatedView.findViewById(R.id.edittext_edit_exercise_amount);
-        // Buttons
-        cancelButton = inflatedView.findViewById(R.id.button_edit_exercise_cancel);
-        saveButton = inflatedView.findViewById(R.id.button_edit_exercise_save);
-
-        // Button onClick()
+        // Cancel
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("DIALOG FRAGMENT", "HIT SAVE BUTTON");
+                Log.i("DIALOG FRAGMENT", "HIT CANCEL BUTTON");
                 getDialog().dismiss();
             }
         });
 
-        // OnClick for Save button
+        // Save
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 // Check that all inputs have been filled, else make toast:
-                if (autoCompleteTextView.getText().toString().isEmpty() || amountEditText.getText().toString().isEmpty()) {
-                    Toast.makeText(view.getContext(), "Not all fields has been filled.", Toast.LENGTH_SHORT);
+
+                if (autoCompleteTextView.getText().toString().isEmpty()){
+                    makeToast("Exercise name is required");
                     return;
+                }
+
+                if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_reps){
+                    if (amountEditText.getText().toString().isEmpty()) {
+                        makeToast("Amount cannot be empty");
+                        return;
+                    }
+                }
+
+                if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_time){
+                    if (timeTextMin.getText().toString().isEmpty() || timeTextSec.getText().toString().isEmpty()){
+                        makeToast("Minutes and seconds cannot be empty");
+                    }
                 }
 
                 //Get exercise name
                 String name = autoCompleteTextView.getText().toString();
+
                 exerciseElement = ((MainActivity) mContext).getHashMap().getElement(name);
 
-                //Check if element already excists. If not, create new element
+                // Check if element already exists. If not, create new element
                 if (exerciseElement != null) {
                     exercise.setExerciseElement(exerciseElement);
-                    exercise.setAmount(Long.parseLong(amountEditText.getText().toString()));
+
+                    if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_time){
+                        long minutes = Long.parseLong(timeTextMin.getText().toString())*60000;
+                        long seconds = Long.parseLong(timeTextSec.getText().toString())*1000;
+
+                        long totalAmount = minutes + seconds;
+
+                        exercise.setAmount(totalAmount);
+                    }
+
+                    if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_reps){
+                        exercise.setAmount(Long.parseLong(amountEditText.getText().toString()));
+                    }
+
                     listener.onDialogSave(exercise, pos);
-                    getDialog().dismiss();
+                    dismiss();
                 }
-                    else {
+                else {
 
                     // Save description dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -176,7 +193,18 @@ public class EditExerciseDialogFragment extends DialogFragment {
                             exerciseElement = new ExerciseElement(autoCompleteTextView.getText().toString(), type, description);
                             ((MainActivity) mContext).addPreDefinedExercise(exerciseElement);
 
-                            exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+                            if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_time){
+                                long minutes = Long.parseLong(timeTextMin.getText().toString())*60000;
+                                long seconds = Long.parseLong(timeTextSec.getText().toString())*1000;
+
+                                long totalAmount = minutes + seconds;
+
+                                exercise = new Exercise(exerciseElement, totalAmount);
+                            }
+
+                            if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_reps){
+                                exercise = new Exercise(exerciseElement, Long.parseLong(amountEditText.getText().toString()));
+                            }
 
                             listener.onDialogSave(exercise, pos);
                             dialogInterface.dismiss();
@@ -194,47 +222,51 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     builder.show();
                 }
 
-                getDialog().dismiss();
+                dismiss();
             }
         });
 
         return inflatedView;
     }
 
-//    @NonNull //TODO skal det her stadig være her?
-//    @Override
-//    public Dialog onDialogCreate(@Nullable Bundle savedInstanceState) {
-//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-//        dialogBuilder.setMessage(R.string.add_exercise);
-//
-//        // Get the custom View
-//        View inflatedView = requireActivity().getLayoutInflater().inflate(R.layout.dialog_edit_exercise,null);
-//
-//        // Auto complete setup
-//        final AutoCompleteTextView inputName = inflatedView.findViewById(R.id.autoedittext_edit_exercise_name);
-//        ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(),
-//                R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.rep_exercises));
-//        inputName.setAdapter(autocompleteAdapter);
-//
-//        dialogBuilder.setView(inflatedView);
-//        // Action for "YES" button
-//        dialogBuilder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                listener.onDialogPositiveClick(EditExerciseDialogFragment.this);
-//            }
-//        });
-//
-//        // Action for "NO" button
-//        dialogBuilder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                listener.onDialogNegativeClick(EditExerciseDialogFragment.this);
-//            }
-//        });
-//
-//        return dialogBuilder.create();
-//
-//    }
+    private void makeToast(String message) {
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void init(LayoutInflater inflater, ViewGroup container){
+        mContext = getActivity();
+        exercise = getArguments().getParcelable("editExercise");
+        pos = getArguments().getInt("position");
+
+        //Get view
+        inflatedView =inflater.inflate(R.layout.dialog_edit_exercise,container,false);
+
+        // Auto complete setup
+        ArrayList<String> workoutNames = new ArrayList<String>(((MainActivity) getActivity()).getHashMap().getHashMap().keySet());
+
+        flipper = inflatedView.findViewById(R.id.view_flipper1);
+        flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));
+
+        autoCompleteTextView = inflatedView.findViewById(R.id.autoedittext_edit_exercise_name);
+
+        final ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, workoutNames);
+
+        autoCompleteTextView.setAdapter(autocompleteAdapter);
+        autoCompleteTextView.setText(exercise.retrieveName());
+
+        radioGroup = inflatedView.findViewById(R.id.radioGroup);
+
+        radioGroup.check(R.id.radiobutton_edit_exercise_reps);
+        flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_reps)));
+
+        // Amount text
+        amountEditText = inflatedView.findViewById(R.id.edittext_edit_exercise_amount);
+        // Buttons
+        cancelButton = inflatedView.findViewById(R.id.button_edit_exercise_cancel);
+        saveButton = inflatedView.findViewById(R.id.button_edit_exercise_save);
+
+        timeTextSec = inflatedView.findViewById(R.id.edittext_edit_exercise_amount_sec);
+        timeTextMin = inflatedView.findViewById(R.id.edittext_edit_exercise_amount_min);
+    }
 
 }

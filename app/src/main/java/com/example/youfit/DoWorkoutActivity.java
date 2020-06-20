@@ -2,6 +2,7 @@ package com.example.youfit;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -226,6 +227,7 @@ public class DoWorkoutActivity extends AppCompatActivity{
 
     private void updateView() {
         if (isTime()){
+            Log.i(TAG, "YOU ENTERED A TIMED EXERCISE");
 
             changeView();
 
@@ -238,6 +240,7 @@ public class DoWorkoutActivity extends AppCompatActivity{
 
         }
         else if (isPause()){
+            Log.i(TAG, "YOU ENTERED A PAUSE");
             changeView();
 
             currentExerciseTime.setText(currentExercise.retrieveName());

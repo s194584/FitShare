@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -26,7 +27,6 @@ import java.util.Collections;
 
 public class WorkoutFragment extends Fragment implements EditExerciseDialogFragment.EditExerciseDialogFragmentListener, ExersiceAdapter.OnExerciseListener{
     private final String TAG = "WorkoutFragment";
-
 
     private String workoutSelected;
     private String exerciseSelected;
@@ -200,7 +200,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
 //        });
     }
 
-    public void showEditExercise(Exercise exercise,int position){
+    public void showEditExercise(Exercise exercise, int position){
         EditExerciseDialogFragment dialog = new EditExerciseDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("editExercise",exercise);
