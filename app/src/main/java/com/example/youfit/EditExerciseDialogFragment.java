@@ -3,6 +3,7 @@ package com.example.youfit;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -44,6 +46,10 @@ public class EditExerciseDialogFragment extends DialogFragment {
     Button cancelButton, saveButton;
     ViewFlipper flipper;
     View inflatedView;
+    ImageButton minutesUp;
+    ImageButton minutesDown;
+    ImageButton secondsUp;
+    ImageButton secondsDown;
 
     public interface EditExerciseDialogFragmentListener{
         public void onDialogSave(Exercise exercise, int position);
@@ -106,6 +112,52 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 if (checkedId == R.id.radiobutton_edit_exercise_time){
                     radioGroup.check(R.id.radiobutton_edit_exercise_time);
                     flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));
+                }
+            }
+        });
+
+        //TIME PICKER BUTTONS
+        minutesUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int minutes = Integer.parseInt(timeTextMin.getText().toString());
+                minutes += 1;
+                timeTextMin.setText(""+minutes);
+            }
+        });
+
+        minutesDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int minutes = Integer.parseInt(timeTextMin.getText().toString());
+                minutes -= 1;
+                if(minutes >= 0)
+                {
+                    timeTextMin.setText(""+minutes);
+                }
+            }
+        });
+
+        secondsUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int seconds = Integer.parseInt(timeTextSec.getText().toString());
+                seconds += 10;
+                if(seconds >= 0 && seconds <60)
+                {
+                    timeTextSec.setText(""+seconds);
+                }
+            }
+        });
+
+        secondsDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int seconds = Integer.parseInt(timeTextSec.getText().toString());
+                seconds -= 10;
+                if(seconds >= 0 && seconds <60)
+                {
+                    timeTextSec.setText(""+seconds);
                 }
             }
         });
@@ -267,6 +319,11 @@ public class EditExerciseDialogFragment extends DialogFragment {
 
         timeTextSec = inflatedView.findViewById(R.id.edittext_edit_exercise_amount_sec);
         timeTextMin = inflatedView.findViewById(R.id.edittext_edit_exercise_amount_min);
+
+        minutesUp = inflatedView.findViewById(R.id.minutesUp);
+        minutesDown = inflatedView.findViewById(R.id.minutesDown);
+        secondsUp = inflatedView.findViewById(R.id.secondsUp);
+        secondsDown = inflatedView.findViewById(R.id.secondsDown);
     }
 
 }
