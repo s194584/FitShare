@@ -133,9 +133,9 @@ public class WorkoutSettingsFragment extends Fragment {
 
     public void setSelectedType() {
         if (currentWorkout.getWorkoutType() != null) {
-            if (currentWorkout.getWorkoutType().equals("Strength")) {
+            if (currentWorkout.getWorkoutType().equals("STRENGTH")) {
                 typeSpinner.setSelection(1);
-            } else if (currentWorkout.getWorkoutType().equals("Cardio")) {
+            } else if (currentWorkout.getWorkoutType().equals("CARDIO")) {
                 typeSpinner.setSelection(2);
             } else {
                 typeSpinner.setSelection(0);
@@ -147,13 +147,13 @@ public class WorkoutSettingsFragment extends Fragment {
     public void setSelectedDifficulty() {
         Log.d(TAG, "setSelectedDifficulty: tried: ");
         if (currentWorkout.getWorkoutDifficulty() != null) {
-            if (currentWorkout.getWorkoutDifficulty().equals("Beginner")) {
+            if (currentWorkout.getWorkoutDifficulty().equals("BEGINNER")) {
                 difficultySpinner.setSelection(0);
-            } else if (currentWorkout.getWorkoutDifficulty().equals("Medium")) {
+            } else if (currentWorkout.getWorkoutDifficulty().equals("MEDIUM")) {
                 difficultySpinner.setSelection(1);
-            } else if (currentWorkout.getWorkoutDifficulty().equals("Hard")) {
+            } else if (currentWorkout.getWorkoutDifficulty().equals("HARD")) {
                 difficultySpinner.setSelection(2);
-            } else if (currentWorkout.getWorkoutDifficulty().equals("Extreme")) {
+            } else if (currentWorkout.getWorkoutDifficulty().equals("EXTREME")) {
                 difficultySpinner.setSelection(3);
             }  else {
                 difficultySpinner.setSelection(4);
