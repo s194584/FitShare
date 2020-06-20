@@ -82,7 +82,7 @@
     #View Workout Details fragment
     <string name="name_workout">Name: workout</string>
     <string name="type_strength">Type: Strength</string>
-    <string name="estimated_time_120_00">Estimated time: 120:00</string>
+    <string name="estimated_time_120_00">Time: 120:00</string>
     <string name="creator_skinnyp3n1s123">Creator: SkinnyP3n1s123</string>
 
     #fragment workout

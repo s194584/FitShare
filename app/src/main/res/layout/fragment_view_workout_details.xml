@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ViewWorkoutDetailsFragment"
     android:id="@+id/workout_details_fragment">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="1183dp"
+        android:layout_height="807dp"
+        android:src="@drawable/backgroound_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/background" />
+
+    <View
+        android:id="@+id/xxx3"
+        android:layout_width="370dp"
+        android:layout_height="130dp"
+        android:background="@drawable/planned_workouts_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/workout_description"
+        android:layout_marginBottom="12dp"/>
 
     <TextView
         android:id="@+id/workout_name_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/xxx3"
+        app:layout_constraintTop_toTopOf="@id/xxx3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/name_workout"
         android:textSize="25sp" />
 
@@ -21,9 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/difficulty_medium"
-        android:layout_below="@+id/workout_name_view"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/xxx3"
+        app:layout_constraintTop_toBottomOf="@id/workout_name_view"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
         android:textSize="16sp" />
 
     <TextView
@@ -31,18 +55,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/type_strength"
-        android:layout_below="@+id/workout_difficulty_view"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/xxx3"
+        app:layout_constraintTop_toBottomOf="@id/workout_difficulty_view"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/workout_time_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workout_name_view"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="15dp"
+        app:layout_constraintRight_toRightOf="@id/xxx3"
+        app:layout_constraintTop_toBottomOf="@id/workout_name_view"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/estimated_time_120_00"
         android:textSize="16sp" />
 
@@ -50,24 +76,33 @@
         android:id="@+id/workout_creator_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workout_time_view"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="15dp"
+        app:layout_constraintRight_toRightOf="@id/xxx3"
+        app:layout_constraintTop_toBottomOf="@id/workout_time_view"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/creator_skinnyp3n1s123"
         android:textSize="16sp" />
 
+    <View
+        android:id="@+id/xxx2"
+        android:layout_width="370dp"
+        android:layout_height="120dp"
+        android:background="@drawable/planned_workouts_bg"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/exercisedetailsRV"/>
+
     <TextView
         android:id="@+id/workout_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="310sp"
+        android:layout_height="70sp"
         android:scrollbars="vertical"
-        android:layout_above="@+id/exercisedetailsRV"
-        android:layout_below="@+id/workout_creator_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/xxx2"
+        app:layout_constraintTop_toTopOf="@id/xxx2"
+        android:layout_marginBottom="5dp"
         android:text="Description"
         android:textSize="16sp"/>
 
@@ -75,41 +110,54 @@
         android:id="@+id/start_workout_button"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV"
+        android:layout_marginTop="30dp"
         android:text="@string/start_workout" />
 
     <Button
         android:id="@+id/delete_workout_button"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="75dp"
-        android:layout_toEndOf="@+id/start_workout_button"
+        app:layout_constraintRight_toLeftOf="@id/start_workout_button"
+        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV"
+        android:layout_marginTop="30dp"
         android:text="@string/delete_workout" />
 
     <Button
         android:id="@+id/edit_workout_button"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="75dp"
-        android:layout_toStartOf="@+id/start_workout_button"
+        app:layout_constraintLeft_toRightOf="@id/start_workout_button"
+        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV"
+        android:layout_marginTop="30dp"
         android:text="@string/edit_workout" />
+
+    <View
+        android:id="@+id/xxx"
+        android:layout_width="370dp"
+        android:layout_height="370dp"
+        android:background="@drawable/planned_workouts_bg"
+        android:layout_marginTop="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/exercisedetailsRV"
+        app:layout_constraintBottom_toBottomOf="@id/exercisedetailsRV"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/exercisedetailsRV"
         android:layout_width="wrap_content"
-        android:layout_height="310dp"
+        android:layout_height="270dp"
         android:layout_above="@+id/start_workout_button"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_gravity="center"
-        android:layout_marginBottom="25dp">
+        android:layout_marginTop="125dp">
     </androidx.recyclerview.widget.RecyclerView>
 
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

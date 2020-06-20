@@ -33,11 +33,15 @@ public class ClickWorkoutDetailAdapter extends RecyclerView.Adapter<ClickWorkout
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView exerciseName;
+        TextView exerciseRepOrTime;
+        TextView timeOrReps;
         RelativeLayout detailLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            exerciseName = itemView.findViewById(R.id.exercise_name);
+            exerciseName = itemView.findViewById(R.id.excersizeNameTextView);
+            exerciseRepOrTime = itemView.findViewById(R.id.repTimeTextView);
+            timeOrReps = itemView.findViewById(R.id.amoutnTextView);
             detailLayout = itemView.findViewById(R.id.view_exercises_layout);
 
         }
@@ -62,7 +66,11 @@ public class ClickWorkoutDetailAdapter extends RecyclerView.Adapter<ClickWorkout
         Log.d(TAG, "onBindViewHolder: called.");
 
         String exerciseName = mExercises.get(position).getName();
+        String exerciseRepsOrTime = mExercises.get(position).repsOrTime();
+        String amount = mExercises.get(position).getAmountString();
         holder.exerciseName.setText(exerciseName);
+        holder.exerciseRepOrTime.setText(exerciseRepsOrTime);
+        holder.timeOrReps.setText(amount);
     }
 
     @Override
