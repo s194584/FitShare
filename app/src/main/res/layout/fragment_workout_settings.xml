@@ -396,7 +396,7 @@
         android:id="@+id/button_workout_settings_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="40dp"
         android:text="@string/create_workout"
         app:layout_constraintTop_toBottomOf="@id/settings_big_layout"
         app:layout_constraintEnd_toEndOf="parent"

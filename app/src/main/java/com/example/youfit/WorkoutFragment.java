@@ -55,9 +55,11 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
             this.currentWorkout = (Workout) getArguments().get("newWorkout");
             existingWorkoutKey = getArguments().getString("key");
             exercises = currentWorkout.getExercises();
+            Log.i(TAG, "onCreate: got key: " + getArguments().getString("key"));
         } else{
             currentWorkout = new Workout();
             existingWorkoutKey = "";
+            Log.d(TAG, "got empty key");
         }
     }
 
