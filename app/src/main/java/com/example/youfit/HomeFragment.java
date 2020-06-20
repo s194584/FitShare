@@ -18,15 +18,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.youfit.domain.DatabaseListener;
-import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,10 +28,12 @@ import java.util.Calendar;
 public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener {
     private final String TAG = "HomeFragment";
 
-    ArrayList<Workout> workouts = new ArrayList<>();
+   private ArrayList<Workout> workouts = new ArrayList<>();
    private WorkoutDetailAdapter mAdapter;
    private RecyclerView plannedWorkoutsRV;
    private int currentDay;
+   private boolean loaded = false;
+   private String curretUsername;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +41,11 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         setHasOptionsMenu(true);
     }
 
-    private class UsernameListener implements DatabaseListener {
+    private class UserListener implements DatabaseListener {
 
         private View view;
 
-        UsernameListener(View view) {
+        UserListener(View view) {
             this.view = view;
         }
 
@@ -58,11 +54,45 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         }
 
         public void onComplete(DataSnapshot dataSnapshot) {
-            String username = dataSnapshot.getValue().toString();
-            Log.i("UsernameListener", "on complete got username:" + username);
-            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-            welcomeBackTest.setText("Welcome back " + username + "!");
+            Log.i("UsernameListener", "onComplete entered");
+            ArrayList<Workout> workoutsTmp = new ArrayList<>();
+            for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
+                if (!dataValues.hasChildren()) {
+                    String username = dataValues.getValue().toString();
+                    curretUsername = username;
+                    Log.i("UsernameListener", "on complete got username:" + curretUsername);
+                    TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+                    welcomeBackTest.setText("Welcome back " + curretUsername + "!");
+                } else {
+                    for (DataSnapshot workoutValues : dataValues.getChildren()) {
+                        Workout workout = workoutValues.getValue(Workout.class);
+                        Log.i("UsernameListener","workout name: " + workout.getName());
+                        if (!workout.getName().isEmpty()) {
+                            Log.i("UsernameListener",workout.getName()+" is "+workout.getRecurring().get(currentDay));
+                            if (workout.getRecurring().get(currentDay)) {
+                                workoutsTmp.add(workout);
+                            }
+                        }
+                    }
+                }
+            }
+            workouts = workoutsTmp;
+            initRecyclerView(view);
         }
+    }
+
+    public void initRecyclerView(View view) {
+        Log.i(TAG, "RecyclerView, workouts: " + workouts);
+        plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
+        plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, HomeFragment.this));
+
+        plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //TODO: Does this make a difference? It currently causes crashes!
+        //Make recycleView look good.
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
+//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+//        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
@@ -79,60 +109,20 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Set welcome back text
-        UsernameListener listener = new UsernameListener(view);
-        server.loadCurrentUser(listener);
-//        TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-//        String username = server.getUsername();
-//        welcomeBackTest.setText("Welcome back " + username + "!");
+        if (!loaded) {
+            Log.i("HomeFragment", "loaded: " + loaded);
+            UserListener listener = new UserListener(view);
+            server.loadCurrentUser(listener);
+            loaded=true;
+        } else {
+            Log.i("HomeFragment", "loaded: " + loaded);
+            Log.i("HomeFragment", "name is: " + curretUsername);
+            Log.i("HomeFragment", "workouts are: " + workouts);
+            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+            welcomeBackTest.setText("Welcome back " + curretUsername + "!");
 
-        //get workouts
-        Log.i("HomeFragment", "1: Getting data and current day is: "+currentDay);
-        workouts = server.getCurrentUsersWorkouts();
-
-        //Get recycler view
-        Log.i("HomeFragment", "2: Getting recyclerView");
-        plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
-        if(plannedWorkoutsRV == null)
-        {
-            Log.i("HomeFragment", "ERROR: Could not find recyclerView");
+            initRecyclerView(view);
         }
-
-
-        //add adapter to recycle view
-        Log.i("HomeFragment", "3: Getting firebase date");
-        assert plannedWorkoutsRV != null;
-        DatabaseReference userWorkoutsRef = FirebaseDatabase.getInstance().getReference("Users/" + server.getUserUID() + "/savedWorkouts");
-
-        userWorkoutsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i(TAG,"Data updated");
-                workouts.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Workout workout = ds.getValue(Workout.class);
-                    Log.i(TAG,workout.getName()+" is "+workout.getRecurring().get(currentDay));
-                    if (workout.getRecurring().get(currentDay)) {
-                        workouts.add(workout);
-                    }
-                }
-                Log.i("HomeFragment", "3: Making and adding adapter");
-                plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, HomeFragment.this));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i(TAG,"Could not retrieve workouts.");
-            }
-        });
-
-        //Set layoutmanager
-        Log.i("HomeFragment", "4: Set recycler views layout manager");
-        plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //Make recycleView look good.
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
 
         return view;
     }

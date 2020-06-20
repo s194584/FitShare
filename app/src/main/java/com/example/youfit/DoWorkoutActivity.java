@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.youfit.domain.Exercise;
-import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.Workout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -230,7 +229,7 @@ public class DoWorkoutActivity extends AppCompatActivity{
 
             changeView();
 
-            currentExerciseTime.setText(currentExercise.getName());
+            currentExerciseTime.setText(currentExercise.retrieveName());
             if (timeRunning){
                 resetTimer();
             }
@@ -241,7 +240,7 @@ public class DoWorkoutActivity extends AppCompatActivity{
         else if (isPause()){
             changeView();
 
-            currentExerciseTime.setText(currentExercise.getName());
+            currentExerciseTime.setText(currentExercise.retrieveName());
             if (timeRunning){
                 resetTimer();
             }
@@ -252,7 +251,7 @@ public class DoWorkoutActivity extends AppCompatActivity{
         else if (isReps()){
             changeView();
 
-            currentExerciseReps.setText(currentExercise.getName());
+            currentExerciseReps.setText(currentExercise.retrieveName());
             flipper.setDisplayedChild(flipper.indexOfChild(currentViewId));
             repsExercise();
         }
@@ -275,15 +274,15 @@ public class DoWorkoutActivity extends AppCompatActivity{
     }
 
     private boolean isPause() {
-        return currentExercise.getType().equals("PAUSE");
+        return currentExercise.retrieveType().equals("PAUSE");
     }
 
     private boolean isReps(){
-        return currentExercise.getType().equals("REPETITION");
+        return currentExercise.retrieveType().equals("REPETITION");
     }
 
     private boolean isTime(){
-        return currentExercise.getType().equals("TIME");
+        return currentExercise.retrieveType().equals("TIME");
     }
 
     public void timerExercise(){
@@ -297,12 +296,12 @@ public class DoWorkoutActivity extends AppCompatActivity{
     }
 
     public void repsExercise(){
-        temp = currentExercise.getAmountString() + "";
+        temp = currentExercise.retrieveAmountString() + "";
         currentRepsText.setText(temp);
     }
 
     public void pause(){
-        timeLeftInMilliseconds = Integer.parseInt(currentExercise.getAmountString());
+        timeLeftInMilliseconds = Integer.parseInt(currentExercise.retrieveAmountString());
         START_TIME = timeLeftInMilliseconds;
         currentProgressCircle.setMax((int) START_TIME - 1000);
         currentProgressCircle.setProgress(0);

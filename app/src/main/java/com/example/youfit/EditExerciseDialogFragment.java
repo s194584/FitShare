@@ -1,7 +1,6 @@
 package com.example.youfit;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -81,7 +80,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
         final ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, workoutNames);
 
         autoCompleteTextView.setAdapter(autocompleteAdapter);
-        autoCompleteTextView.setText(exercise.getName());
+        autoCompleteTextView.setText(exercise.retrieveName());
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -110,7 +109,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
         // RadioGroup
         radioGroup = inflatedView.findViewById(R.id.radioGroup);
 
-        if(exercise.getType().equals(ExerciseType.REPETITION.name())){ //TODO malthe, skal vi stadig bruge dette? Gør den det ikke lige over?
+        if(exercise.retrieveType().equals(ExerciseType.REPETITION.name())){ //TODO malthe, skal vi stadig bruge dette? Gør den det ikke lige over?
             radioGroup.check(R.id.radiobutton_edit_exercise_reps);
         }else{
             radioGroup.check(R.id.radiobutton_edit_exercise_time);

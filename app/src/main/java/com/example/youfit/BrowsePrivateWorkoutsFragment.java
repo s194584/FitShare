@@ -49,6 +49,7 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
         return view;
     }
 
+    //listener for database changes, connected to server
     private class CurrentUserWorkouts implements DatabaseListener {
 
         private View view;
