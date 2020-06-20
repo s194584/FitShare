@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
@@ -34,8 +36,10 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         View view = inflater.inflate(R.layout.fragment_browse_public_workouts, container, false);
 
         Log.i(TAG, "2: Getting data from firebase");
+        // Load workouts from server
+        BrowsePublicWorkoutsFragment.PublicWorkoutsListener listener = new BrowsePublicWorkoutsFragment.PublicWorkoutsListener(view);
         Server server = ((MainActivity) getActivity()).getServer();
-        workouts = server.getPublicWorkouts();
+        server.loadPublicWorkouts2(listener);
 
         Log.i(TAG, "3: Initiating recyclerview");
         initRecyclerView(view);
@@ -43,7 +47,35 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         return view;
     }
 
-    private void initRecyclerView(View view) {
+    //listener for database changes, connected to server
+    private class PublicWorkoutsListener implements DatabaseListener {
+
+        private View view;
+
+        PublicWorkoutsListener(View view) {
+            this.view = view;
+        }
+
+        public void onStart() {
+            Log.i("CurrentUserWorkouts", "onStart");
+        }
+
+        public void onComplete(DataSnapshot dataSnapshot) {
+            Log.i("CurrentUserWorkouts", "on complete got username:");
+            ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
+            for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
+                Workout workout = dataValues.getValue(Workout.class);
+                if (!workout.getName().isEmpty()) {
+                    workoutstmp.add(workout);
+                }
+            }
+            workouts = workoutstmp;
+            initRecyclerView(view);
+        }
+    }
+
+
+        private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
         BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts, this);
         recyclerView.setAdapter(adapter);
