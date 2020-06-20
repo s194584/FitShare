@@ -131,7 +131,7 @@ public class Workout implements Parcelable {
         long time = 0;
         for(Exercise x : exercises)
         {
-            time += Integer.parseInt(x.getAmountString());
+            time += Integer.parseInt(x.retrieveAmountString());
         }
         return time;
     }
@@ -176,7 +176,7 @@ public class Workout implements Parcelable {
 
     }
 
-    public boolean isPublicWorkout() {
+    public boolean getPublicWorkout() {
         return publicWorkout;
     }
 
@@ -184,7 +184,7 @@ public class Workout implements Parcelable {
         this.publicWorkout = publicWorkout;
     }
 
-    public boolean isNotifications() {
+    public boolean getNotifications() {
         return notifications;
     }
 

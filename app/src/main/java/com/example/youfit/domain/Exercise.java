@@ -14,7 +14,7 @@ public class Exercise implements Parcelable {
     public Exercise(Exercise exercise)
     {
         this.exerciseElement = exercise.exerciseElement;
-        this.amount = Integer.parseInt(exercise.getAmountString());
+        this.amount = Integer.parseInt(exercise.retrieveAmountString());
 
         Log.i("Exercise/constructor", "created an exercise from an exercise");
     }
@@ -60,7 +60,7 @@ public class Exercise implements Parcelable {
         }
     };
 
-    public String getAmountString(){
+    public String retrieveAmountString(){
         return ""+amount;
     }
 
@@ -87,12 +87,12 @@ public class Exercise implements Parcelable {
         dest.writeLong(amount);
     }
 
-    public String getName()
+    public String retrieveName()
     {
         return exerciseElement.getName();
     }
 
-    public String getType() {
+    public String retrieveType() {
         return exerciseElement.getType();
     }
 

@@ -1,26 +1,18 @@
 package com.example.youfit;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Exercise;
-import com.example.youfit.domain.Workout;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClickWorkoutDetailAdapter extends RecyclerView.Adapter<ClickWorkoutDetailAdapter.ViewHolder> {
@@ -65,9 +57,9 @@ public class ClickWorkoutDetailAdapter extends RecyclerView.Adapter<ClickWorkout
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        String exerciseName = mExercises.get(position).getName();
+        String exerciseName = mExercises.get(position).retrieveName();
         String exerciseRepsOrTime = mExercises.get(position).repsOrTime();
-        String amount = mExercises.get(position).getAmountString();
+        String amount = mExercises.get(position).retrieveAmountString();
         holder.exerciseName.setText(exerciseName);
         holder.exerciseRepOrTime.setText(exerciseRepsOrTime);
         holder.timeOrReps.setText(amount);

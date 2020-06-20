@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -17,13 +16,10 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.youfit.domain.Server;
-import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
-import com.example.youfit.domain.WorkoutType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,8 +62,8 @@ public class WorkoutSettingsFragment extends Fragment {
             ((CheckBox) recurringChecks.getChildAt(i)).setChecked(tempRecurring.get(i));
         }
 
-        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.isNotifications());
-        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.isPublicWorkout());
+        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.getNotifications());
+        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.getPublicWorkout());
 
         typeSpinner = ((Spinner) getActivity().findViewById(R.id.typespinner));
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_types, android.R.layout.simple_spinner_item);
@@ -96,8 +92,8 @@ public class WorkoutSettingsFragment extends Fragment {
                 } else {
                     server.changeWorkout(currentWorkout, existingWorkoutKey);
                 }
-
-                NavHostFragment.findNavController(WorkoutSettingsFragment.this).navigate(R.id.action_workoutSettingsFragment_to_HomeFragment);
+                
+                NavHostFragment.findNavController(WorkoutSettingsFragment.this).popBackStack(R.id.HomeFragment,false);
             }
         });
 

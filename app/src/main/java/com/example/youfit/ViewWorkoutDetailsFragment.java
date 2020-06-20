@@ -126,7 +126,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 Workout workout = new Workout(mWorkout);
                 bundle.putParcelable("newWorkout", workout);
-                bundle.putString("key", ((MainActivity) getActivity()).getServer().getKey(mWorkout));
+                bundle.putString("key", mWorkout.getUniqueID());
                 NavHostFragment.findNavController(ViewWorkoutDetailsFragment.this)
                         .navigate(R.id.action_viewWorkoutDetailsFragment_to_workoutFragment, bundle);
             }

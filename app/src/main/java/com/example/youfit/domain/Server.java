@@ -5,12 +5,10 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.youfit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,12 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 public class Server {
 
@@ -131,7 +123,6 @@ public class Server {
     }
 
     public void removeWorkout(Workout workout) {
-        String key = getKey(workout);
         setLoadingDialog();
 
         this.firebaseAuth = FirebaseAuth.getInstance();
@@ -157,10 +148,13 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/savedWorkouts");
 
+            //Make sure overwriting workout also has the correct key
+            workout.setUniqueID(key);
+
             if (this.currentUsersWorkouts.containsKey(key)) {
                 this.currentUsersWorkouts.put(key, workout);
             }
-            if (workout.isPublicWorkout()) {
+            if (workout.getPublicWorkout()) {
                 changePuplicWorkout(key, workout);
             }
 
@@ -180,7 +174,7 @@ public class Server {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
-                    if (workout.isPublicWorkout()) {
+                    if (workout.getPublicWorkout()) {
                         addPublicWorkouts(workout, dataSnapshot.getKey());
                     }
                     currentUsersWorkouts.put(dataSnapshot.getKey(), workout);
@@ -194,7 +188,7 @@ public class Server {
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                     Workout workout = dataSnapshot.getValue(Workout.class);
-                    if (workout.isPublicWorkout()) {
+                    if (workout.getPublicWorkout()) {
                         removePublicWorkouts(workout, dataSnapshot.getKey());
                     }
                     currentUsersWorkouts.remove(dataSnapshot.getKey());
@@ -326,30 +320,18 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid());
 
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.i(TAG, "Done loading initial data");
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
             // Attach a listener to read the data at our user reference
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.w(TAG, "userLoaded_1");
                     User usertmp = new User();
 
                     if (dataSnapshot.exists()) {
+                        databaseListener.onComplete(dataSnapshot);
                         for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
                             if (!dataValues.hasChildren()) {
                                 usertmp.setName(dataValues.getValue().toString());
-                                databaseListener.onComplete(dataValues);
                             } else {
                                 Workout workout = dataValues.getValue(Workout.class);
                                 if (!workout.getName().isEmpty()) {
@@ -373,17 +355,6 @@ public class Server {
             });
             Log.w(TAG, "After on DataChange");
         }
-    }
-
-    public String getKey(Workout workout) {
-        String key = "";
-        for (Map.Entry<String, Workout> entry : this.currentUsersWorkouts.entrySet()) {
-            if (Objects.equals(workout, entry.getValue())) {
-                key = (entry.getKey());
-                break;
-            }
-        }
-        return key;
     }
 
 
