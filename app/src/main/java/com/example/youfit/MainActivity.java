@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         this.server = new Server(this);
         createNotificationChannel();
         server.loadUserNotifications(this);
-        server.loadCurrentUsersWorkouts2(this);
+        server.loadCurrentUsersWorkouts(this);
         //TODO: Make waiting screen for database call back.
 
     }
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     @Override
     protected void onPause() {
         super.onPause();
-
     }
 
     @Override

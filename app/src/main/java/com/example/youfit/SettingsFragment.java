@@ -134,7 +134,9 @@ public class SettingsFragment extends Fragment implements DatabaseListener {
     }
 
     public void initUIElements(View view) {
-        ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(((MainActivity) getActivity()).isNotifications());
+        if (!(getActivity() ==null)) {
+            ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(((MainActivity) getActivity()).isNotifications());
+        }
         this.nameEditText.setText(curretUsername);
     }
 

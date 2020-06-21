@@ -29,7 +29,6 @@ public class Server {
     protected FirebaseDatabase rootNode;
     protected Activity activity;
 
-    protected User currentUser;
     private String username;
     private OnServerSetupCompleteListener onServerSetupCompleteListener;
     protected HashMap<String, Workout> publicWorkouts = new HashMap<>();
@@ -161,7 +160,7 @@ public class Server {
     }
 
 
-    public void loadCurrentUsersWorkouts2(final DatabaseListener listener) {
+    public void loadCurrentUsersWorkouts(final DatabaseListener listener) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
@@ -203,35 +202,6 @@ public class Server {
 
                 }
             });
-
-            databaseReference.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Workout workout = dataSnapshot.getValue(Workout.class);
-                    publicWorkouts.put(dataSnapshot.getKey(), workout);
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                    publicWorkouts.remove(dataSnapshot.getKey());
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
         }
     }
 
