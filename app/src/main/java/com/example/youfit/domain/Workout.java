@@ -150,7 +150,8 @@ public class Workout implements Parcelable {
         long hours = time / (60*60);
         long rest = time-(hours*60*60);
         long minutes = rest / 60;
-        return hours + "h " + minutes + "m";
+
+        return hours >= 1 ? hours + "h " + minutes + "m" : minutes + "m";
     }
 
     public static final Creator<Workout> CREATOR = new Creator<Workout>() {

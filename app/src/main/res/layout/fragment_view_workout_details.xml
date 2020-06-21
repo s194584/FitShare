@@ -80,7 +80,7 @@
         android:id="@+id/workout_creator_view"
         android:layout_width="wrap_content"
         android:ellipsize="end"
-        android:maxWidth="110dp"
+        android:maxWidth="120dp"
         android:maxLines="1"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="@id/xxx3"

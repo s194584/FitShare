@@ -72,7 +72,9 @@ public class Exercise implements Parcelable {
         long time = Integer.parseInt(retrieveAmountString())/1000;
         long minutes = time / 60;
         long seconds = time-(minutes*60);
-        return "" + minutes + "m " + seconds + "s";
+
+        return minutes >= 1 ? "" + minutes + "m " + seconds + "s" : seconds + "s";
+
     }
 
 

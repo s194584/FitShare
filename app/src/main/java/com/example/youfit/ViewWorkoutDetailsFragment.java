@@ -178,7 +178,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         String workoutNameString = "Name: " + mWorkout.getName();
         String workoutDifficultyString = "Difficulty: " + Utility.formatEnum(mWorkout.getWorkoutDifficulty());
         String workoutTypeString = "Type: " + Utility.formatEnum(mWorkout.getWorkoutType());
-        String workoutTimeString = "Estimated time: " + mWorkout.TimeAsString();
+        String workoutTimeString = "Time: " + mWorkout.TimeAsString();
         String workoutCreatorString = "Creator: " + mWorkout.getCreator();
         String workoutDescriptionString = "Description: " + mWorkout.getDescription();
 
