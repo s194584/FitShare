@@ -3,7 +3,6 @@ package com.example.youfit;
 import com.example.youfit.R.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -24,12 +23,14 @@ import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseElementList;
 import com.example.youfit.domain.Server;
+import com.example.youfit.domain.Workout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener, DatabaseListener {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     protected Server server;
     protected ExerciseElementList exerciseElementList = new ExerciseElementList();
     protected boolean notifications;
+    private ArrayList<Workout> workouts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         this.server = new Server(this);
         createNotificationChannel();
         server.loadUserNotifications(this);
+        server.loadCurrentUsersWorkouts2(this);
         //TODO: Make waiting screen for database call back.
 
     }
@@ -54,18 +57,33 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     @Override
     protected void onStart() {
         super.onStart();
-        setupNotifications(false);
+        cancelNotifications();
     }
 
     @Override
     public void onComplete(DataSnapshot dataSnapshot) {
-        notifications = (boolean) dataSnapshot.getValue();
+        if (dataSnapshot.getKey().equals("notifications")){
+            notifications = Boolean.parseBoolean(dataSnapshot.getValue().toString());
+
+        } else {
+            for (DataSnapshot data : dataSnapshot.getChildren()) {
+                workouts.add(data.getValue(Workout.class));
+            }
+        }
+        Log.i(TAG, "onComplete: "+dataSnapshot.getKey()+notifications);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        setupNotifications(notifications);
+        setupNotifications(notifications,workouts);
+        Log.i(TAG, "onStop: Trying to go for notifications");
         server.changeNotifications(notifications);
     }
 
@@ -133,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         setContentView(layout.activity_main);
         setUpNavigation();
         exerciseElementList.setHashMap(server.getPreDefinedExercises());
-//        notifications = server.getCurrentUser().getNotifications();
     }
 
     private void createNotificationChannel() {
@@ -152,32 +169,58 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         }
     }
 
-    private void setupNotifications(boolean b){
+    private void cancelNotifications(){
+        setupNotifications(false,null);
+    }
+
+    private void setupNotifications(boolean b, ArrayList<Workout> workouts){
+
+        // Setting the time for trigger
         Calendar calendar = Calendar.getInstance();
         long currentTimeInMillis = calendar.getTimeInMillis();
         calendar.set(Calendar.HOUR_OF_DAY,8);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.HOUR_OF_DAY,8);
         long timeInMillis = calendar.getTimeInMillis();
 
+        // If it is already past (eight) o'clock
         if (timeInMillis < currentTimeInMillis){
-            // Add a day
             timeInMillis += 1000*60*60*24;
         }
 
+        // Creating intent for AlarmReceiver
         Intent notificationIntent = new Intent(this,AlarmReceiver.class);
-        notificationIntent.putExtra("recurring", new boolean[7]);
         notificationIntent.setAction(getString(R.string.ALARM_ACTION));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(),0, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        Log.i(TAG, "setNotificationAlarm: setting an alarm");
+
+        // Adding extras based on weekly workouts
+        if(b){
+            notificationIntent.putExtra("recurring", getNumberOfDailyWorkouts(workouts));
+        }
+
+        // Creating the pending intent
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(),0, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT|Intent.FILL_IN_DATA);
+
+        // Setting or cancelling the alarm and pending intent
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         if(b){
+            Log.i(TAG, "setNotificationAlarm: setting alarm");
             // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_DAY, pendingIntent); // Real alarm
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent); // Test alarm
-            notificationIntent.putExtra("recurring", new int[7]);
         }else{
+            Log.i(TAG, "setNotificationAlarm: cancelling alarm");
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
+    }
+
+    private int[] getNumberOfDailyWorkouts(ArrayList<Workout> workouts){
+        int[] daily = new int[7];
+        for (Workout workout:workouts) {
+            ArrayList<Boolean> recurring = workout.getRecurring();
+            for (int i = 0; i<7; i++){
+                if(recurring.get(i)){
+                    daily[i] += 1;
+                }
+            }
+        }
+        return daily;
     }
 }

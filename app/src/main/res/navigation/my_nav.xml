@@ -41,12 +41,7 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.youfit.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings">
-        <argument
-            android:name="notifications"
-            app:argType="boolean"
-            android:defaultValue="false" />
-    </fragment>
+        tools:layout="@layout/fragment_settings"/>
     <fragment
         android:id="@+id/workoutFragment"
         android:name="com.example.youfit.WorkoutFragment"

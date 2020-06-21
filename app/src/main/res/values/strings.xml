@@ -121,6 +121,7 @@
 
     # Dialogs
     <string name="exercise_no_exsist">Exercise does not exist. Give it a description</string>
+    <string name="notification_title">Do you even lift?!</string>
 
 
     <string-array name="rep_exercises">
