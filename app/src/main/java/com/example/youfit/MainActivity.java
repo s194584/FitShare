@@ -113,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         return this.server;
     }
 
+    public boolean isNotifications() {
+        return notifications;
+    }
+
     public ExerciseElementList getHashMap()
     {
         return this.exerciseElementList;

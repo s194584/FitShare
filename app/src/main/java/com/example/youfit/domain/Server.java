@@ -30,6 +30,7 @@ public class Server {
     protected Activity activity;
 
     protected User currentUser;
+    private String username;
     private OnServerSetupCompleteListener onServerSetupCompleteListener;
     protected HashMap<String, Workout> publicWorkouts = new HashMap<>();
     protected HashMap<String, Workout> currentUsersWorkouts = new HashMap<>();
@@ -51,11 +52,7 @@ public class Server {
     }
 
     public String getUsername() {
-        return (this.currentUser != null) ? currentUser.getName() : "could not finde username";
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
+        return (this.username != null) ? this.username : "could not finde username";
     }
 
     public void setLoadingDialog() {
@@ -76,7 +73,7 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/name");
 
-            this.currentUser.setName(name);
+            this.username=name;
             databaseReference.setValue(name);
         }
     }
@@ -308,25 +305,13 @@ public class Server {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.w(TAG, "userLoaded_1");
-                    User usertmp = new User();
+                    username = dataSnapshot.child("name").getValue().toString();
 
                     databaseListener.onComplete(dataSnapshot);
-                    for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
-                        if (!dataValues.hasChildren()) {
-                            usertmp.setName(dataValues.getValue().toString());
-                        } else {
-                            Workout workout = dataValues.getValue(Workout.class);
-                            if (!workout.getName().isEmpty()) {
-                                currentUsersWorkouts.put(dataSnapshot.getKey(), workout);
-                                usertmp.addWorkout(workout);
-                            }
-                        }
-                    }
-                    currentUser = usertmp;
+
                     loadingDialog.dismiss();
 
                     Log.w(TAG, "userLoaded");
-
                 }
 
                 @Override
@@ -336,14 +321,6 @@ public class Server {
             });
             Log.w(TAG, "After on DataChange");
         }
-    }
-
-
-    private void loadScreenCreator() {
-        this.rootNode = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = this.rootNode.getReference();
-
-
     }
 
     private void loadPreDefinedExercises() {

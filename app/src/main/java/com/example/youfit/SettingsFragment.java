@@ -87,9 +87,7 @@ public class SettingsFragment extends Fragment implements DatabaseListener {
         ((Switch)view.findViewById(R.id.switch_notifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ((MainActivity)getActivity()).notifications = b; //TODO: is this nessesary
-                Server server = ((MainActivity) getActivity()).getServer();
-                server.changeNotifications(b);
+                ((MainActivity)getActivity()).notifications = b;
             }
         });
 
@@ -131,14 +129,12 @@ public class SettingsFragment extends Fragment implements DatabaseListener {
     public void onComplete(DataSnapshot dataSnapshot) {
         Log.i(TAG, "onComplete entered");
         curretUsername = dataSnapshot.child("name").getValue().toString();
-        Log.i(TAG, "on complete got username:" + curretUsername);
-        isChecked = (boolean) dataSnapshot.child("notifications").getValue();
 
         initUIElements(view);
     }
 
     public void initUIElements(View view) {
-        ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(isChecked);
+        ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(((MainActivity) getActivity()).isNotifications());
         this.nameEditText.setText(curretUsername);
     }
 
