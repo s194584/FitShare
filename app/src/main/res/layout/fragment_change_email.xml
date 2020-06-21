@@ -32,6 +32,8 @@
         android:text="@string/change_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/newEmail"
+        android:background="@drawable/btn_round_edges_green"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     android:padding="8dp"
     android:id="@+id/browse_workout_layout"
     android:layout_marginTop="5dp"
-    android:background="@drawable/baggrund_400x50">
+    android:background="@drawable/btn_round_edges_white">
 
 
     <TextView
@@ -60,9 +60,11 @@
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@id/workout_info_text"
         android:text="@string/start_withdots"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="11dp"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        android:background="@drawable/btn_round_edges_green"/>
 
 
 </RelativeLayout>

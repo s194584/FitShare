@@ -55,11 +55,12 @@
         android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/btn_round_edges_white"/>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,15 +69,18 @@
 
         <Button
             android:id="@+id/addExerciseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_round_edges_white"
             android:text="@string/add_exercise" />
 
         <Button
             android:id="@+id/addPauseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_pause" />
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_round_edges_white"
+            android:text="@string/add_pause"
+            android:layout_marginLeft="25dp"/>
 
     </LinearLayout>
 

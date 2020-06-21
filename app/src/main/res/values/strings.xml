@@ -32,15 +32,15 @@
     <string name="welcome_back">Welcome back </string>
 
     #Statistics strings
-    <string name="statistics_header">Statistics: </string>
-    <string name="statistics_water_header">Water: </string>
+    <string name="statistics_header">My developments </string>
+    <string name="statistics_water_header">Water </string>
     <string name="statistics_water_default">0 mL</string>
     <string name="statistics_water_total_default">0 / 2000 mL</string>
-    <string name="statistics_weekly_statistics">Weekly statistics: </string>
-    <string name="statistics_total_workouts">Total workouts: </string>
-    <string name="statistics_total_time">Total time: </string>
+    <string name="statistics_weekly_statistics">Weekly statistics </string>
+    <string name="statistics_total_workouts">Total workouts </string>
+    <string name="statistics_total_time">Total time </string>
     <string name="default_number">42</string>
-    <string name="statistics_all_time_statistics">All time statistics: </string>
+    <string name="statistics_all_time_statistics">All time statistics </string>
     <string name="background">Background</string>
     <string name="baggrundbox">baggrundBox</string>
     <string name="addwaterbutton">addWaterButton</string>

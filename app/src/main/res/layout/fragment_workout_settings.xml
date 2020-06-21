@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:windowSoftInputMode="adjustNothing"
-        android:background="@drawable/workout_settings_card_background"
+        android:background="@drawable/btn_round_edges_transparent"
         android:layout_marginTop="20dp"
         android:padding="20dp"
         app:layout_constraintTop_toBottomOf="@+id/edittext_workout_name_settings"
@@ -112,7 +112,8 @@
                     android:id="@+id/toggle_workout_public"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/togglebutton" />
+                    android:text="@string/togglebutton"
+                    android:backgroundTint="@color/white"/>
 
             </LinearLayout>
 
@@ -137,7 +138,8 @@
                     android:id="@+id/toggle_workout_noticifations"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/togglebutton" />
+                    android:text="@string/togglebutton"
+                    android:backgroundTint="@color/white"/>
 
             </LinearLayout>
 
@@ -162,7 +164,8 @@
                     android:id="@+id/toggle_workout_motivation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/togglebutton" />
+                    android:text="@string/togglebutton"
+                    android:backgroundTint="@color/white"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -400,7 +403,8 @@
         android:text="@string/create_workout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/btn_round_edges_white"/>
 
 
 

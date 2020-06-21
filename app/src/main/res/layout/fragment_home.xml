@@ -21,8 +21,8 @@
     <View
         android:id="@+id/xxx"
         android:layout_width="340dp"
-        android:layout_height="200dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_height="180dp"
+        android:background="@drawable/btn_round_edges_transparent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/plannedWorkoutsRV"
@@ -32,11 +32,11 @@
         android:id="@+id/plannedWorkoutsRV"
         android:layout_width="wrap_content"
         android:layout_height="145dp"
-        app:layout_constraintBottom_toBottomOf="@id/createWorkoutBtn"
-        app:layout_constraintBottom_toTopOf="@id/createWorkoutBtn"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toTopOf="@+id/createWorkoutBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/welcomeBackText"
@@ -67,12 +67,13 @@
         android:id="@+id/createWorkoutBtn"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="348dp"
-        android:background="@drawable/knap_plus"
+        android:layout_marginTop="404dp"
+        android:alpha="1"
+        android:background="@drawable/ic_baseline_add_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:alpha=".80"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

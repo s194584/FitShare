@@ -11,22 +11,23 @@
         android:id="@+id/backgroundImage"
         android:layout_width="1183dp"
         android:layout_height="807dp"
+        android:contentDescription="@string/background"
         android:src="@drawable/backgroound_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/background" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/xxx3"
-        android:layout_width="370dp"
-        android:layout_height="130dp"
-        android:background="@drawable/planned_workouts_bg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="340dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_round_edges_transparent"
         app:layout_constraintBottom_toTopOf="@id/workout_description"
-        android:layout_marginBottom="12dp"/>
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/workout_name_view"
@@ -85,9 +86,9 @@
 
     <View
         android:id="@+id/xxx2"
-        android:layout_width="370dp"
-        android:layout_height="120dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_width="340dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_round_edges_transparent"
         android:layout_marginBottom="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -108,37 +109,43 @@
 
     <Button
         android:id="@+id/start_workout_button"
-        android:layout_width="110dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/btn_round_edges_white"
+        android:text="@string/start_workout"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV"
-        android:layout_marginTop="30dp"
-        android:text="@string/start_workout" />
+        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV" />
 
     <Button
         android:id="@+id/delete_workout_button"
-        android:layout_width="110dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/btn_round_edges_white"
+        android:text="@string/delete_workout"
         app:layout_constraintRight_toLeftOf="@id/start_workout_button"
-        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV"
-        android:layout_marginTop="30dp"
-        android:text="@string/delete_workout" />
+        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV" />
 
     <Button
         android:id="@+id/edit_workout_button"
-        android:layout_width="110dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/btn_round_edges_white"
+        android:text="@string/edit_workout"
         app:layout_constraintLeft_toRightOf="@id/start_workout_button"
-        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV"
-        android:layout_marginTop="30dp"
-        android:text="@string/edit_workout" />
+        app:layout_constraintTop_toBottomOf="@id/exercisedetailsRV" />
 
     <View
         android:id="@+id/xxx"
-        android:layout_width="370dp"
-        android:layout_height="370dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_width="340dp"
+        android:layout_height="290dp"
+        android:background="@drawable/btn_round_edges_transparent"
         android:layout_marginTop="24dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

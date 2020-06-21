@@ -16,7 +16,7 @@
         android:layout_marginBottom="00dp"
         android:clipChildren="true"
         android:elevation="2dp"
-        android:background="@drawable/baggrund_400x50"
+        android:background="@drawable/btn_round_edges_white"
         android:clickable="false">
 
         <TextView

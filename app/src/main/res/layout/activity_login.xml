@@ -72,13 +72,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:background="#0EB57A"
+        android:background="@color/colorPrimaryLighter"
         android:onClick="onSignIn"
         android:text="@{signInMode ? @string/sign_in : @string/sign_up}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordConfirm" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordConfirm"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/textViewCreateNewProfile"
@@ -87,7 +88,7 @@
         android:layout_marginTop="28dp"
         android:onClick="onCreateNewProfile"
         android:text="@{signInMode ? @string/create_new_profile : @string/back}"
-        android:textColor="#0EB57A"
+        android:textColor="@color/colorPrimaryLighter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +118,7 @@
         android:layout_marginEnd="149dp"
         android:layout_marginBottom="19dp"
         android:text="@string/forgot_password"
-        android:textColor="#0EB57A"
+        android:textColor="@color/colorPrimaryLighter"
         app:layout_constraintBottom_toTopOf="@+id/buttonSignin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

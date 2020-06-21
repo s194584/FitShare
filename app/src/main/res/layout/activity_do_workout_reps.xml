@@ -12,7 +12,7 @@
         android:gravity="center"
         android:text="Reps"
         android:textSize="60dp"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimaryLighter"/>
 
     <TextView
         android:id="@+id/exerciseText2"

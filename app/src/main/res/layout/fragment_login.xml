@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_in"
+        android:background="@drawable/btn_round_edges_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="359dp" />
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/create_new_profile"
+        android:textColor="@color/colorPrimaryLighter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSignin" />
@@ -62,6 +64,7 @@
         android:layout_marginStart="149dp"
         android:layout_marginTop="8dp"
         android:text="@string/forgot_password"
+        android:textColor="@color/colorPrimaryLighter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 

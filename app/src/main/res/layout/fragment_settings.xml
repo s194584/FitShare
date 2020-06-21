@@ -19,8 +19,8 @@
     <View
         android:id="@+id/xxx"
         android:layout_width="340dp"
-        android:layout_height="450dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_height="410dp"
+        android:background="@drawable/btn_round_edges_transparent"
         android:layout_marginTop="24dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,9 +29,9 @@
 
     <View
         android:id="@+id/xxx2"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:background="@drawable/btn_round_edges_transparent"
         android:layout_marginBottom="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -62,27 +62,30 @@
         android:layout_marginTop="28dp"
         android:text="@string/log_out"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/changeEmail"  />
+        app:layout_constraintTop_toBottomOf="@id/changeEmail"
+        android:background="@drawable/btn_round_edges_white"/>
 
     <Button
         android:id="@+id/changePassword"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="364dp"
+        android:background="@drawable/btn_round_edges_white"
         android:text="@string/change_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/changeEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="28dp"
         android:text="@string/change_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
+        app:layout_constraintTop_toBottomOf="@+id/changePassword"
+        android:background="@drawable/btn_round_edges_white"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -92,7 +95,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:src="@drawable/ic_person" />
+        android:src="@drawable/ic_person" />
 
     <Button
         android:id="@+id/updateBtn"
@@ -104,7 +107,8 @@
         android:text="@string/update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        android:background="@drawable/btn_round_edges_white"/>
 
     <Switch
         android:id="@+id/switch_notifications"
@@ -112,6 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:text="Nofitications"
+        android:theme="@style/SwitchTheme"
         app:layout_constraintBottom_toBottomOf="@+id/xxx"
         app:layout_constraintEnd_toEndOf="@+id/xxx"
         app:layout_constraintStart_toEndOf="@+id/logOutBtn"

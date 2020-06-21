@@ -10,269 +10,257 @@
         android:id="@+id/backgroundImage"
         android:layout_width="1183dp"
         android:layout_height="807dp"
+        android:contentDescription="@string/background"
         android:src="@drawable/backgroound_image"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/background" />
-
+        app:layout_constraintVertical_bias="0.802" />
 
     <TextView
         android:id="@+id/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="84dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/statistics_header"
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
-        app:layout_constraintLeft_toLeftOf="@id/box1"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/box1"
-        android:layout_marginStart="10dp"/>
-
-
-
+        app:layout_constraintLeft_toLeftOf="@id/box1" />
 
     <View
         android:id="@+id/box1"
         android:layout_width="340dp"
-        android:layout_height="200dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_height="170dp"
+        android:background="@drawable/btn_round_edges_transparent"
         app:layout_constraintBottom_toBottomOf="@id/box2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginBottom="350dp"/>
-    <ImageView
-        android:id="@+id/baggrund_box1"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:src="@drawable/baggrund_400x50"
-        app:layout_constraintLeft_toLeftOf="@id/box1"
-        app:layout_constraintTop_toTopOf="@id/box1"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="20dp"
-        android:contentDescription="@string/baggrundbox" />
+
     <TextView
         android:id="@+id/water_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_water_header"
-        android:textColor="#038C73"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1"
         android:layout_marginTop="25dp"
         android:layout_marginStart="30dp"/>
+
     <ImageButton
         android:id="@+id/addWaterButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginStart="160dp"
-        android:background="@drawable/plus_knap_lille"
-        app:layout_constraintStart_toStartOf="@id/baggrund_box1"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="128dp"
+        android:background="@drawable/ic_baseline_arrow_drop_up_24"
+        android:contentDescription="@string/addwaterbutton"
         app:layout_constraintBottom_toBottomOf="@id/box1"
-        android:contentDescription="@string/addwaterbutton" />
+        app:layout_constraintEnd_toEndOf="@+id/box1" />
+
     <ImageButton
         android:id="@+id/subtractWaterButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/minus_knap_lille"
-        app:layout_constraintStart_toStartOf="@id/baggrund_box1"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/ic_baseline_arrow_drop_down_24"
+        android:contentDescription="@string/subtractwaterbutton"
         app:layout_constraintBottom_toBottomOf="@id/box1"
-        android:contentDescription="@string/subtractwaterbutton" />
+        app:layout_constraintEnd_toEndOf="@+id/box1" />
+
     <ImageButton
         android:id="@+id/drinkWaterButton"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="81dp"
-        android:layout_marginStart="219dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="88dp"
         android:background="@drawable/drink_button"
-        app:layout_constraintStart_toStartOf="@id/baggrund_box1"
+        android:contentDescription="@string/drinkwaterbutton"
         app:layout_constraintBottom_toBottomOf="@id/box1"
-        android:contentDescription="@string/drinkwaterbutton" />
+        app:layout_constraintStart_toEndOf="@+id/setWaterAmount_text" />
+
     <TextView
         android:id="@+id/setWaterAmount_text"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="40dp"
         android:text="@string/statistics_water_default"
-        android:textColor="#038C73"
-        android:textSize="24sp"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
-        app:layout_constraintTop_toTopOf="@id/box1"
-        android:layout_marginTop="82dp"
-        android:layout_marginStart="80dp"/>
+        app:layout_constraintTop_toTopOf="@id/box1" />
+
     <TextView
         android:id="@+id/waterAmount_text"
         android:layout_width="287dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="120dp"
         android:text="@string/statistics_water_total_default"
-        android:textColor="#038C73"
-        android:textSize="24sp"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
-        app:layout_constraintTop_toTopOf="@id/box1"
-        android:layout_marginTop="130dp"
-        android:layout_marginStart="24dp"/>
-
-
-
+        app:layout_constraintTop_toTopOf="@id/box1" />
 
     <View
         android:id="@+id/box2"
         android:layout_width="340dp"
-        android:layout_height="200dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_height="170dp"
+        android:background="@drawable/btn_round_edges_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="30dp"/>
-    <ImageView
-        android:id="@+id/baggrund_Box2"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:src="@drawable/baggrund_400x50"
-        app:layout_constraintLeft_toLeftOf="@id/box2"
-        app:layout_constraintTop_toTopOf="@id/box2"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="20dp"
-        android:contentDescription="@string/baggrundbox" />
+
     <TextView
         android:id="@+id/Weekly_statistics_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_weekly_statistics"
-        android:textColor="#038C73"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="25dp"
         android:layout_marginStart="30dp" />
+
     <TextView
         android:id="@+id/total_workouts_weekly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_total_workouts"
-        android:textColor="#038C73"
-        android:textSize="24sp"
+        android:textColor="@color/darkGrey"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="75dp"
         android:layout_marginStart="30dp" />
+
     <TextView
         android:id="@+id/total_workouts_time_weekly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_total_time"
-        android:textColor="#038C73"
-        android:textSize="24sp"
+        android:textColor="@color/darkGrey"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/box2"
         app:layout_constraintTop_toTopOf="@id/box2"
         android:layout_marginTop="125dp"
         android:layout_marginStart="30dp" />
+
     <TextView
         android:id="@+id/total_workouts_weekly_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/circle_stats"
+        android:gravity="center"
         android:text="@string/default_number"
-        android:textColor="#038C73"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box2"
-        app:layout_constraintTop_toTopOf="@id/box2"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="40dp" />
+        app:layout_constraintTop_toTopOf="@id/box2" />
+
     <TextView
         android:id="@+id/total_workouts_time_weekly_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/circle_stats"
+        android:gravity="center"
         android:text="@string/default_number"
-        android:textColor="#038C73"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box2"
-        app:layout_constraintTop_toTopOf="@id/box2"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="40dp" />
-
-
-
+        app:layout_constraintTop_toTopOf="@id/box2" />
 
     <View
         android:id="@+id/box3"
         android:layout_width="340dp"
-        android:layout_height="200dp"
-        android:background="@drawable/planned_workouts_bg"
+        android:layout_height="170dp"
+        android:background="@drawable/btn_round_edges_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="380dp"/>
-    <ImageView
-        android:id="@+id/baggrund_Box3"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:src="@drawable/baggrund_400x50"
-        app:layout_constraintLeft_toLeftOf="@id/box3"
-        app:layout_constraintTop_toTopOf="@id/box3"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="20dp"
-        android:contentDescription="@string/baggrundbox" />
+
     <TextView
         android:id="@+id/all_time_statistics_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_all_time_statistics"
-        android:textColor="#038C73"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="25dp"
         android:layout_marginStart="30dp"/>
+
     <TextView
         android:id="@+id/total_workouts_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_total_workouts"
-        android:textColor="#038C73"
-        android:textSize="24sp"
+        android:textColor="@color/darkGrey"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="75dp"
         android:layout_marginStart="30dp" />
+
     <TextView
         android:id="@+id/total_workouts_time_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_total_time"
-        android:textColor="#038C73"
-        android:textSize="24sp"
+        android:textColor="@color/darkGrey"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/box3"
         app:layout_constraintTop_toTopOf="@id/box3"
         android:layout_marginTop="125dp"
         android:layout_marginStart="30dp" />
+
     <TextView
         android:id="@+id/total_workouts_total_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/circle_stats"
+        android:gravity="center"
         android:text="@string/default_number"
-        android:textColor="#038C73"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box3"
-        app:layout_constraintTop_toTopOf="@id/box3"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="40dp" />
+        app:layout_constraintTop_toTopOf="@id/box3" />
+
     <TextView
         android:id="@+id/total_workouts_time_total_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/circle_stats"
+        android:gravity="center"
         android:text="@string/default_number"
-        android:textColor="#038C73"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintRight_toRightOf="@id/box3"
-        app:layout_constraintTop_toTopOf="@id/box3"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="40dp" />
+        app:layout_constraintTop_toTopOf="@id/box3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
