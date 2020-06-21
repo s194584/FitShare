@@ -70,11 +70,11 @@ public class SettingsFragment extends Fragment{
             }
         });
 
+        ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(((MainActivity)getActivity()).notifications);
         ((Switch)view.findViewById(R.id.switch_notifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                setupNotifications(b);
-                setNotificationAlarm(b);
+                ((MainActivity)getActivity()).notifications = b;
             }
         });
 
@@ -99,22 +99,6 @@ public class SettingsFragment extends Fragment{
                 showPasswordDialog();
             }
         });
-    }
-
-
-    private void setNotificationAlarm(boolean b){
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.HOUR_OF_DAY,8);
-
-        Intent notificationIntent = new Intent(getActivity(),AlarmReceiver.class);
-        notificationIntent.setAction(getString(R.string.ALARM_ACTION));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(),0, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Log.i(TAG, "setNotificationAlarm: setting an alarm");
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent);
-
     }
 
     private void showNoticeDialog() {

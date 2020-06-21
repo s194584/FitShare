@@ -54,6 +54,10 @@ public class Server {
         return (this.currentUser != null) ? currentUser.getName() : "could not finde username";
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     public void setLoadingDialog() {
         this.loadingDialog = new ProgressDialog(activity);
         this.loadingDialog.setMessage("Application is loading");

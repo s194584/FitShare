@@ -8,6 +8,7 @@ import java.util.List;
 public class User {
 
     private String name;
+    private boolean notifications;
 
     private List<Workout> savedWorkouts = new ArrayList<>();
 
@@ -53,5 +54,13 @@ public class User {
 
     public void addSavedWorkout(Workout workout) {
         this.savedWorkouts.add(workout);
+    }
+
+    public boolean getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
     }
 }

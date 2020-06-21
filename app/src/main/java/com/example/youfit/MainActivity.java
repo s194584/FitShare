@@ -9,14 +9,18 @@ import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseElementList;
 import com.example.youfit.domain.Server;
@@ -24,23 +28,45 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 
-public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener {
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener, DatabaseListener {
 
     protected String TAG = "Server";
 
     protected boolean alreadyLoggedIn = false;
     protected Server server;
     protected ExerciseElementList exerciseElementList = new ExerciseElementList();
+    protected boolean notifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        findViewById(id.progress_bar).setVisibility(View.VISIBLE);
         this.server = new Server(this);
         createNotificationChannel();
+        server.loadUserNotifications(this);
         //TODO: Make waiting screen for database call back.
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setupNotifications(false);
+    }
+
+    @Override
+    public void onComplete(DataSnapshot dataSnapshot) {
+        notifications = (boolean) dataSnapshot.getValue();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        setupNotifications(notifications);
+        server.changeNotifications(notifications);
     }
 
     public void setUpNavigation(){
@@ -103,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         setContentView(layout.activity_main);
         setUpNavigation();
         exerciseElementList.setHashMap(server.getPreDefinedExercises());
+//        notifications = server.getCurrentUser().getNotifications();
     }
 
     private void createNotificationChannel() {
@@ -121,5 +148,32 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         }
     }
 
+    private void setupNotifications(boolean b){
+        Calendar calendar = Calendar.getInstance();
+        long currentTimeInMillis = calendar.getTimeInMillis();
+        calendar.set(Calendar.HOUR_OF_DAY,8);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.HOUR_OF_DAY,8);
+        long timeInMillis = calendar.getTimeInMillis();
 
+        if (timeInMillis < currentTimeInMillis){
+            // Add a day
+            timeInMillis += 1000*60*60*24;
+        }
+
+        Intent notificationIntent = new Intent(this,AlarmReceiver.class);
+        notificationIntent.putExtra("recurring", new boolean[7]);
+        notificationIntent.setAction(getString(R.string.ALARM_ACTION));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(),0, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.i(TAG, "setNotificationAlarm: setting an alarm");
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        if(b){
+            // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_DAY, pendingIntent); // Real alarm
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent); // Test alarm
+            notificationIntent.putExtra("recurring", new int[7]);
+        }else{
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+    }
 }
