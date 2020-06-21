@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Exercise;
+import com.example.youfit.domain.ExerciseType;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class ClickWorkoutDetailAdapter extends RecyclerView.Adapter<ClickWorkout
 
         String exerciseName = mExercises.get(position).retrieveName();
         String exerciseRepsOrTime = mExercises.get(position).repsOrTime();
-        String amount = mExercises.get(position).retrieveAmountString();
+        String amount = mExercises.get(position).retrieveFormattedAmountString();
         holder.exerciseName.setText(exerciseName);
         holder.exerciseRepOrTime.setText(exerciseRepsOrTime);
         holder.timeOrReps.setText(amount);
@@ -71,13 +72,5 @@ public class ClickWorkoutDetailAdapter extends RecyclerView.Adapter<ClickWorkout
     }
 
 
-    public String formatType(String type) {
-        if (type != null) {
-            String firstLetter = type.substring(0,1);
-            String rest = type.substring(1);
-            return firstLetter.toUpperCase() + rest.toLowerCase();
-        }
-        return null;
-    }
 
 }

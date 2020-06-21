@@ -132,7 +132,7 @@ public class Workout implements Parcelable {
         for(Exercise x : exercises)
         {
             if (x.getExerciseElement().getType().equals(ExerciseType.REPETITION)) {
-                time += Integer.parseInt(x.retrieveAmountString())*2000;
+                time += Integer.parseInt(x.retrieveAmountString())*3000;
             } else {
                 time += Integer.parseInt(x.retrieveAmountString());
             }

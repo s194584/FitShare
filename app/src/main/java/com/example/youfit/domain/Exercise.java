@@ -65,6 +65,17 @@ public class Exercise implements Parcelable {
         return ""+amount;
     }
 
+    public String retrieveFormattedAmountString() {
+        if(getExerciseElement().getType().equals(ExerciseType.REPETITION.name())){
+            return retrieveAmountString();
+        }
+        long time = Integer.parseInt(retrieveAmountString())/1000;
+        long minutes = time / 60;
+        long seconds = time-(minutes*60);
+        return "" + minutes + "m " + seconds + "s";
+    }
+
+
     public long getAmount()
     {
         return amount;
