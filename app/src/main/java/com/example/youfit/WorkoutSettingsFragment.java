@@ -62,9 +62,6 @@ public class WorkoutSettingsFragment extends Fragment {
             ((CheckBox) recurringChecks.getChildAt(i)).setChecked(tempRecurring.get(i));
         }
 
-        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).setChecked(currentWorkout.getNotifications());
-        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.getPublicWorkout());
-
         typeSpinner = ((Spinner) getActivity().findViewById(R.id.typespinner));
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_types, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,7 +117,6 @@ public class WorkoutSettingsFragment extends Fragment {
         workout.setWorkoutType(typeSpinner.getSelectedItem().toString().toUpperCase()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
         workout.setWorkoutDifficulty(difficultySpinner.getSelectedItem().toString().toUpperCase());
         workout.setRecurring(new ArrayList<Boolean>(tempRecurring));
-        workout.setNotifications(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_noticifations)).isChecked());
         workout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());
         workout.setDescription(descriptionText.getText().toString());
         workout.setCreator(((MainActivity) getActivity()).getServer().getUsername());

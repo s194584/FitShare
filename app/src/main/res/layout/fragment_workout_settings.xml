@@ -117,57 +117,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/publicWorkoutTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/notifications"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-                <ToggleButton
-                    android:id="@+id/toggle_workout_noticifations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/togglebutton"
-                    android:backgroundTint="@color/white"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/publicWorkoutTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/motivation"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/setSettingTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-                <ToggleButton
-                    android:id="@+id/toggle_workout_motivation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/togglebutton"
-                    android:backgroundTint="@color/white"/>
-
-            </LinearLayout>
         </LinearLayout>
 
 

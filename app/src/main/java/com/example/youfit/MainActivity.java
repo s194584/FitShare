@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     public void onComplete(DataSnapshot dataSnapshot) {
         if (dataSnapshot.getKey().equals("notifications")){
             notifications = Boolean.parseBoolean(dataSnapshot.getValue().toString());
-
         } else {
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 workouts.add(data.getValue(Workout.class));

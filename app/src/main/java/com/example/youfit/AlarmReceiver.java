@@ -23,11 +23,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         if(currentDay==-1){
             currentDay = 6;
         }
+
+        if(recurring[currentDay]==0){
+            return;
+        }
+
         // Open app intent
         Intent openAppIntent = new Intent(context,MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,openAppIntent,0);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+        // Message
         String message = "We can see you have "+recurring[currentDay]+" workout(s)! Let's get going!";
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"FORNOTI");
         builder.setContentText(message)
                 .setContentTitle(context.getString(R.string.notification_title))
