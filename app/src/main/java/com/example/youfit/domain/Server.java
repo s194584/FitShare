@@ -256,6 +256,20 @@ public class Server {
         }
     }
 
+    public void changeNotifications(Boolean notification) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/notifications");
+
+            databaseReference.setValue(notification);
+        }
+    }
+
+
+
+
     public void loadUserNotifications(final DatabaseListener listener) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
