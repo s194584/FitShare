@@ -23,69 +23,68 @@
         android:id="@+id/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="84dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/statistics_header"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@id/box1"
-        app:layout_constraintLeft_toLeftOf="@id/box1" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <View
         android:id="@+id/box1"
         android:layout_width="340dp"
         android:layout_height="170dp"
         android:background="@drawable/btn_round_edges_transparent"
-        app:layout_constraintBottom_toBottomOf="@id/box2"
+        app:layout_constraintBottom_toTopOf="@id/box2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/box2"
-        android:layout_marginBottom="350dp"/>
+        android:layout_marginBottom="15dp"
+        />
 
     <TextView
         android:id="@+id/water_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics_water_header"
-        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="@id/box1"
-        app:layout_constraintTop_toTopOf="@id/box1"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="30dp"/>
+        app:layout_constraintRight_toLeftOf="@id/setWaterAmount_text"
+        app:layout_constraintTop_toTopOf="@id/setWaterAmount_text"
+        app:layout_constraintBottom_toBottomOf="@id/setWaterAmount_text"
+        android:layout_marginRight="10dp"/>
 
     <ImageButton
         android:id="@+id/addWaterButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="128dp"
         android:background="@drawable/ic_baseline_arrow_drop_up_24"
         android:contentDescription="@string/addwaterbutton"
-        app:layout_constraintBottom_toBottomOf="@id/box1"
-        app:layout_constraintEnd_toEndOf="@+id/box1" />
+        app:layout_constraintBottom_toTopOf="@id/setWaterAmount_text"
+        app:layout_constraintEnd_toEndOf="@id/setWaterAmount_text"
+        app:layout_constraintStart_toStartOf="@id/setWaterAmount_text"/>
 
     <ImageButton
         android:id="@+id/subtractWaterButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="56dp"
         android:background="@drawable/ic_baseline_arrow_drop_down_24"
         android:contentDescription="@string/subtractwaterbutton"
-        app:layout_constraintBottom_toBottomOf="@id/box1"
-        app:layout_constraintEnd_toEndOf="@+id/box1" />
+        app:layout_constraintTop_toBottomOf="@id/setWaterAmount_text"
+        app:layout_constraintEnd_toEndOf="@id/setWaterAmount_text"
+        app:layout_constraintStart_toStartOf="@id/setWaterAmount_text"/>
 
     <ImageButton
         android:id="@+id/drinkWaterButton"
-        android:layout_width="80dp"
+        android:layout_width="85dp"
         android:layout_height="40dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="88dp"
         android:background="@drawable/drink_button"
         android:contentDescription="@string/drinkwaterbutton"
-        app:layout_constraintBottom_toBottomOf="@id/box1"
-        app:layout_constraintStart_toEndOf="@+id/setWaterAmount_text" />
+        app:layout_constraintBottom_toBottomOf="@id/setWaterAmount_text"
+        app:layout_constraintTop_toTopOf="@id/setWaterAmount_text"
+        app:layout_constraintStart_toEndOf="@+id/setWaterAmount_text"
+        android:layout_marginLeft="10dp"/>
 
     <TextView
         android:id="@+id/setWaterAmount_text"
@@ -95,7 +94,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/statistics_water_default"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1" />
@@ -108,7 +107,7 @@
         android:layout_marginTop="120dp"
         android:text="@string/statistics_water_total_default"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/box1"
         app:layout_constraintTop_toTopOf="@id/box1" />
@@ -122,7 +121,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/Weekly_statistics_text"
