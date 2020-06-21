@@ -3,6 +3,7 @@ package com.example.youfit;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -14,6 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.youfit.domain.DatabaseListener;
@@ -30,6 +34,9 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
     private static final String TAG = "BrowsePublicFragment";
     ArrayList<Workout> workouts = new ArrayList<Workout>();
     private View view;
+    private BrowseWorkoutDetailAdapter mAdapter;
+    private String difficultyFilter = "";
+    private String typeFilter = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +48,67 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         Log.i(TAG, "2: Initiating recyclerview");
         initRecyclerView(view);
 
+        difficultyFilter = getString(R.string.default_diff_filter);
+        typeFilter = getString(R.string.default_type_filter);
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        final Spinner filterType = view.findViewById(R.id.spinner_filter_type);
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_types_filter, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterType.setAdapter(typeAdapter);
+
+
+        final Spinner filterDiff = view.findViewById(R.id.spinner_filter_diff);
+        ArrayAdapter<CharSequence> difficultyAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_difficulties_filter, android.R.layout.simple_spinner_item);
+        difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterDiff.setAdapter(difficultyAdapter);
+
+
+        filterDiff.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                difficultyFilter = (String) adapterView.getItemAtPosition(i);
+                mAdapter.filter(difficultyFilter,typeFilter);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        filterType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                typeFilter = (String) adapterView.getItemAtPosition(i);
+                mAdapter.filter(difficultyFilter,typeFilter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        view.findViewById(R.id.button_clear_filter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterType.setSelection(0);
+                filterDiff.setSelection(0);
+                difficultyFilter = getString(R.string.default_diff_filter);
+                typeFilter = getString(R.string.default_type_filter);
+                mAdapter.filter(difficultyFilter,typeFilter);
+            }
+        });
+
     }
 
     @Override
@@ -61,8 +128,8 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
 
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
-        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts, this);
-        recyclerView.setAdapter(adapter);
+        mAdapter = new BrowseWorkoutDetailAdapter(getContext(), workouts, this);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }

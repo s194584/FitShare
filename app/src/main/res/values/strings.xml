@@ -175,4 +175,23 @@
         <item>Undefined</item>
     </string-array>
 
+    <string name="default_type_filter">Type filter</string>
+    <string-array name="workout_types_filter">
+        <item>Type filter</item>
+        <item>Default</item>
+        <item>Strength</item>
+        <item>Cardio</item>
+    </string-array>
+
+    <string name="default_diff_filter">Difficulty filter</string>
+    <string-array name="workout_difficulties_filter">
+        <item>Difficulty filter</item>
+        <item>Beginner</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Extreme</item>
+        <item>Undefined</item>
+    </string-array>
+
+
 </resources>

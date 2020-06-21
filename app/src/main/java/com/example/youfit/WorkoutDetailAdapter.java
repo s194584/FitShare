@@ -1,7 +1,6 @@
 package com.example.youfit;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Workout;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdapter.ViewHolder>
@@ -78,7 +76,7 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
         TextView textView = viewHolder.workoutName;
         textView.setText(workout.getName());
         TextView textView1 = viewHolder.workoutTime;
-        textView1.setText(""+workout.getTime());
+        textView1.setText(""+workout.timeAsString());
     }
 
     @Override

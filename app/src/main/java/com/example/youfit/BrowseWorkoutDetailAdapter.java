@@ -1,7 +1,6 @@
 package com.example.youfit;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youfit.domain.Workout;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +23,10 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
 
     private Context mContext;
     private List<Workout> mWorkouts;
+    private List<Workout> mFilteredWorkouts;
     private OnWorkoutListener mOnWorkoutListener;
+
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, com.example.youfit.ViewHolder {
@@ -69,6 +67,7 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     public BrowseWorkoutDetailAdapter(Context mContext, List<Workout> workouts, OnWorkoutListener onWorkoutListener)
     {
         mWorkouts = workouts;
+        mFilteredWorkouts = mWorkouts;
         this.mContext = mContext;
         this.mOnWorkoutListener = onWorkoutListener;
     }
@@ -85,10 +84,10 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        String workoutName = "Name: " + mWorkouts.get(position).getName();
-        String workoutType = "Type: " + Utility.formatEnum(mWorkouts.get(position).getWorkoutType());
-        String workoutTime = "Time: " + mWorkouts.get(position).TimeAsString();
-        String workoutDifficulty = "Difficulty: " + Utility.formatEnum(mWorkouts.get(position).getWorkoutDifficulty());
+        String workoutName = "Name: " + mFilteredWorkouts.get(position).getName();
+        String workoutType = "Type: " + Utility.formatEnum(mFilteredWorkouts.get(position).getWorkoutType());
+        String workoutTime = "Time: " + mFilteredWorkouts.get(position).timeAsString();
+        String workoutDifficulty = "Difficulty: " + Utility.formatEnum(mFilteredWorkouts.get(position).getWorkoutDifficulty());
 
         holder.workoutName.setText(workoutName);
         holder.workoutType.setText(workoutType);
@@ -98,8 +97,41 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
 
     @Override
     public int getItemCount() {
-        return mWorkouts.size();
+        return mFilteredWorkouts.size();
     }
+
+    public void filter(String difficultyFilter, String typeFilter) {
+
+        Log.i(TAG, "diff: "+difficultyFilter+" type: "+typeFilter);
+        mFilteredWorkouts = new ArrayList<>();
+        // Four strategies
+        if(difficultyFilter.equals("Difficulty filter")&&typeFilter.equals("Type filter")){
+            mFilteredWorkouts = mWorkouts;
+        } else if(!typeFilter.equals("Type filter") && difficultyFilter.equals("Difficulty filter")){
+            for (Workout workout : mWorkouts) {
+                if (workout.getWorkoutType().toLowerCase().contains(typeFilter.toLowerCase())) {
+                    mFilteredWorkouts.add(workout);
+                }
+            }
+        } else if(typeFilter.equals("Type filter")){
+            for (Workout workout : mWorkouts) {
+                if (workout.getWorkoutDifficulty().toLowerCase().contains(difficultyFilter.toLowerCase())) {
+                    mFilteredWorkouts.add(workout);
+                }
+            }
+        }else {
+            for (Workout workout : mWorkouts){
+                if(workout.getWorkoutDifficulty().toLowerCase().contains(difficultyFilter.toLowerCase())&&
+                        workout.getWorkoutType().toLowerCase().contains(typeFilter.toLowerCase())){
+                    mFilteredWorkouts.add(workout);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+
 
     public interface OnWorkoutListener
     {

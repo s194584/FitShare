@@ -8,8 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
@@ -178,7 +175,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         String workoutNameString = "Name: " + mWorkout.getName();
         String workoutDifficultyString = "Difficulty: " + Utility.formatEnum(mWorkout.getWorkoutDifficulty());
         String workoutTypeString = "Type: " + Utility.formatEnum(mWorkout.getWorkoutType());
-        String workoutTimeString = "Time: " + mWorkout.TimeAsString();
+        String workoutTimeString = "Time: " + mWorkout.timeAsString();
         String workoutCreatorString = "Creator: " + mWorkout.getCreator();
         String workoutDescriptionString = "Description: " + mWorkout.getDescription();
 
