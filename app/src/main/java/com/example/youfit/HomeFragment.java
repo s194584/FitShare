@@ -26,7 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener {
+public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
     private final String TAG = "HomeFragment";
 
    private ArrayList<Workout> workouts = new ArrayList<>();
@@ -36,64 +36,12 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
    private int currentDay;
    private boolean loaded = false;
    private String curretUsername;
+   private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
-
-    private class UserListener implements DatabaseListener {
-
-        private View view;
-
-        UserListener(View view) {
-            this.view = view;
-        }
-
-        public void onStart() {
-            Log.i("UsernameListener", "onStart");
-        }
-
-        public void onComplete(DataSnapshot dataValues) {
-            Log.i("UsernameListener", "onComplete entered");
-            ArrayList<Workout> workoutsTmp = new ArrayList<>();
-            curretUsername = dataValues.child("name").getValue().toString();
-            Log.i("UsernameListener", "on complete got username:" + curretUsername);
-            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-            welcomeBackTest.setText("Welcome back " + curretUsername + "!");
-            if (dataValues.hasChild("savedWorkouts")) {
-                for (DataSnapshot workoutValues : dataValues.child("savedWorkouts").getChildren()) {
-                    Workout workout = workoutValues.getValue(Workout.class);
-                    Log.i("UsernameListener", "workout name: " + workout.getName());
-                    if (!workout.getName().isEmpty()) {
-                        Log.i("UsernameListener", workout.getName() + " is " + workout.getRecurring().get(currentDay));
-                        if (workout.getRecurring().get(currentDay)) {
-                            workoutsTmp.add(workout);
-                        }
-                    }
-                }
-            }
-            workouts = workoutsTmp;
-            initRecyclerView(view);
-        }
-    }
-
-    public void initRecyclerView(View view) {
-        Log.i(TAG, "RecyclerView, workouts: " + workouts);
-        for (Workout workout: workouts) {
-            Log.i(TAG, "RecyclerView, workouts: " + workout.getName());
-        }
-        RecyclerView plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
-        plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, this));
-
-        plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //TODO: Does this make a difference? It currently causes crashes!
-        //Make recycleView look good.
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
-//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-//        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
@@ -107,10 +55,9 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         }
 
         //Get layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        this.view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        UserListener listener = new UserListener(view);
-        server.loadCurrentUser(listener);
+        server.loadCurrentUser(this);
 
 
         //TODO: For some reason this implementation does not work when it is set to loaded
@@ -144,6 +91,47 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
                         .navigate(R.id.action_HomeFragment_to_workoutFragment);
             }
         });
+    }
+
+    @Override
+    public void onComplete(DataSnapshot dataSnapshot) {
+        Log.i("UsernameListener", "onComplete entered");
+        ArrayList<Workout> workoutsTmp = new ArrayList<>();
+        curretUsername = dataSnapshot.child("name").getValue().toString();
+        Log.i("UsernameListener", "on complete got username:" + curretUsername);
+        TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+        welcomeBackTest.setText("Welcome back " + curretUsername + "!");
+        if (dataSnapshot.hasChild("savedWorkouts")) {
+            for (DataSnapshot workoutValues : dataSnapshot.child("savedWorkouts").getChildren()) {
+                Workout workout = workoutValues.getValue(Workout.class);
+                Log.i("UsernameListener", "workout name: " + workout.getName());
+                if (!workout.getName().isEmpty()) {
+                    Log.i("UsernameListener", workout.getName() + " is " + workout.getRecurring().get(currentDay));
+                    if (workout.getRecurring().get(currentDay)) {
+                        workoutsTmp.add(workout);
+                    }
+                }
+            }
+        }
+        workouts = workoutsTmp;
+        initRecyclerView(view);
+    }
+
+    public void initRecyclerView(View view) {
+        Log.i(TAG, "RecyclerView, workouts: " + workouts);
+        for (Workout workout: workouts) {
+            Log.i(TAG, "RecyclerView, workouts: " + workout.getName());
+        }
+        RecyclerView plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
+        plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, this));
+
+        plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //TODO: Does this make a difference? It currently causes crashes!
+        //Make recycleView look good.
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
+//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+//        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
     }
 
     @Override

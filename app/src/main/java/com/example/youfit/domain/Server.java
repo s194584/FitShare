@@ -267,9 +267,6 @@ public class Server {
         }
     }
 
-
-
-
     public void loadUserNotifications(final DatabaseListener listener) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 

@@ -24,22 +24,22 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 
 
-public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener {
+public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
 
     private static final String TAG = "BrowsePublicFragment";
     ArrayList<Workout> workouts = new ArrayList<Workout>();
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Log.i(TAG, "1: Creating inflator");
-        View view = inflater.inflate(R.layout.fragment_browse_public_workouts, container, false);
+        this.view = inflater.inflate(R.layout.fragment_browse_public_workouts, container, false);
 
         Log.i(TAG, "2: Getting data from firebase");
         // Load workouts from server
-        BrowsePublicWorkoutsFragment.PublicWorkoutsListener listener = new BrowsePublicWorkoutsFragment.PublicWorkoutsListener(view);
         Server server = ((MainActivity) getActivity()).getServer();
-        server.loadPublicWorkouts2(listener);
+        server.loadPublicWorkouts2(this);
 
         Log.i(TAG, "3: Initiating recyclerview");
         initRecyclerView(view);
@@ -47,35 +47,22 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         return view;
     }
 
-    //listener for database changes, connected to server
-    private class PublicWorkoutsListener implements DatabaseListener {
-
-        private View view;
-
-        PublicWorkoutsListener(View view) {
-            this.view = view;
-        }
-
-        public void onStart() {
-            Log.i("CurrentUserWorkouts", "onStart");
-        }
-
-        public void onComplete(DataSnapshot dataSnapshot) {
-            Log.i("CurrentUserWorkouts", "on complete got username:");
-            ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
-            for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
-                Workout workout = dataValues.getValue(Workout.class);
-                if (!workout.getName().isEmpty()) {
-                    workoutstmp.add(workout);
-                }
+    @Override
+    public void onComplete(DataSnapshot dataSnapshot) {
+        Log.i("CurrentUserWorkouts", "on complete got username:");
+        ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
+        for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
+            Workout workout = dataValues.getValue(Workout.class);
+            if (!workout.getName().isEmpty()) {
+                workoutstmp.add(workout);
             }
-            workouts = workoutstmp;
-            initRecyclerView(view);
         }
+        workouts = workoutstmp;
+        initRecyclerView(view);
     }
 
 
-        private void initRecyclerView(View view) {
+    private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
         BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts, this);
         recyclerView.setAdapter(adapter);
