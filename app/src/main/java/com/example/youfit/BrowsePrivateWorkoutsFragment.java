@@ -34,6 +34,12 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
     private ArrayList<Workout> workouts = new ArrayList<Workout>();
     private View view;
 
+    public void onStart() {
+        super.onStart();
+
+        initRecyclerView(view);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
