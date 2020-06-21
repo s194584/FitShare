@@ -1,5 +1,7 @@
 package com.example.youfit;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -18,13 +20,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Workout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
-public class DoWorkoutActivity extends AppCompatActivity{
+public class DoWorkoutActivity extends AppCompatActivity {
 
     private String TAG = "DoWorkoutActivity";
 
@@ -65,10 +69,13 @@ public class DoWorkoutActivity extends AppCompatActivity{
 
     private View currentViewId;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_workout);
+
 
         // Initialization of stuff
         init();
@@ -408,6 +415,9 @@ public class DoWorkoutActivity extends AppCompatActivity{
         endWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("timeSpent",System.currentTimeMillis()-totalWorkoutTime.getBase());
+                setResult(Activity.RESULT_OK,intent);
                 finish();
             }
         });

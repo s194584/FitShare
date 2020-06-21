@@ -1,5 +1,6 @@
 package com.example.youfit;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,9 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Exercise;
 import com.example.youfit.domain.Server;
+import com.example.youfit.domain.Statistics;
 import com.example.youfit.domain.Workout;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
@@ -30,6 +34,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
 
     private static final String workoutString = "WORKOUT"; //TODO Should this be a string resource?
     private static final String TAG = "ViewWorkoutDetailsFrag";
+    private final int RESULT_CODE_DOWORKOUT = 214;
 
     private TextView workoutName;
     private TextView workoutDifficulty;
@@ -44,6 +49,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
 
     private Workout mWorkout;
     ArrayList<Exercise> exercises = new ArrayList<Exercise>();
+    private long timeSpent;
 
 
     public ViewWorkoutDetailsFragment() {
@@ -91,7 +97,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
                 intent.putExtra("workout", mWorkout);
-                startActivity(intent);
+                startActivityForResult(intent,RESULT_CODE_DOWORKOUT);
             }
         });
 

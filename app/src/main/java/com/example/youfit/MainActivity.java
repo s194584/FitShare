@@ -2,12 +2,14 @@ package com.example.youfit;
 
 import com.example.youfit.R.*;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -23,6 +25,7 @@ import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.ExerciseElement;
 import com.example.youfit.domain.ExerciseElementList;
 import com.example.youfit.domain.Server;
+import com.example.youfit.domain.Statistics;
 import com.example.youfit.domain.Workout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +38,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener, DatabaseListener {
 
+    private static final int RESULT_CODE_DOWORKOUT = 214;
     protected String TAG = "Server";
 
     protected boolean alreadyLoggedIn = false;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     protected ExerciseElementList exerciseElementList = new ExerciseElementList();
     protected boolean notifications;
     private ArrayList<Workout> workouts = new ArrayList<>();
+    private Statistics stats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         createNotificationChannel();
         server.loadUserNotifications(this);
         server.loadCurrentUsersWorkouts(this);
+        server.loadUserStats(this);
         //TODO: Make waiting screen for database call back.
 
     }
@@ -64,7 +70,9 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     public void onComplete(DataSnapshot dataSnapshot) {
         if (dataSnapshot.getKey().equals("notifications")){
             notifications = Boolean.parseBoolean(dataSnapshot.getValue().toString());
-        } else {
+        } else if(dataSnapshot.getKey().equals("statistics")){
+            stats = dataSnapshot.getValue(Statistics.class);
+        }else {
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 workouts.add(data.getValue(Workout.class));
             }
@@ -150,6 +158,19 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         setUpNavigation();
         exerciseElementList.setHashMap(server.getPreDefinedExercises());
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_CODE_DOWORKOUT && resultCode == Activity.RESULT_OK){
+            stats.addTotalTimeTotal(data.getExtras().getLong("timeSpent"));
+            server.changeStats(stats);
+        }
+    }
+
+
+
+
 
     private void createNotificationChannel() {
         // Create the NotificationChannel for API level 26 and above

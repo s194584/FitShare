@@ -109,6 +109,8 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 textChanged = false;
             }
         });
+
+        // Removes the lock on the radiobuttons, if the text is changed
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

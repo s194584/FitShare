@@ -260,6 +260,43 @@ public class Server {
         }
     }
 
+    public void changeStats(Statistics stats) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/statistics");
+
+            databaseReference.setValue(stats);
+        }
+    }
+
+    public void loadUserStats(final DatabaseListener listener) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/statistics");
+
+            Log.i(TAG, "onDataChange: Loading stats");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.i(TAG, "onDataChange: Loaded stats");
+                    listener.onComplete(dataSnapshot);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+    }
+
+
+
 
     public void loadCurrentUser(final DatabaseListener databaseListener) {
         Log.w(TAG, "Starting to load server");
