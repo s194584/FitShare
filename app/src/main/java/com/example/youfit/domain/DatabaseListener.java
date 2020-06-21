@@ -6,8 +6,6 @@ import com.google.firebase.database.DataSnapshot;
 
 public interface DatabaseListener {
 
-    void onStart();
-
     void onComplete(DataSnapshot dataSnapshot);
 
 }
