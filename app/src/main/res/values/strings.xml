@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YouFit</string>
+    <string name="app_name">FitShare</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_up">Sign up</string>
     <string name="back">Back</string>

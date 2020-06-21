@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
     ImageButton minutesDown;
     ImageButton secondsUp;
     ImageButton secondsDown;
+    private boolean textChanged;
 
     public interface EditExerciseDialogFragmentListener{
         public void onDialogSave(Exercise exercise, int position);
@@ -65,6 +68,12 @@ public class EditExerciseDialogFragment extends DialogFragment {
         } catch(ClassCastException e){
                 Log.i(TAG,"onAttach():  must implement EditExerciseDialogFragmentListener");
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Nullable
@@ -94,12 +103,32 @@ public class EditExerciseDialogFragment extends DialogFragment {
                     flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));
                 }
 
-                //Lock type
-                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(false);
-                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(false);
+                // Lock type
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(true);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(true);
+                textChanged = false;
             }
         });
+        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!textChanged){
+                    radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(true);
+                    radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(true);
+                    textChanged = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         // Change type
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -308,7 +337,6 @@ public class EditExerciseDialogFragment extends DialogFragment {
 
         radioGroup = inflatedView.findViewById(R.id.radioGroup);
 
-        radioGroup.check(R.id.radiobutton_edit_exercise_reps);
         flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_reps)));
 
         // Amount text
@@ -324,6 +352,25 @@ public class EditExerciseDialogFragment extends DialogFragment {
         minutesDown = inflatedView.findViewById(R.id.minutesDown);
         secondsUp = inflatedView.findViewById(R.id.secondsUp);
         secondsDown = inflatedView.findViewById(R.id.secondsDown);
+
+
+        ExerciseElement temp =((MainActivity) mContext).getHashMap().getElement(exercise.retrieveName());
+        if(temp != null){
+            if(temp.getType().equals(ExerciseType.REPETITION.name())){
+                radioGroup.check(R.id.radiobutton_edit_exercise_reps);
+                flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_reps)));
+            }else{
+                radioGroup.check(R.id.radiobutton_edit_exercise_time);
+                flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));
+            }
+            radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(false);
+            radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(false);
+            textChanged = false;
+        }else{
+            radioGroup.check(R.id.radiobutton_edit_exercise_reps);
+        }
+
+
     }
 
 }

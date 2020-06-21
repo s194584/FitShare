@@ -132,73 +132,13 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
             }
         });
 
-        Button addExcersizeBtn = view.findViewById(R.id.addExerciseButton);
-        addExcersizeBtn.setOnClickListener(new View.OnClickListener() {
+        Button addExerciseBtn = view.findViewById(R.id.addExerciseButton);
+        addExerciseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showEditExercise(new Exercise(new ExerciseElement()),-1);
             }
         });
-//        addExcersizeBtn.setOnClickListener(new View.OnClickListener() { //TODO Do we need this?
-//            @Override
-//            public void onClick(View v) {
-//                showEditExercise();
-//
-//
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                builder.setTitle("Add exercise");
-//                // inflate view
-//                View viewInflated = LayoutInflater.from(getContext()).
-//                        inflate(R.layout.popup_input_exercise,
-//                                (ViewGroup) getView(), false);
-//                // Set up the input
-//                final AutoCompleteTextView inputExercise = viewInflated.findViewById(R.id.inputExcersize);
-//
-//                //set up autocomplete adapter
-//                ArrayAdapter<String> autocompleteAdapter = new ArrayAdapter<>(getContext(),
-//                        R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.rep_exercises));
-//                inputExercise.setAdapter(autocompleteAdapter);
-//
-//
-//                builder.setView(viewInflated);
-//
-//                // Set up the buttons
-//                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//
-//                        exerciseSelected = inputExercise.getText().toString();
-//
-////                        if (exerciseStrings.get(ExerciseType.REPETITION).contains(exerciseSelected)) {
-////                            //make excersize and add it to the currentWorkout.
-////                            Exercise exercise = new Exercise(exerciseSelected,ExerciseType.REPETITION);
-////                            exercises.add(exercise);
-////
-////                        } else if (exerciseStrings.get(ExerciseType.TIME).contains(exerciseSelected)) {
-////                            Exercise exercise = new Exercise(exerciseSelected,ExerciseType.TIME);
-////                            exercises.add(exercise);
-////                        } else {
-////                            Toast.makeText(getContext(),
-////                                    "Please enter a vaild workout form",
-////                                    Toast.LENGTH_SHORT).show();
-////                        }
-//                        exercises.add(new Exercise(exerciseSelected));
-//                        mAdapter.notifyItemInserted(exercises.size()-1);
-//                    }
-//                });
-//                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                builder.show();
-//            }
-//        });
     }
 
     public void showEditExercise(Exercise exercise, int position){
