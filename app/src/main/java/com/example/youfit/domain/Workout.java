@@ -131,7 +131,12 @@ public class Workout implements Parcelable {
         long time = 0;
         for(Exercise x : exercises)
         {
-            time += Integer.parseInt(x.retrieveAmountString());
+            if (x.getExerciseElement().getType().equals(ExerciseType.REPETITION)) {
+                time += Integer.parseInt(x.retrieveAmountString())*2000;
+            } else {
+                time += Integer.parseInt(x.retrieveAmountString());
+            }
+
         }
         return time;
     }
@@ -142,9 +147,10 @@ public class Workout implements Parcelable {
 
     public String TimeAsString() {
         long time = getTime()/1000;
-        long minutes = time / 60;
-        long seconds = time % 60;
-        return seconds < 10 ? minutes + ":" + "0" + seconds : minutes + ":" + seconds;
+        long hours = time / (60*60);
+        long rest = time-(hours*60*60);
+        long minutes = rest / 60;
+        return hours + "h " + minutes + "m";
     }
 
     public static final Creator<Workout> CREATOR = new Creator<Workout>() {
