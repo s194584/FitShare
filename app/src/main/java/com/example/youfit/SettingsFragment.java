@@ -30,28 +30,42 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.User;
+import com.example.youfit.domain.Workout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class SettingsFragment extends Fragment{
+public class SettingsFragment extends Fragment implements DatabaseListener {
     private final String TAG = "SettingsFragment";
+
+    private boolean isChecked;
+    private String curretUsername;
+    private View view;
+    private EditText nameEditText;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        this.view = inflater.inflate(R.layout.fragment_settings, container, false);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final EditText nameEditText = view.findViewById(R.id.nameEditText);
-        nameEditText.setText(((MainActivity) getActivity()).getServer().getUsername());
+        this.nameEditText = view.findViewById(R.id.nameEditText);
+
+        initUIElements(view);
 
         view.findViewById(R.id.updateBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +84,12 @@ public class SettingsFragment extends Fragment{
             }
         });
 
-        ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(((MainActivity)getActivity()).notifications);
         ((Switch)view.findViewById(R.id.switch_notifications)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ((MainActivity)getActivity()).notifications = b;
+                ((MainActivity)getActivity()).notifications = b; //TODO: is this nessesary
+                Server server = ((MainActivity) getActivity()).getServer();
+                server.changeNotifications(b);
             }
         });
 
@@ -112,5 +127,27 @@ public class SettingsFragment extends Fragment{
     }
 
 
+    @Override
+    public void onComplete(DataSnapshot dataSnapshot) {
+        Log.i(TAG, "onComplete entered");
+        curretUsername = dataSnapshot.child("name").getValue().toString();
+        Log.i(TAG, "on complete got username:" + curretUsername);
+        isChecked = (boolean) dataSnapshot.child("notifications").getValue();
 
+        initUIElements(view);
+    }
+
+    public void initUIElements(View view) {
+        ((Switch)view.findViewById(R.id.switch_notifications)).setChecked(isChecked);
+        this.nameEditText.setText(curretUsername);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Server server = ((MainActivity) getActivity()).getServer();
+        server.loadCurrentUser(this);
+    }
 }
