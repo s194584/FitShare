@@ -132,6 +132,26 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             }
         });
 
+        workoutName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Workout name: " + mWorkout.getName()); //TODO Should deffinitely be string rescource
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        workoutCreator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Workout creator: " + mWorkout.getCreator()); //TODO Should deffinitely be string rescource
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
         initRecyclerView(view);
     }
 

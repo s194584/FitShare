@@ -31,6 +31,9 @@
 
     <TextView
         android:id="@+id/workout_name_view"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxWidth="280dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@id/xxx3"
@@ -52,10 +55,10 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/workout_type_view"
+        android:id="@+id/workout_time_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/type_strength"
+        android:text="@string/estimated_time_120_00"
         app:layout_constraintLeft_toLeftOf="@id/xxx3"
         app:layout_constraintTop_toBottomOf="@id/workout_difficulty_view"
         android:layout_marginLeft="30dp"
@@ -63,22 +66,25 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/workout_time_view"
+        android:id="@+id/workout_type_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="@id/xxx3"
         app:layout_constraintTop_toBottomOf="@id/workout_name_view"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:text="@string/estimated_time_120_00"
+        android:text="@string/type_strength"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/workout_creator_view"
         android:layout_width="wrap_content"
+        android:ellipsize="end"
+        android:maxWidth="110dp"
+        android:maxLines="1"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="@id/xxx3"
-        app:layout_constraintTop_toBottomOf="@id/workout_time_view"
+        app:layout_constraintTop_toBottomOf="@id/workout_type_view"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:text="@string/creator_skinnyp3n1s123"
