@@ -27,60 +27,41 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
-public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener {
+public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
 
     private static final String TAG = "BrowsePrivateFragment";
     private ArrayList<Workout> workouts = new ArrayList<Workout>();
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_browse_private_workouts, container, false);
+        this.view = inflater.inflate(R.layout.fragment_browse_private_workouts, container, false);
 
         Log.i("BrowsePrivateFragment", "2: Creating example data");
 
         // Load workouts from server
-        CurrentUserWorkouts listener = new CurrentUserWorkouts(view,this);
         Server server = ((MainActivity) getActivity()).getServer();
-        server.loadCurrentUsersWorkouts2(listener);
+        server.loadCurrentUsersWorkouts2(this);
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    //listener for database changes, connected to server
-    private class CurrentUserWorkouts implements DatabaseListener {
-
-        private View view;
-        BrowsePrivateWorkoutsFragment browsePrivateWorkoutsFragment;
-
-        CurrentUserWorkouts(View view, BrowsePrivateWorkoutsFragment browsePrivateWorkoutsFragment) {
-            this.view = view;
-            this.browsePrivateWorkoutsFragment = browsePrivateWorkoutsFragment;
-        }
-
-        public void onStart() {
-            Log.i("CurrentUserWorkouts", "onStart");
-        }
-
-        public void onComplete(DataSnapshot dataSnapshot) {
-            Log.i("CurrentUserWorkouts", "on complete got username:");
-            ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
-            for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
-                Workout workout = dataValues.getValue(Workout.class);
-                if (!workout.getName().isEmpty()) {
-                    workoutstmp.add(workout);
-                }
+    @Override
+    public void onComplete(DataSnapshot dataSnapshot) {
+        Log.i("CurrentUserWorkouts", "on complete got username:");
+        ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
+        for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
+            Workout workout = dataValues.getValue(Workout.class);
+            if (!workout.getName().isEmpty()) {
+                workoutstmp.add(workout);
             }
-            workouts = workoutstmp;
-            initRecyclerView(view);
         }
-
-
+        workouts = workoutstmp;
+        initRecyclerView(view);
     }
-
-
 
 //    private class PrivateWorkoutListener implements ChildDatabaseListener {
 //

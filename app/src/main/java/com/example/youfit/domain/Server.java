@@ -256,6 +256,28 @@ public class Server {
         }
     }
 
+    public void loadUserNotifications(final DatabaseListener listener) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            this.rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = this.rootNode.getReference("Users/" + this.firebaseAuth.getCurrentUser().getUid() + "/notifications");
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    listener.onComplete(dataSnapshot);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+    }
+
 
     public void loadCurrentUser(final DatabaseListener databaseListener) {
         Log.w(TAG, "Starting to load server");

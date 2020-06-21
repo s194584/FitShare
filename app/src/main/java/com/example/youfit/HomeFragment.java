@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Server;
+import com.example.youfit.domain.User;
 import com.example.youfit.domain.Workout;
 import com.google.firebase.database.DataSnapshot;
 
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     private final String TAG = "HomeFragment";
 
    private ArrayList<Workout> workouts = new ArrayList<>();
+   private User currentUser;
    private WorkoutDetailAdapter mAdapter;
    private RecyclerView plannedWorkoutsRV;
    private int currentDay;
@@ -53,24 +55,21 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
             Log.i("UsernameListener", "onStart");
         }
 
-        public void onComplete(DataSnapshot dataSnapshot) {
+        public void onComplete(DataSnapshot dataValues) {
             Log.i("UsernameListener", "onComplete entered");
             ArrayList<Workout> workoutsTmp = new ArrayList<>();
-            for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
-                if (!dataValues.hasChildren()) {
-                    curretUsername = dataValues.getValue().toString();
-                    Log.i("UsernameListener", "on complete got username:" + curretUsername);
-                    TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-                    welcomeBackTest.setText("Welcome back " + curretUsername + "!");
-                } else {
-                    for (DataSnapshot workoutValues : dataValues.getChildren()) {
-                        Workout workout = workoutValues.getValue(Workout.class);
-                        Log.i("UsernameListener","workout name: " + workout.getName());
-                        if (!workout.getName().isEmpty()) {
-                            Log.i("UsernameListener",workout.getName()+" is "+workout.getRecurring().get(currentDay));
-                            if (workout.getRecurring().get(currentDay)) {
-                                workoutsTmp.add(workout);
-                            }
+            curretUsername = dataValues.child("name").getValue().toString();
+            Log.i("UsernameListener", "on complete got username:" + curretUsername);
+            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
+            welcomeBackTest.setText("Welcome back " + curretUsername + "!");
+            if (dataValues.hasChild("savedWorkouts")) {
+                for (DataSnapshot workoutValues : dataValues.child("savedWorkouts").getChildren()) {
+                    Workout workout = workoutValues.getValue(Workout.class);
+                    Log.i("UsernameListener", "workout name: " + workout.getName());
+                    if (!workout.getName().isEmpty()) {
+                        Log.i("UsernameListener", workout.getName() + " is " + workout.getRecurring().get(currentDay));
+                        if (workout.getRecurring().get(currentDay)) {
+                            workoutsTmp.add(workout);
                         }
                     }
                 }
