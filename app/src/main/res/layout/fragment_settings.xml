@@ -19,37 +19,40 @@
     <View
         android:id="@+id/xxx"
         android:layout_width="340dp"
-        android:layout_height="410dp"
-        android:background="@drawable/btn_round_edges_transparent"
+        android:layout_height="370dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/btn_round_edges_transparent"
+        app:layout_constraintBottom_toBottomOf="@id/logOutBtn"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/nameEditText"
-        app:layout_constraintBottom_toBottomOf="@id/logOutBtn"/>
+        app:layout_constraintVertical_bias="0.67" />
 
     <View
         android:id="@+id/xxx2"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:background="@drawable/btn_round_edges_transparent"
-        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/imageView3"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/imageView3"
-        app:layout_constraintBottom_toBottomOf="@id/imageView3"/>
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="101dp"
-        android:textColor="#000000"
-        android:textSize="24sp"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textEmailAddress"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -114,13 +117,14 @@
         android:id="@+id/switch_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="32dp"
         android:text="Nofitications"
         android:theme="@style/SwitchTheme"
         app:layout_constraintBottom_toBottomOf="@+id/xxx"
         app:layout_constraintEnd_toEndOf="@+id/xxx"
-        app:layout_constraintStart_toEndOf="@+id/logOutBtn"
-        app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
+        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintStart_toEndOf="@+id/logOutBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="300dp"
+    android:layout_height="80dp"
     tools:context=".BrowsePublicWorkoutsFragment"
     android:padding="8dp"
     android:id="@+id/browse_workout_layout"
     android:layout_marginTop="5dp"
-    android:background="@drawable/btn_round_edges_white">
+    android:background="@drawable/btn_round_edges_white"
+    android:layout_marginBottom="10dp">
 
 
     <TextView
         android:id="@+id/workout_info_text"
-        android:layout_width="316dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="@string/name_withdots"
         android:textSize="14sp"
@@ -23,12 +24,12 @@
         android:id="@+id/workout_type"
         android:layout_width="92dp"
         android:layout_height="wrap_content"
-        android:text="@string/strength_withdots"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="5dp"
-        android:textSize="14sp"
+        android:layout_below="@+id/workout_info_text"
+        android:layout_marginStart="-128dp"
+        android:layout_marginTop="27dp"
         android:layout_toEndOf="@id/workout_difficulty"
-        android:layout_below="@+id/workout_info_text" />
+        android:text="@string/strength_withdots"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/workout_difficulty"
@@ -43,14 +44,14 @@
 
     <TextView
         android:id="@+id/workout_time"
-        android:layout_width="82dp"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/workout_type"
         android:layout_below="@+id/workout_info_text"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workout_type"
         android:text="@string/time_120_00"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/startworkoutfrombrowser_button"
@@ -58,13 +59,14 @@
         android:layout_height="45dp"
         android:layout_marginStart="7dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginTop="9dp"
         android:layout_toEndOf="@id/workout_info_text"
+        android:background="@drawable/btn_round_edges_green"
         android:text="@string/start_withdots"
-        android:textColor="@color/white"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="11dp"
-        tools:ignore="SpUsage"
-        android:background="@drawable/btn_round_edges_green"/>
+        tools:ignore="SpUsage" />
 
 
 </RelativeLayout>

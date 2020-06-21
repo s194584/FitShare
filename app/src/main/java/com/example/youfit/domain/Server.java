@@ -370,7 +370,6 @@ public class Server {
 
                 }
             });
-
         }
     }
 
