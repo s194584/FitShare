@@ -154,16 +154,15 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     }
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+        // Create the NotificationChannel for API level 26 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
+            // Channel settings
+            String name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(getString(R.string.CHANNEL_ID), name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
+            // Creating channel
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.createNotificationChannel(channel);
         }
