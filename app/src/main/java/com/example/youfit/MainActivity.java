@@ -55,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         createNotificationChannel();
         server.loadUserNotifications(this);
         server.loadCurrentUsersWorkouts(this);
+
+
+        //TODO: Line below need to be deleted after everyone has run this code atleast once.
+        server.changeStats(new Statistics());
+
+
+
+
         server.loadUserStats(this);
         //TODO: Make waiting screen for database call back.
 
