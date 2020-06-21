@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
    private WorkoutDetailAdapter mAdapter;
    private RecyclerView plannedWorkoutsRV;
    private int currentDay;
-   private boolean loaded = false;
    private String curretUsername;
    private View view;
 
@@ -42,11 +41,13 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Server server = ((MainActivity) getActivity()).getServer();
+        server.loadCurrentUser(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Server server = ((MainActivity) getActivity()).getServer();
         currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2; //TODO Den burde nok sættes automatisk
 
         // Sunday = 1 is corrected to 6
@@ -57,26 +58,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         //Get layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        server.loadCurrentUser(this);
-
-
-        //TODO: For some reason this implementation does not work when it is set to loaded
-        // I do not know why. Problem is we now constantly create listeners this could potentially be a problem
-        //Set welcome back text
-//        if (!loaded) {
-//            Log.i("HomeFragment", "loaded: " + loaded);
-//            UserListener listener = new UserListener(view);
-//            server.loadCurrentUser(listener);
-//            loaded=true;
-//        } else {
-//            Log.i("HomeFragment", "loaded: " + loaded);
-//            Log.i("HomeFragment", "name is: " + curretUsername);
-//            Log.i("HomeFragment", "workouts are: " + workouts);
-//            TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
-//            welcomeBackTest.setText("Welcome back " + curretUsername + "!");
-//
-//            initRecyclerView(view);
-//        }
+        initRecyclerView(view);
 
         return view;
     }

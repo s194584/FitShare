@@ -3,6 +3,7 @@ package com.example.youfit;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -36,22 +37,17 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_browse_private_workouts, container, false);
 
-        Log.i("BrowsePrivateFragment", "2: Creating example data");
+        initRecyclerView(view);
 
-        // Load workouts from server
-        Server server = ((MainActivity) getActivity()).getServer();
-        server.loadCurrentUsersWorkouts2(this);
-
-        // Inflate the layout for this fragment
         return view;
     }
 
     @Override
     public void onComplete(DataSnapshot dataSnapshot) {
-        Log.i("CurrentUserWorkouts", "on complete got username:");
+        Log.i(TAG, "on complete entered:");
         ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
         for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
             Workout workout = dataValues.getValue(Workout.class);
@@ -60,38 +56,9 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
             }
         }
         workouts = workoutstmp;
+        Log.i(TAG, "workouts are: " + workouts);
         initRecyclerView(view);
     }
-
-//    private class PrivateWorkoutListener implements ChildDatabaseListener {
-//
-//        private View view;
-//
-//        PrivateWorkoutListener(View view) {
-//            this.view = view;
-//        }
-//
-//        @Override
-//        public void onChildAddedCompleted(DataSnapshot dataSnapshot) {
-//            Workout workout = dataSnapshot.getValue(Workout.class);
-//            workouts.add(workout);
-//            initRecyclerView(view);
-//        }
-//
-//        @Override
-//        public void onChildChangedCompleted(DataSnapshot dataSnapshot) {
-//            Workout workout = dataSnapshot.getValue(Workout.class);
-//            workouts.(workout);
-//            initRecyclerView(view);
-//        }
-//
-//        @Override
-//        public void onChildRemovedCompleted(DataSnapshot dataSnapshot) {
-//            Workout workout = dataSnapshot.getValue(Workout.class);
-//            workouts.remove(workout);
-//            initRecyclerView(view);
-//        }
-//    }
 
     private void initRecyclerView(View view) {
         Log.d(TAG, "initRecyclerView: init recyclerview");
@@ -103,7 +70,7 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
     }
 
     public void onWorkoutClick(int position) {
-        Log.i("BrowsePublicFragment", "A workout has been clicked: " + workouts.get(position).getName());
+        Log.i(TAG, "A workout has been clicked: " + workouts.get(position).getName());
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("WORKOUT", workouts.get(position));
@@ -114,11 +81,19 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
 
     @Override
     public void onButtonClick(int position) {
-        Log.i("BrowsePublicFragment", "BUTTON CLICKED: " + workouts.get(position).getName());
+        Log.i(TAG, "BUTTON CLICKED: " + workouts.get(position).getName());
 
         Workout workout = workouts.get(position);
         Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
         intent.putExtra("workout", workout);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate ");
+        Server server = ((MainActivity) getActivity()).getServer();
+        server.loadCurrentUsersWorkouts2(this);
     }
 }

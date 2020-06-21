@@ -3,6 +3,7 @@ package com.example.youfit;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -36,12 +37,8 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         Log.i(TAG, "1: Creating inflator");
         this.view = inflater.inflate(R.layout.fragment_browse_public_workouts, container, false);
 
-        Log.i(TAG, "2: Getting data from firebase");
-        // Load workouts from server
-        Server server = ((MainActivity) getActivity()).getServer();
-        server.loadPublicWorkouts2(this);
 
-        Log.i(TAG, "3: Initiating recyclerview");
+        Log.i(TAG, "2: Initiating recyclerview");
         initRecyclerView(view);
 
         return view;
@@ -89,5 +86,13 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements BrowseWork
         Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
         intent.putExtra("workout", workout);
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Load workouts from server
+        Server server = ((MainActivity) getActivity()).getServer();
+        server.loadPublicWorkouts2(this);
     }
 }
