@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import com.example.youfit.domain.DatabaseListener;
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
+import com.example.youfit.domain.WorkoutDifficulty;
+import com.example.youfit.domain.WorkoutType;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
@@ -47,8 +49,8 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
         Log.i(TAG, "2: Initiating recyclerview");
         initRecyclerView(view);
 
-        difficultyFilter = getString(R.string.default_diff_filter);
-        typeFilter = getString(R.string.default_type_filter);
+        difficultyFilter = getString(R.string.difficulty_filter);
+        typeFilter = getString(R.string.type_filter);
 
         return view;
     }
@@ -58,13 +60,29 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
         super.onViewCreated(view, savedInstanceState);
 
         final Spinner filterType = view.findViewById(R.id.spinner_filter_type);
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_types_filter, android.R.layout.simple_spinner_item);
+        WorkoutType[] workoutTypeAsEnums = WorkoutType.values();
+        String[] workoutTypes = new String[workoutTypeAsEnums.length+1];
+        workoutTypes[0] = getResources().getString(R.string.type_filter);
+        for (int i=1; i<workoutTypeAsEnums.length+1; i++) {
+            workoutTypes[i] = Utility.formatEnum(workoutTypeAsEnums[i-1].toString());
+        }
+
+
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, workoutTypes);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterType.setAdapter(typeAdapter);
 
 
         final Spinner filterDiff = view.findViewById(R.id.spinner_filter_diff);
-        ArrayAdapter<CharSequence> difficultyAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_difficulties_filter, android.R.layout.simple_spinner_item);
+        WorkoutDifficulty[] workoutDifficultiesAsEnums = WorkoutDifficulty.values();
+        String[] workoutDifficulties = new String[workoutDifficultiesAsEnums.length+1];
+        workoutDifficulties[0] = getResources().getString(R.string.difficulty_filter);
+        for (int i=1; i<workoutDifficultiesAsEnums.length+1; i++) {
+            workoutDifficulties[i] = Utility.formatEnum(workoutDifficultiesAsEnums[i-1].toString());
+        }
+
+
+        ArrayAdapter<String> difficultyAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, workoutDifficulties);
         difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterDiff.setAdapter(difficultyAdapter);
 
@@ -74,7 +92,6 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 difficultyFilter = (String) adapterView.getItemAtPosition(i);
                 mAdapter.filter(difficultyFilter,typeFilter);
-
             }
 
             @Override
@@ -102,8 +119,8 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
             public void onClick(View view) {
                 filterType.setSelection(0);
                 filterDiff.setSelection(0);
-                difficultyFilter = getString(R.string.default_diff_filter);
-                typeFilter = getString(R.string.default_type_filter);
+                difficultyFilter = getString(R.string.difficulty_filter);
+                typeFilter = getString(R.string.type_filter);
                 mAdapter.filter(difficultyFilter,typeFilter);
             }
         });
@@ -124,7 +141,6 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
         initRecyclerView(view);
     }
 
-
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
         mAdapter = new BrowseWorkoutDetailAdapter(workouts, this);
@@ -134,10 +150,10 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
     }
 
     public void onWorkoutClick(int position) {
-        Log.i(TAG, "A workout has been clicked: " + workouts.get(position).getName());
+        Log.i(TAG, "A workout has been clicked: " + mAdapter.getmFilteredWorkouts().get(position).getName());
 
         Bundle bundle = new Bundle();
-        bundle.putParcelable("WORKOUT", workouts.get(position));
+        bundle.putParcelable("WORKOUT", mAdapter.getmFilteredWorkouts().get(position));
         bundle.putBoolean("public", true);
         Log.i(TAG, "Navigating from " + NavHostFragment.findNavController(this).getCurrentDestination());
         NavHostFragment.findNavController(BrowsePublicWorkoutsFragment.this)
