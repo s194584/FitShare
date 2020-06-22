@@ -129,7 +129,7 @@ public class WorkoutSettingsFragment extends Fragment {
             tempRecurring.set(i, ((CheckBox) recurringChecks.getChildAt(i)).isChecked());
         }
 
-        workout.setWorkoutType(typeSpinner.getSelectedItem().toString().toUpperCase()); //TODO: Replace with what ever Type is choosen REMEBER to user .name() as it is stored as a string.
+        workout.setWorkoutType(typeSpinner.getSelectedItem().toString().toUpperCase());
         workout.setWorkoutDifficulty(difficultySpinner.getSelectedItem().toString().toUpperCase());
         workout.setRecurring(new ArrayList<Boolean>(tempRecurring));
         workout.setPublicWorkout(((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).isChecked());

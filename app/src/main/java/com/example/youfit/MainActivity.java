@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         server.loadUserNotifications(this);
         server.loadCurrentUsersWorkouts(this);
         server.loadUserStats(this);
-
-        //TODO: Make waiting screen for database call back.
-
     }
 
     @Override

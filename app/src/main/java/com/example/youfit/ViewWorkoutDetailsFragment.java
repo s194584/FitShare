@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class ViewWorkoutDetailsFragment extends Fragment {
 
-    private static final String workoutString = "WORKOUT"; //TODO Should this be a string resource?
+    private static final String workoutString = "WORKOUT";
     private static final String TAG = "ViewWorkoutDetailsFrag";
     private final int RESULT_CODE_DOWORKOUT = 214;
 
@@ -100,7 +100,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Do you want to delete workout " + mWorkout.getName() + "?") //TODO Should deffinitely be string rescource
+                builder.setMessage(getString(R.string.delete_workout_question) + mWorkout.getName() + "?")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -134,7 +134,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Workout name: " + mWorkout.getName()); //TODO Should deffinitely be string rescource
+                builder.setMessage(R.string.workout_name + mWorkout.getName());
                 AlertDialog alert = builder.create();
                 alert.show();
             }
@@ -144,7 +144,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Workout creator: " + mWorkout.getCreator()); //TODO Should deffinitely be string rescource
+                builder.setMessage(getString(R.string.workout_creator) + mWorkout.getCreator());
                 AlertDialog alert = builder.create();
                 alert.show();
             }
@@ -167,7 +167,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void formatAssets(View view) { //TODO FINISH THIS
+    private void formatAssets(View view) {
         startWorkoutButton = view.findViewById(R.id.start_workout_button);
         deleteWorkoutButton = view.findViewById(R.id.delete_workout_button);
         editWorkoutButton = view.findViewById(R.id.edit_workout_button);

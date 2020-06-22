@@ -100,11 +100,11 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
             this.progressBarSignIn.setVisibility(View.VISIBLE);
 
             //check if user exists
-            this.firebaseAuth.signInWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            this.firebaseAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     onSuccesfullTask(task, "Welcome!");
-                    if (task.isSuccessful()) { //TODO: Remove this if statement. When Christians shit virker!
+                    if (task.isSuccessful()) {
                         goToMainActivity();
                     }
 

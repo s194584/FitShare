@@ -316,19 +316,6 @@ public class Server {
             this.rootNode = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = this.rootNode.getReference("DefinedExercises");
 
-//            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() { //TODO CLEANUP, is this still relevant?
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    Log.i(TAG,"Done loading initial data");
-////                    onServerSetupCompleteListener.onSetupComplete();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-
             databaseReference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

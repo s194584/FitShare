@@ -21,7 +21,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     }
 
     public SectionsPageAdapter(@NonNull FragmentManager fm) {
-        super(fm); //TODO what is going on here
+        super(fm);
     }
 
     @Nullable

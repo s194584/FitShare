@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2; //TODO Den burde nok sættes automatisk
+        currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2;
 
         // Sunday = 1 is corrected to 6
         if(currentDay==-1){
@@ -116,11 +116,10 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
 
         plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //TODO: Does this make a difference? It currently causes crashes! (It does, it makes it look pretty and it really shouldnt unless someone fucked with the files -Kristine)
         //Make recycleView look good.
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
-//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-//        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
+        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
     }
 
     @Override

@@ -25,20 +25,20 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
     int waterGoal = 2000;
     int setWaterAmount = 0;
     TextView setWaterAmountText;
-    int totalWaterAmount = 0; //TODO firebase, baby. Probably just an integer.
+    int totalWaterAmount = 0;
     TextView waterAmountText;
     androidx.appcompat.widget.AppCompatImageButton addWaterButton;
     androidx.appcompat.widget.AppCompatImageButton subtractWaterButton;
     androidx.appcompat.widget.AppCompatImageButton drinkButton;
 
-    int totalWorkoutsWeekly = 0; //TODO firebase, baby. Gotta be a list of dates and how long they took.
+    int totalWorkoutsWeekly = 0;
     TextView totalWorkoutsWeeklyText;
-    long totalTimeWeekly = 0; //TODO firebase, baby. Yup, that would be the "how long it took" part
+    long totalTimeWeekly = 0;
     TextView totalTimeWeeklyText;
 
-    int totalWorkoutsTotal = 0; //TODO firebase, baby. Probably just an integer.
+    int totalWorkoutsTotal = 0;
     TextView totalWorkoutsTotalText;
-    long totalTimeTotal = 0; //TODO firebase, baby. Propably just an integer. Might be relevant to make it hours when number get heigh enough.
+    long totalTimeTotal = 0;
     TextView totalTimeTotalText;
 
     private View view;
@@ -56,17 +56,6 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
         view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         ((MainActivity)getActivity()).getServer().loadUserStats(this);
-        //TODO implement with data from firebase, uncomment and fix.
-        /*
-        int totalWorkoutTimeToday = 0;
-        for(Workout x : user.getDailyWorkouts())
-        {
-            totalWorkoutTimeToday += x.getTime();
-        }
-        waterGoal += 200*(totalWorkoutTimeToday/15);
-        */
-
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -106,7 +95,6 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
             @Override
             public void onClick(View v) {
 
-                //TODO Save values in firebase
                 totalWaterAmount += setWaterAmount;
                 setWaterAmount = 0;
                 if(totalWaterAmount < 0)
@@ -118,7 +106,7 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
                 if (totalWaterAmount >= 2000)
                 {
                     Toast toast = Toast.makeText(getActivity(),
-                            "Congratulations, you've reached your water goal! Good job! you are awesome!", //TODO maybe this should be a string rescource
+                            R.string.watergoal_reached,
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
