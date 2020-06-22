@@ -223,6 +223,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_time){
                     if (timeTextMin.getText().toString().isEmpty() || timeTextSec.getText().toString().isEmpty()){
                         makeToast("Minutes and seconds cannot be empty");
+                        return;
                     }
                 }
 
