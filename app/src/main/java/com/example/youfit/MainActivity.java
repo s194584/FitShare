@@ -61,12 +61,8 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
         server.loadUserNotifications(this);
         server.loadCurrentUsersWorkouts(this);
-
-        //TODO: Line below need to be deleted after everyone has run this code atleast once.
-        server.changeStats(new Statistics());
-
-
         server.loadUserStats(this);
+
         //TODO: Make waiting screen for database call back.
 
     }
@@ -82,13 +78,19 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         if (dataSnapshot.getKey().equals("notifications")){
             notifications = Boolean.parseBoolean(dataSnapshot.getValue().toString());
         } else if(dataSnapshot.getKey().equals("statistics")){
-            stats = dataSnapshot.getValue(Statistics.class);
+            if(dataSnapshot.hasChild("totalWater")){
+                // Old users
+                stats = dataSnapshot.getValue(Statistics.class);
+            }else{
+                // New users
+                stats = new Statistics();
+                server.changeStats(stats);
+            }
         }else {
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 workouts.add(data.getValue(Workout.class));
             }
         }
-        Log.i(TAG, "onComplete: "+dataSnapshot.getKey()+notifications);
     }
 
     @Override
@@ -181,11 +183,6 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
             server.changeStats(stats);
         }
     }
-
-
-
-
-
     private void createNotificationChannel() {
         // Create the NotificationChannel for API level 26 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
