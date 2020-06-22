@@ -37,11 +37,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     private final int RESULT_CODE_DOWORKOUT = 214;
 
     private TextView workoutName;
-    private TextView workoutDifficulty;
-    private TextView workoutType;
-    private TextView workoutTime;
     private TextView workoutCreator;
-    private TextView workoutDescription;
     private Button startWorkoutButton;
     private Button deleteWorkoutButton;
     private Button editWorkoutButton;
@@ -49,7 +45,6 @@ public class ViewWorkoutDetailsFragment extends Fragment {
 
     private Workout mWorkout;
     ArrayList<Exercise> exercises = new ArrayList<Exercise>();
-    private long timeSpent;
 
 
     public ViewWorkoutDetailsFragment() {
@@ -167,7 +162,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
     private void initRecyclerView(View view) {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = view.findViewById(R.id.exercisedetailsRV);
-        ClickWorkoutDetailAdapter adapter = new ClickWorkoutDetailAdapter(getContext(), exercises);
+        ClickWorkoutDetailAdapter adapter = new ClickWorkoutDetailAdapter(exercises);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -178,11 +173,11 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         editWorkoutButton = view.findViewById(R.id.edit_workout_button);
 
         workoutName = view.findViewById(R.id.workout_name_view);
-        workoutDifficulty = view.findViewById(R.id.workout_difficulty_view);
-        workoutType = view.findViewById(R.id.workout_type_view);
-        workoutTime = view.findViewById(R.id.workout_time_view);
+        TextView workoutDifficulty = view.findViewById(R.id.workout_difficulty_view);
+        TextView workoutType = view.findViewById(R.id.workout_type_view);
+        TextView workoutTime = view.findViewById(R.id.workout_time_view);
         workoutCreator = view.findViewById(R.id.workout_creator_view);
-        workoutDescription = view.findViewById(R.id.workout_description);
+        TextView workoutDescription = view.findViewById(R.id.workout_description);
 
         String workoutNameString = "Name: " + mWorkout.getName();
         String workoutDifficultyString = "Difficulty: " + Utility.formatEnum(mWorkout.getWorkoutDifficulty());
