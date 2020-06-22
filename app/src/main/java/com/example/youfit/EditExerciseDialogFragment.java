@@ -93,7 +93,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
 
                 Log.i(TAG,"Item selected. The type is: "+exerciseElement.getType());
 
-                //Set type
+                //Set type and check
                 if(exerciseElement.getType().equals(ExerciseType.REPETITION.name())){
                     radioGroup.check(R.id.radiobutton_edit_exercise_reps);
                     flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_reps)));
