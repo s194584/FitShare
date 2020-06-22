@@ -43,7 +43,14 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
 
     private View view;
     private Statistics stats;
+    private boolean attached = false;
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        attached = true;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -130,13 +137,13 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
         totalWorkoutsWeeklyText = view.findViewById(R.id.total_workouts_weekly_text);
         totalWorkoutsWeeklyText.setText(""+totalWorkoutsWeekly);
         totalTimeWeeklyText = view.findViewById(R.id.total_workouts_time_weekly_text);
-        totalTimeWeeklyText.setText(""+totalTimeWeekly);
+        totalTimeWeeklyText.setText(Utility.millisToHour(totalTimeWeekly));
 
         //Find and set total
         totalWorkoutsTotalText = view.findViewById(R.id.total_workouts_total_text);
         totalWorkoutsTotalText.setText(""+totalWorkoutsTotal);
         totalTimeTotalText = view.findViewById(R.id.total_workouts_time_total_text);
-        totalTimeTotalText.setText(""+totalTimeTotal);
+        totalTimeTotalText.setText(Utility.millisToHour(totalTimeTotal));
     }
 
     @Override

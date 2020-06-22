@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -413,7 +414,7 @@ public class DoWorkoutActivity extends AppCompatActivity {
         flipper.setDisplayedChild(flipper.indexOfChild(findViewById(R.id.viewFinished)));
 
         Intent intent = new Intent();
-        intent.putExtra("timeSpent",System.currentTimeMillis()-START_TIME);
+        intent.putExtra("timeSpent", SystemClock.elapsedRealtime()-totalWorkoutTime.getBase());
         setResult(Activity.RESULT_OK,intent);
 
         endWorkout.setOnClickListener(new View.OnClickListener() {

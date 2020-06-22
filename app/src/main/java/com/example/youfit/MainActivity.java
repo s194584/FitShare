@@ -205,15 +205,17 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     private void setupNotifications(boolean b, ArrayList<Workout> workouts){
 
         // Setting the time for trigger
-        Calendar calendar = Calendar.getInstance();
-        long currentTimeInMillis = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY,8);
-        long timeInMillis = calendar.getTimeInMillis();
+//        Calendar calendar = Calendar.getInstance();
+//        long currentTimeInMillis = calendar.getTimeInMillis();
+//        calendar.set(Calendar.HOUR_OF_DAY,8);
+//        long timeInMillis = calendar.getTimeInMillis();
 
+        Calendar calender = Calendar.getInstance();
+        long timeInMillis = 1000*60*15;
         // If it is already past (eight) o'clock
-        if (timeInMillis < currentTimeInMillis){
-            timeInMillis += 1000*60*60*24;
-        }
+//        if (timeInMillis < currentTimeInMillis){
+//            timeInMillis += 1000*60*60*24;
+//        }
 
         // Creating intent for AlarmReceiver
         Intent notificationIntent = new Intent(this,AlarmReceiver.class);
@@ -231,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         if(b){
             Log.i(TAG, "setNotificationAlarm: setting alarm");
-            // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_DAY, pendingIntent); // Real alarm
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent); // Test alarm
+             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent); // Real alarm
+//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent); // Test alarm
         }else{
             Log.i(TAG, "setNotificationAlarm: cancelling alarm");
             alarmManager.cancel(pendingIntent);

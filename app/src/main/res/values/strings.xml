@@ -184,6 +184,7 @@
     </string-array>
 
     <string name="default_diff_filter">Difficulty filter</string>
+    <string name="single_number">%d</string>
     <string-array name="workout_difficulties_filter">
         <item>Difficulty filter</item>
         <item>Beginner</item>
