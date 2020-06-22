@@ -11,12 +11,6 @@
         android:label="fragment_first"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_HomeFragment_to_browseWorkoutsFragment"
-            app:destination="@id/browseWorkoutsFragment" />
-        <action
-            android:id="@+id/action_HomeFragment_to_DoingWorkoutFragment"
-            app:destination="@id/DoingWorkoutFragment" />
-        <action
             android:id="@+id/action_HomeFragment_to_workoutFragment"
             app:destination="@id/workoutFragment" />
         <action
@@ -60,12 +54,6 @@
             app:destination="@id/workoutFragment"
             app:popUpTo="@id/workoutFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_workoutSettingsFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
-        <action
-            android:id="@+id/action_workoutSettingsFragment_to_viewWorkoutDetailsFragment"
-            app:destination="@id/viewWorkoutDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewWorkoutDetailsFragment"

@@ -91,10 +91,6 @@ public class Workout implements Parcelable {
         return uniqueID;
     }
 
-    public void addExercise (Exercise exercise) {
-        this.exercises.add(exercise);
-    }
-
     public void setExercises(ArrayList<Exercise> exercises) {
         this.exercises = exercises;
     }

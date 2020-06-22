@@ -158,9 +158,11 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     @Override
     public void onSetupComplete() {
         Log.i(TAG,"Setting up views.");
-        setContentView(layout.activity_main);
-        setUpNavigation();
-        exerciseElementList.setElementHashMap(server.getPreDefinedExercises());
+        if (exerciseElementList.getElementHashMap().isEmpty()) {
+            setContentView(layout.activity_main);
+            setUpNavigation();
+            exerciseElementList.setElementHashMap(server.getPreDefinedExercises());
+        }
     }
 
     @Override
