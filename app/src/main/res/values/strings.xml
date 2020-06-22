@@ -20,6 +20,9 @@
     <string name="delete_workout">Delete workout</string>
     <string name="start_workout">Start workout</string>
     <string name="edit_workout">Edit workout</string>
+    <string name="type_filter">Type filter</string>
+    <string name="difficulty_filter">Difficulty filter</string>
+
 
     # Main activity strings
     <string name="CHANNEL_ID">FORNOTI</string>
@@ -75,6 +78,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="sign_in">Sign in</string>
     <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
     <string name="email">Email</string>
 
     #fragment settings strings
@@ -122,78 +126,9 @@
     # Dialogs
     <string name="exercise_no_exsist">Exercise does not exist. Give it a description</string>
     <string name="notification_title">Do you even lift?!</string>
-
-
-    <string-array name="rep_exercises">
-        <item>Pull-up</item>
-        <item>Push-up</item>
-        <item>Squat</item>
-        <item>Sit up</item>
-        <item>Dynamic Lunge</item>
-        <item>Lunge jump</item>
-        <item>Burpees</item>
-        <item>Tuck Jump</item>
-        <item>Bear Crawl</item>
-        <item>Plank to push-up</item>
-        <item>Pistol squats</item>
-        <item>Bridge</item>
-        <item>Shoulder Taps</item>
-        <item>Static Lunge</item>
-        <item>Back Extension</item>
-        <item>Side Lunge</item>
-        <item>Jump Squats</item>
-        <item>T Push-up</item>
-        <item>Kangaroo jumps</item>
-        <item>Mountain Climber Push-up</item>
-
-    </string-array>
-
-    <string-array name="time_exercises">
-        <item>Plank</item>
-        <item>Hand Stand</item>
-        <item>Side Plank left</item>
-        <item>Side Plank right</item>
-        <item>Wall sit</item>
-        <item>Superman</item>
-        <item>Mountain Climber</item>
-        <item>Scissors</item>
-        <item>High Knees</item>
-        <item>Cross body Mountain climbers</item>
-    </string-array>
-
-    <string-array name="workout_types">
-        <item>Default</item>
-        <item>Strength</item>
-        <item>Cardio</item>
-    </string-array>
-
-    <string-array name="workout_difficulties">
-        <item>Beginner</item>
-        <item>Medium</item>
-        <item>Hard</item>
-        <item>Extreme</item>
-        <item>Undefined</item>
-    </string-array>
-
-    <string name="default_type_filter">Type filter</string>
-    <string-array name="workout_types_filter">
-        <item>Type filter</item>
-        <item>Default</item>
-        <item>Strength</item>
-        <item>Cardio</item>
-    </string-array>
-
-
-    <string name="default_diff_filter">Difficulty filter</string>
-    <string name="single_number">%d</string>
-    <string-array name="workout_difficulties_filter">
-        <item>Difficulty filter</item>
-        <item>Beginner</item>
-        <item>Medium</item>
-        <item>Hard</item>
-        <item>Extreme</item>
-        <item>Undefined</item>
-    </string-array>
-
-
+    <string name="workoutname_to_short">Workoutname should not be longer than 20 characters</string>
+    <string name="workout_excersize_required">A workout must have at least one exercise</string>
+    <string name="workoutname_required">Please enter a name for your workout</string>
+    <string name="pause">Pause</string>
+    <string name="pause_description">You take a breather.</string>
 </resources>

@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.youfit.domain.Server;
 import com.example.youfit.domain.Workout;
+import com.example.youfit.domain.WorkoutDifficulty;
+import com.example.youfit.domain.WorkoutType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,13 +66,25 @@ public class WorkoutSettingsFragment extends Fragment {
         }
 
         typeSpinner = ((Spinner) getActivity().findViewById(R.id.typespinner));
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_types, android.R.layout.simple_spinner_item);
+        WorkoutType[] workoutTypeAsEnums = WorkoutType.values();
+        String[] workoutTypes = new String[workoutTypeAsEnums.length];
+        for (int i=0; i<workoutTypeAsEnums.length; i++) {
+            workoutTypes[i] = Utility.formatEnum(workoutTypeAsEnums[i].toString());
+        }
+
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, workoutTypes);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(typeAdapter);
         setSelectedType();
 
         difficultySpinner = ((Spinner) getActivity().findViewById(R.id.difficultyspinner));
-        ArrayAdapter<CharSequence> difficultyAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.workout_difficulties, android.R.layout.simple_spinner_item);
+        WorkoutDifficulty[] workoutDifficultiesAsEnums = WorkoutDifficulty.values();
+        String[] workoutDifficulties = new String[workoutDifficultiesAsEnums.length];
+        for (int i=0; i<workoutDifficultiesAsEnums.length; i++) {
+            workoutDifficulties[i] = Utility.formatEnum(workoutDifficultiesAsEnums[i].toString());
+        }
+
+        ArrayAdapter<String> difficultyAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, workoutDifficulties);
         difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         difficultySpinner.setAdapter(difficultyAdapter);
         setSelectedDifficulty();
@@ -125,30 +140,39 @@ public class WorkoutSettingsFragment extends Fragment {
 
     public void setSelectedType() {
         if (currentWorkout.getWorkoutType() != null) {
-            if (currentWorkout.getWorkoutType().equals("STRENGTH")) {
-                typeSpinner.setSelection(1);
-            } else if (currentWorkout.getWorkoutType().equals("CARDIO")) {
-                typeSpinner.setSelection(2);
-            } else {
-                typeSpinner.setSelection(0);
+            switch (WorkoutType.valueOf(currentWorkout.getWorkoutType())) {
+                case STRENGTH:
+                    typeSpinner.setSelection(0);
+                    break;
+                case CARDIO:
+                    typeSpinner.setSelection(1);
+                    break;
+                default:
+                    typeSpinner.setSelection(2);
             }
+        } else {
+            typeSpinner.setSelection(2);
         }
-
     }
 
     public void setSelectedDifficulty() {
         Log.d(TAG, "setSelectedDifficulty: tried: ");
-        if (currentWorkout.getWorkoutDifficulty() != null) {
-            if (currentWorkout.getWorkoutDifficulty().equals("BEGINNER")) {
-                difficultySpinner.setSelection(0);
-            } else if (currentWorkout.getWorkoutDifficulty().equals("MEDIUM")) {
-                difficultySpinner.setSelection(1);
-            } else if (currentWorkout.getWorkoutDifficulty().equals("HARD")) {
-                difficultySpinner.setSelection(2);
-            } else if (currentWorkout.getWorkoutDifficulty().equals("EXTREME")) {
-                difficultySpinner.setSelection(3);
-            }  else {
-                difficultySpinner.setSelection(4);
+        if (currentWorkout.getWorkoutType() != null) {
+            switch (WorkoutDifficulty.valueOf(currentWorkout.getWorkoutDifficulty())) {
+                case BEGINNER:
+                    difficultySpinner.setSelection(0);
+                    break;
+                case MEDIUM:
+                    difficultySpinner.setSelection(1);
+                    break;
+                case HARD:
+                    difficultySpinner.setSelection(2);
+                    break;
+                case EXTREME:
+                    difficultySpinner.setSelection(3);
+                    break;
+                default:
+                    difficultySpinner.setSelection(4);
             }
         }
     }
