@@ -74,7 +74,6 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 difficultyFilter = (String) adapterView.getItemAtPosition(i);
                 mAdapter.filter(difficultyFilter,typeFilter);
-
             }
 
             @Override
@@ -124,7 +123,6 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
         initRecyclerView(view);
     }
 
-
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.publicWorkoutsRV);
         mAdapter = new BrowseWorkoutDetailAdapter(workouts, this);
@@ -134,10 +132,10 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
     }
 
     public void onWorkoutClick(int position) {
-        Log.i(TAG, "A workout has been clicked: " + workouts.get(position).getName());
+        Log.i(TAG, "A workout has been clicked: " + mAdapter.getmFilteredWorkouts().get(position).getName());
 
         Bundle bundle = new Bundle();
-        bundle.putParcelable("WORKOUT", workouts.get(position));
+        bundle.putParcelable("WORKOUT", mAdapter.getmFilteredWorkouts().get(position));
         bundle.putBoolean("public", true);
         Log.i(TAG, "Navigating from " + NavHostFragment.findNavController(this).getCurrentDestination());
         NavHostFragment.findNavController(BrowsePublicWorkoutsFragment.this)

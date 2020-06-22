@@ -25,14 +25,15 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     private OnWorkoutListener mOnWorkoutListener;
 
 
-    public static class BrowseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, com.example.youfit.ViewHolder {
+    public static class BrowseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView workoutName;
         private TextView workoutType;
         private TextView workoutTime;
         private TextView workoutDifficulty;
+        private Button startWorkOutButton;
         private OnWorkoutListener onWorkoutListener;
 
-        public BrowseViewHolder(@NonNull View itemView, final OnWorkoutListener onWorkoutListener) {
+        public BrowseViewHolder(@NonNull View itemView, OnWorkoutListener onWorkoutListener) {
             super(itemView);
             workoutName = itemView.findViewById(R.id.workout_info_text);
             workoutType = itemView.findViewById(R.id.workout_type);
@@ -40,14 +41,8 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
             workoutDifficulty = itemView.findViewById(R.id.workout_difficulty);
             this.onWorkoutListener = onWorkoutListener;
             itemView.setOnClickListener(this);
+            startWorkOutButton = itemView.findViewById(R.id.startworkoutfrombrowser_button);
 
-            Button startWorkOutButton = itemView.findViewById(R.id.startworkoutfrombrowser_button);
-            startWorkOutButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onWorkoutListener.onButtonClick(getAdapterPosition());
-                }
-            });
 
         }
 
@@ -72,9 +67,9 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BrowseViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final BrowseViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
+        
         String workoutName = "Name: " + mFilteredWorkouts.get(position).getName();
         String workoutType = "Type: " + Utility.formatEnum(mFilteredWorkouts.get(position).getWorkoutType());
         String workoutTime = "Time: " + mFilteredWorkouts.get(position).timeAsString();
@@ -84,6 +79,15 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         holder.workoutType.setText(workoutType);
         holder.workoutTime.setText(workoutTime);
         holder.workoutDifficulty.setText(workoutDifficulty);
+
+        holder.startWorkOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnWorkoutListener.onButtonClick(position);
+            }
+        });
+
+
     }
 
     @Override
@@ -91,10 +95,15 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         return mFilteredWorkouts.size();
     }
 
+    public List<Workout> getmFilteredWorkouts() {
+        return mFilteredWorkouts;
+    }
+
     public void filter(String difficultyFilter, String typeFilter) {
 
         Log.i(TAG, "diff: "+difficultyFilter+" type: "+typeFilter);
         mFilteredWorkouts = new ArrayList<>();
+
         // Four strategies
         if(difficultyFilter.equals("Difficulty filter")&&typeFilter.equals("Type filter")){
             mFilteredWorkouts = mWorkouts;
