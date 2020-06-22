@@ -78,14 +78,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         if (dataSnapshot.getKey().equals("notifications")){
             notifications = Boolean.parseBoolean(dataSnapshot.getValue().toString());
         } else if(dataSnapshot.getKey().equals("statistics")){
-            if(dataSnapshot.hasChild("totalWater")){
-                // Old users
-                stats = dataSnapshot.getValue(Statistics.class);
-            }else{
-                // New users
-                stats = new Statistics();
-                server.changeStats(stats);
-            }
+            stats = dataSnapshot.getValue(Statistics.class);
         }else {
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 workouts.add(data.getValue(Workout.class));

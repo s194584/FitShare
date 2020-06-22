@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.youfit.databinding.ActivityLoginBinding;
 import com.example.youfit.domain.Server;
+import com.example.youfit.domain.Statistics;
 import com.example.youfit.domain.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -140,6 +141,8 @@ public class LoginActivity extends AppCompatActivity implements ForgotPasswordDi
 
                         User user = new User("New User");
                         databaseReference.child(userID).setValue(user);
+                        databaseReference.child(userID+"/statistics").setValue(new Statistics());
+                        databaseReference.child(userID+"/notifications").setValue(false);
                     }
                 }
             });
