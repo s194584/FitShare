@@ -43,13 +43,11 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
 
     private View view;
     private Statistics stats;
-    private boolean attached = false;
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        attached = true;
     }
 
     @Override

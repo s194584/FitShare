@@ -22,12 +22,12 @@
         android:id="@+id/xxx3"
         android:layout_width="340dp"
         android:layout_height="120dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/btn_round_edges_transparent"
-        app:layout_constraintBottom_toTopOf="@id/workout_description"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/workout_name_view"
@@ -94,11 +94,11 @@
         android:id="@+id/xxx2"
         android:layout_width="340dp"
         android:layout_height="100dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/btn_round_edges_transparent"
-        android:layout_marginBottom="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/exercisedetailsRV"/>
+        app:layout_constraintTop_toBottomOf="@+id/xxx3" />
 
     <TextView
         android:id="@+id/workout_description"
@@ -152,24 +152,21 @@
         android:layout_width="340dp"
         android:layout_height="290dp"
         android:background="@drawable/btn_round_edges_transparent"
-        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/exercisedetailsRV"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/exercisedetailsRV"
-        app:layout_constraintBottom_toBottomOf="@id/exercisedetailsRV"/>
+        app:layout_constraintTop_toTopOf="@id/exercisedetailsRV" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/exercisedetailsRV"
         android:layout_width="wrap_content"
-        android:layout_height="270dp"
+        android:layout_height="250dp"
         android:layout_above="@+id/start_workout_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="125dp">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/xxx2"></androidx.recyclerview.widget.RecyclerView>
 
 
 
