@@ -6,31 +6,31 @@ import java.util.HashMap;
 
 public class ExerciseElementList {
 
-    HashMap<String, ExerciseElement> hashMap;
+    HashMap<String, ExerciseElement> elementHashMap;
 
     public ExerciseElementList ()
     {
-        hashMap = new HashMap<>();
+        elementHashMap = new HashMap<>();
         Log.i("ExerciseElementList", "Created new exerciseElementList");
     }
 
-    public HashMap getHashMap()
+    public HashMap getElementHashMap()
     {
-        return hashMap;
+        return elementHashMap;
     }
 
     public void addElement(ExerciseElement exerciseElement)
     {
-        hashMap.put(exerciseElement.getName(), exerciseElement);
+        elementHashMap.put(exerciseElement.getName(), exerciseElement);
         Log.i("ExerciseElementList", "added element: " + exerciseElement.getName() + " to hashMap");
     }
 
-    public void setHashMap(HashMap<String, ExerciseElement> hashMap) {
-        this.hashMap = hashMap;
+    public void setElementHashMap(HashMap<String, ExerciseElement> elementHashMap) {
+        this.elementHashMap = elementHashMap;
     }
 
     public ExerciseElement getElement(String name)
     {
-        return hashMap.get(name);
+        return elementHashMap.get(name);
     }
 }

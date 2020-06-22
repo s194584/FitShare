@@ -74,7 +74,6 @@ public class Exercise implements Parcelable {
         long seconds = time-(minutes*60);
 
         return minutes >= 1 ? "" + minutes + "m " + seconds + "s" : seconds + "s";
-
     }
 
 

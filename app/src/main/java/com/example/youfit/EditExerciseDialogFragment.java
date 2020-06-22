@@ -3,7 +3,6 @@ package com.example.youfit;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -89,7 +88,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
 
                 //Get exercise info
                 String name = (String) adapterView.getItemAtPosition(i);
-                HashMap<String, ExerciseElement> hashmap = ((MainActivity) getActivity()).getHashMap().getHashMap();
+                HashMap<String, ExerciseElement> hashmap = ((MainActivity) getActivity()).getHashMap().getElementHashMap();
                 ExerciseElement exerciseElement = hashmap.get(name);
 
                 Log.i(TAG,"Item selected. The type is: "+exerciseElement.getType());
@@ -325,7 +324,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
         inflatedView =inflater.inflate(R.layout.dialog_edit_exercise,container,false);
 
         // Auto complete setup
-        ArrayList<String> workoutNames = new ArrayList<String>(((MainActivity) getActivity()).getHashMap().getHashMap().keySet());
+        ArrayList<String> workoutNames = new ArrayList<String>(((MainActivity) getActivity()).getHashMap().getElementHashMap().keySet());
 
         flipper = inflatedView.findViewById(R.id.view_flipper1);
         flipper.setDisplayedChild(flipper.indexOfChild(inflatedView.findViewById(R.id.set_time)));

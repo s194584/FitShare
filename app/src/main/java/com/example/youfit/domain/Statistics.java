@@ -89,7 +89,7 @@ public class Statistics {
         weeklyWorkoutsTotal += add;
     }
 
-    public boolean checkTimeForUpdate(){
+    private boolean checkTimeForUpdate(){
         Date now = new Date();
         Calendar thisTime = Calendar.getInstance();
         thisTime.setTime(now);

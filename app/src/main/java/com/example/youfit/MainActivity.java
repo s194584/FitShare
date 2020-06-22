@@ -17,8 +17,6 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -162,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         Log.i(TAG,"Setting up views.");
         setContentView(layout.activity_main);
         setUpNavigation();
-        exerciseElementList.setHashMap(server.getPreDefinedExercises());
+        exerciseElementList.setElementHashMap(server.getPreDefinedExercises());
     }
 
     @Override
