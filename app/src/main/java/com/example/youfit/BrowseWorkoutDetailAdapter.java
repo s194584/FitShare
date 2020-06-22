@@ -1,6 +1,5 @@
 package com.example.youfit;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.example.youfit.domain.Workout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorkoutDetailAdapter.ViewHolder> {
+public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorkoutDetailAdapter.BrowseViewHolder> {
 
     private static final String TAG = "BrowseWorkoutDetailAdap";
 
@@ -26,28 +25,23 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
     private OnWorkoutListener mOnWorkoutListener;
 
 
+    public static class BrowseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, com.example.youfit.ViewHolder {
+        private TextView workoutName;
+        private TextView workoutType;
+        private TextView workoutTime;
+        private TextView workoutDifficulty;
+        private OnWorkoutListener onWorkoutListener;
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, com.example.youfit.ViewHolder {
-        TextView workoutName;
-        TextView workoutType;
-        TextView workoutTime;
-        TextView workoutDifficulty;
-        Button startWorkOutButton;
-        RelativeLayout detailLayout;
-        OnWorkoutListener onWorkoutListener;
-
-        public ViewHolder(@NonNull View itemView, final OnWorkoutListener onWorkoutListener) {
+        public BrowseViewHolder(@NonNull View itemView, final OnWorkoutListener onWorkoutListener) {
             super(itemView);
             workoutName = itemView.findViewById(R.id.workout_info_text);
             workoutType = itemView.findViewById(R.id.workout_type);
             workoutTime = itemView.findViewById(R.id.workout_time);
             workoutDifficulty = itemView.findViewById(R.id.workout_difficulty);
-            startWorkOutButton = itemView.findViewById(R.id.startworkoutfrombrowser_button);
             this.onWorkoutListener = onWorkoutListener;
-            detailLayout = itemView.findViewById(R.id.browse_workout_layout);
-
             itemView.setOnClickListener(this);
+
+            Button startWorkOutButton = itemView.findViewById(R.id.startworkoutfrombrowser_button);
             startWorkOutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,14 +66,13 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BrowseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_workoutlist,parent,false);
-        ViewHolder holder = new ViewHolder(view, mOnWorkoutListener);
-        return holder;
+        return new BrowseViewHolder(view, mOnWorkoutListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull BrowseViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
         String workoutName = "Name: " + mFilteredWorkouts.get(position).getName();

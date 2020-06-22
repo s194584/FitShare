@@ -66,8 +66,7 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
 
         View workoutDetailView = inflater.inflate(R.layout.item_workout_detail, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(workoutDetailView, mOnWorkoutListener);
-        return viewHolder;
+        return new ViewHolder(workoutDetailView, mOnWorkoutListener);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
         TextView textView = viewHolder.workoutName;
         textView.setText(workout.getName());
         TextView textView1 = viewHolder.workoutTime;
-        textView1.setText(""+workout.timeAsString());
+        textView1.setText(""+ workout.timeAsString());
     }
 
     @Override
@@ -85,5 +84,5 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     {
         return mWorkouts.size();
     }
-    
+
 }

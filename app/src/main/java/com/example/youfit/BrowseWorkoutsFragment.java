@@ -22,8 +22,6 @@ import com.google.android.material.tabs.TabLayout;
 public class BrowseWorkoutsFragment extends Fragment {
 
     private static final String TAG = "Browseworkoutsfragment";
-    private SectionsPageAdapter mSectionsPageAdapter;
-    private ViewPager mViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +35,7 @@ public class BrowseWorkoutsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG,"onCreate: Starting.");
 
-        mSectionsPageAdapter = new SectionsPageAdapter(getChildFragmentManager());
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
