@@ -109,11 +109,6 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
         plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, this));
 
         plannedWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //Make recycleView look good.
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(plannedWorkoutsRV.getContext(), RecyclerView.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
-        plannedWorkoutsRV.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
