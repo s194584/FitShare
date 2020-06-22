@@ -102,7 +102,7 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
         getActivity().findViewById(R.id.addPauseButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Exercise pause = new Exercise(new ExerciseElement("Pause", ExerciseType.PAUSE.name(),"You take a breather."));
+                Exercise pause = new Exercise(new ExerciseElement(getString(R.string.pause), ExerciseType.PAUSE.name(),getString(R.string.pause_description)));
                 showEditExercise(pause,-1);
             }
         });
@@ -113,15 +113,21 @@ public class WorkoutFragment extends Fragment implements EditExerciseDialogFragm
             public void onClick(View view) {
                 if(nameEditText.getText().toString().isEmpty()) {
                     Toast.makeText(view.getContext(),
-                            "Please enter a name for your workout",
+                            R.string.workoutname_required,
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(nameEditText.getText().toString().length() > 20)
                 {
-                    Toast.makeText(view.getContext(), "Workoutname should not be longer than 20 characters", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), R.string.workoutname_to_short, Toast.LENGTH_LONG).show();
                     return;
                 }
+                if (exercises.isEmpty()) {
+                    Toast.makeText(view.getContext(), R.string.workout_excersize_required, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
                 currentWorkout.setName(nameEditText.getText().toString());
                 currentWorkout.setExercises(exercises);
                 Log.i("EXERCISEFRAGMENT", "WORKOUT CREATED");
