@@ -92,6 +92,10 @@ public class WorkoutSettingsFragment extends Fragment {
         descriptionText = ((EditText) getActivity().findViewById(R.id.edittext_description));
         descriptionText.setText(currentWorkout.getDescription());
 
+        //set public button
+        ((ToggleButton) getActivity().findViewById(R.id.toggle_workout_public)).setChecked(currentWorkout.getPublicWorkout());
+
+
         // Complete button listener
         getActivity().findViewById(R.id.button_workout_settings_complete).setOnClickListener(new View.OnClickListener() {
             @Override
