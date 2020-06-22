@@ -85,10 +85,5 @@ public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdap
     {
         return mWorkouts.size();
     }
-
-    public interface OnWorkoutListener
-    {
-        void onWorkoutClick(int Position);
-        void onButtonClick(int Position);
-    }
+    
 }
