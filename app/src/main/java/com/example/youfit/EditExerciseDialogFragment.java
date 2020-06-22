@@ -218,11 +218,23 @@ public class EditExerciseDialogFragment extends DialogFragment {
                         makeToast("Amount cannot be empty");
                         return;
                     }
+                    if (Integer.parseInt(amountEditText.getText().toString())>1200){
+                        makeToast("Too many repetitions - Max. 1200");
+                        return;
+                    }
                 }
 
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radiobutton_edit_exercise_time){
                     if (timeTextMin.getText().toString().isEmpty() || timeTextSec.getText().toString().isEmpty()){
                         makeToast("Minutes and seconds cannot be empty");
+                        return;
+                    }
+                    if (Integer.parseInt(timeTextSec.getText().toString())>59){
+                        makeToast("Too many seconds - Max. 59");
+                        return;
+                    }
+                    if (Integer.parseInt(timeTextMin.getText().toString())>59){
+                        makeToast("Too many minutes - Max. 59");
                         return;
                     }
                 }
