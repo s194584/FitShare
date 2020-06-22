@@ -21,7 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
-public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
+public class BrowsePrivateWorkoutsFragment extends Fragment implements OnWorkoutListener, DatabaseListener {
 
     private static final int RESULT_CODE_DOWORKOUT = 214;
 
@@ -64,7 +64,7 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
     private void initRecyclerView(View view) {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView privateWorkoutsRV = view.findViewById(R.id.privateWorkoutsRV);
-        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(getContext(), workouts,this);
+        BrowseWorkoutDetailAdapter adapter = new BrowseWorkoutDetailAdapter(workouts,this);
         privateWorkoutsRV.setAdapter(adapter);
         privateWorkoutsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 

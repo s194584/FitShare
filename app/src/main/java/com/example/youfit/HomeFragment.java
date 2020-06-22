@@ -26,7 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
+public class HomeFragment extends Fragment implements OnWorkoutListener, DatabaseListener {
     private final String TAG = "HomeFragment";
     private final int RESULT_CODE_DOWORKOUT = 214;
 

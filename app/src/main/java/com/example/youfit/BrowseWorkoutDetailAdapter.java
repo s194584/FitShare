@@ -21,7 +21,6 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
 
     private static final String TAG = "BrowseWorkoutDetailAdap";
 
-    private Context mContext;
     private List<Workout> mWorkouts;
     private List<Workout> mFilteredWorkouts;
     private OnWorkoutListener mOnWorkoutListener;
@@ -64,11 +63,10 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         }
     }
 
-    public BrowseWorkoutDetailAdapter(Context mContext, List<Workout> workouts, OnWorkoutListener onWorkoutListener)
+    public BrowseWorkoutDetailAdapter(List<Workout> workouts, OnWorkoutListener onWorkoutListener)
     {
         mWorkouts = workouts;
         mFilteredWorkouts = mWorkouts;
-        this.mContext = mContext;
         this.mOnWorkoutListener = onWorkoutListener;
     }
 
@@ -129,15 +127,6 @@ public class BrowseWorkoutDetailAdapter extends RecyclerView.Adapter<BrowseWorko
         }
 
         notifyDataSetChanged();
-    }
-
-
-
-    public interface OnWorkoutListener
-    {
-        void onWorkoutClick(int Position);
-        void onButtonClick(int Position);
-
     }
 
 }
