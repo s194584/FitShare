@@ -412,12 +412,14 @@ public class DoWorkoutActivity extends AppCompatActivity {
         swipeRight();
         flipper.setDisplayedChild(flipper.indexOfChild(findViewById(R.id.viewFinished)));
 
+        Intent intent = new Intent();
+        intent.putExtra("timeSpent",System.currentTimeMillis()-START_TIME);
+        setResult(Activity.RESULT_OK,intent);
+
         endWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("timeSpent",System.currentTimeMillis()-totalWorkoutTime.getBase());
-                setResult(Activity.RESULT_OK,intent);
+
                 finish();
             }
         });

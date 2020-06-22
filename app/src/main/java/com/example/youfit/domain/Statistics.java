@@ -4,7 +4,7 @@ public class Statistics {
 
     private int totalWater = 0;
     private int totalWorkoutsTotal = 0;
-    private int totalTimeTotal = 0;
+    private long totalTimeTotal = 0;
 
 
     public Statistics(){}
@@ -25,11 +25,11 @@ public class Statistics {
         this.totalWorkoutsTotal = totalWorkoutsTotal;
     }
 
-    public int getTotalTimeTotal() {
+    public long getTotalTimeTotal() {
         return totalTimeTotal;
     }
 
-    public void setTotalTimeTotal(int totalTimeTotal) {
+    public void setTotalTimeTotal(long totalTimeTotal) {
         this.totalTimeTotal = totalTimeTotal;
     }
 

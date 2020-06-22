@@ -38,7 +38,7 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
 
     int totalWorkoutsTotal = 0; //TODO firebase, baby. Probably just an integer.
     TextView totalWorkoutsTotalText;
-    int totalTimeTotal = 0; //TODO firebase, baby. Propably just an integer. Might be relevant to make it hours when number get heigh enough.
+    long totalTimeTotal = 0; //TODO firebase, baby. Propably just an integer. Might be relevant to make it hours when number get heigh enough.
     TextView totalTimeTotalText;
 
     private View view;

@@ -170,7 +170,10 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_CODE_DOWORKOUT && resultCode == Activity.RESULT_OK){
+        Log.i(TAG, "onActivityResult: in MainActivity");
+        if (resultCode == Activity.RESULT_OK){
+            Log.i(TAG, "onActivityResult: GotResult!");
+            stats.addTotalWorkoutsTotal(1);
             stats.addTotalTimeTotal(data.getExtras().getLong("timeSpent"));
             server.changeStats(stats);
         }

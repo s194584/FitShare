@@ -97,7 +97,7 @@ public class ViewWorkoutDetailsFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
                 intent.putExtra("workout", mWorkout);
-                startActivityForResult(intent,RESULT_CODE_DOWORKOUT);
+                getActivity().startActivityForResult(intent,RESULT_CODE_DOWORKOUT);
             }
         });
 
@@ -156,6 +156,12 @@ public class ViewWorkoutDetailsFragment extends Fragment {
         });
 
         initRecyclerView(view);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult: ViewWOrkoutDetailsFragment");
     }
 
     private void initRecyclerView(View view) {
