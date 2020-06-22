@@ -20,7 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 
 public class StatisticsFragment extends Fragment implements DatabaseListener {
 
-    private final String TAG = "stats";
+    private final String TAG = "StatisticsFragment";
 
     int waterGoal = 2000;
     int setWaterAmount = 0;

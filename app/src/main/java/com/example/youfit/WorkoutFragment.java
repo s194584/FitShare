@@ -29,9 +29,6 @@ import java.util.Collections;
 public class WorkoutFragment extends Fragment implements EditExerciseDialogFragment.EditExerciseDialogFragmentListener, ExersiceAdapter.OnExerciseListener{
     private final String TAG = "WorkoutFragment";
 
-    private String workoutSelected;
-    private String exerciseSelected;
-
     EditText nameEditText;
 
     // New recycle view

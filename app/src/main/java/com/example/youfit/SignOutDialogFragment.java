@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class SignOutDialogFragment extends DialogFragment {
+    private final String TAG = "SignOutDialogFragment";
 
     // Uses this interface to pass action event from dialog back to host activity/fragment
     SignOutDialogListener listener;
@@ -20,7 +21,7 @@ public class SignOutDialogFragment extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         if (context == null){
-            Log.i("SignOutDialogFragment", "Context is null");
+            Log.i(TAG, "Context is null");
         }
         else {
             super.onAttach(context);

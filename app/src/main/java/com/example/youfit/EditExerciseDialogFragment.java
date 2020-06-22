@@ -196,7 +196,7 @@ public class EditExerciseDialogFragment extends DialogFragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("DIALOG FRAGMENT", "HIT CANCEL BUTTON");
+                Log.i(TAG, "HIT CANCEL BUTTON");
                 dismiss();
             }
         });

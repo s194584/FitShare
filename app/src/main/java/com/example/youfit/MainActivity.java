@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
 
     private void setupNotifications(boolean b, ArrayList<Workout> workouts){
 
+        //Morning alarm!
         // Setting the time for trigger
 //        Calendar calendar = Calendar.getInstance();
 //        long currentTimeInMillis = calendar.getTimeInMillis();

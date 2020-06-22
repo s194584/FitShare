@@ -31,9 +31,6 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
     private final int RESULT_CODE_DOWORKOUT = 214;
 
    private ArrayList<Workout> workouts = new ArrayList<>();
-   private User currentUser;
-   private WorkoutDetailAdapter mAdapter;
-   private RecyclerView plannedWorkoutsRV;
    private int currentDay;
    private String curretUsername;
    private View view;
@@ -84,18 +81,18 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
 
     @Override
     public void onComplete(DataSnapshot dataSnapshot) {
-        Log.i("UsernameListener", "onComplete entered");
+        Log.i(TAG, "onComplete entered");
         ArrayList<Workout> workoutsTmp = new ArrayList<>();
         curretUsername = dataSnapshot.child("name").getValue().toString();
-        Log.i("UsernameListener", "on complete got username:" + curretUsername);
+        Log.i(TAG, "on complete got username:" + curretUsername);
         TextView welcomeBackTest = view.findViewById(R.id.welcomeBackText);
         welcomeBackTest.setText("Welcome back " + curretUsername + "!");
         if (dataSnapshot.hasChild("savedWorkouts")) {
             for (DataSnapshot workoutValues : dataSnapshot.child("savedWorkouts").getChildren()) {
                 Workout workout = workoutValues.getValue(Workout.class);
-                Log.i("UsernameListener", "workout name: " + workout.getName());
+                Log.i(TAG, "workout name: " + workout.getName());
                 if (!workout.getName().isEmpty()) {
-                    Log.i("UsernameListener", workout.getName() + " is " + workout.getRecurring().get(currentDay));
+                    Log.i(TAG, workout.getName() + " is " + workout.getRecurring().get(currentDay));
                     if (workout.getRecurring().get(currentDay)) {
                         workoutsTmp.add(workout);
                     }
@@ -108,9 +105,6 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
 
     public void initRecyclerView(View view) {
         Log.i(TAG, "RecyclerView, workouts: " + workouts);
-        for (Workout workout: workouts) {
-            Log.i(TAG, "RecyclerView, workouts: " + workout.getName());
-        }
         RecyclerView plannedWorkoutsRV = (RecyclerView) view.findViewById(R.id.plannedWorkoutsRV);
         plannedWorkoutsRV.setAdapter(new WorkoutDetailAdapter(workouts, this));
 
@@ -125,7 +119,7 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
     @Override
     public void onWorkoutClick(int position) {
         Workout workout = workouts.get(position);
-        Log.i("HomeFragment", "A workout has been clicked: " + workout.getName());
+        Log.i(TAG, "A workout has been clicked: " + workout.getName());
         Bundle bundle = new Bundle();
         bundle.putParcelable("WORKOUT", workouts.get(position));
         bundle.putBoolean("public", false);
@@ -136,7 +130,7 @@ public class HomeFragment extends Fragment implements OnWorkoutListener, Databas
     @Override
     public void onButtonClick(int position) {
         Workout workout = workouts.get(position);
-        Log.i("HomeFragment", "A workout has been started: " + workout.getName());
+        Log.i(TAG, "A workout has been started: " + workout.getName());
         Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
         intent.putExtra("workout", workout);
         getActivity().startActivityForResult(intent,RESULT_CODE_DOWORKOUT);

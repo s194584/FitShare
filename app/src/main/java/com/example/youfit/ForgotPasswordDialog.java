@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ForgotPasswordDialog extends DialogFragment {
+    private final String TAG = "ForgotPasswordDialog";
 
     ForgotPasswordDialogListener listener;
 
@@ -30,7 +31,7 @@ public class ForgotPasswordDialog extends DialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         if (context == null){
-            Log.i("ForgotPasswordDialogListener", "Context is null");
+            Log.i(TAG, "Context is null");
         }
         else {
             super.onAttach(context);

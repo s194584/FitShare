@@ -129,7 +129,7 @@ public class BrowsePublicWorkoutsFragment extends Fragment implements OnWorkoutL
 
     @Override
     public void onComplete(DataSnapshot dataSnapshot) {
-        Log.i("CurrentUserWorkouts", "on complete got username:");
+        Log.i(TAG, "on complete got username:");
         ArrayList<Workout> workoutstmp = new ArrayList<Workout>();
         for (DataSnapshot dataValues : dataSnapshot.getChildren()) {
             Workout workout = dataValues.getValue(Workout.class);
