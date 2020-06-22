@@ -47,7 +47,6 @@ public class Server {
         onServerSetupCompleteListener = (OnServerSetupCompleteListener) activity;
         this.activity = activity;
         setLoadingDialog();
-        loadPublicWorkouts();
         loadPreDefinedExercises();
     }
 
@@ -63,6 +62,12 @@ public class Server {
         this.loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         this.loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
         this.loadingDialog.show();
+    }
+
+    public void dismissLoadingDialog() {
+        if (this.loadingDialog!=null) {
+            this.loadingDialog.dismiss();
+        }
     }
 
 
@@ -160,7 +165,6 @@ public class Server {
         databaseReference.child(key).setValue(workout);
     }
 
-
     public void loadCurrentUsersWorkouts(final DatabaseListener listener) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
@@ -172,6 +176,10 @@ public class Server {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     listener.onComplete(dataSnapshot);
+                    if(!activity.hasWindowFocus()) { // check if on startup
+                        onServerSetupCompleteListener.onSetupComplete();
+                        dismissLoadingDialog();
+                    }
                 }
 
                 @Override
@@ -183,30 +191,7 @@ public class Server {
         }
     }
 
-
-    private void loadPublicWorkouts() {
-        this.firebaseAuth = FirebaseAuth.getInstance();
-
-        if (firebaseAuth.getCurrentUser() != null) {
-            this.rootNode = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = this.rootNode.getReference("PublicWorkouts");
-
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.i(TAG, "Done loading initial data");
-                    onServerSetupCompleteListener.onSetupComplete();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-    }
-
-    public void loadPublicWorkouts2(final DatabaseListener listener) {
+    public void loadPublicWorkouts(final DatabaseListener listener) {
         this.firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
@@ -316,7 +301,7 @@ public class Server {
 
                     databaseListener.onComplete(dataSnapshot);
 
-                    loadingDialog.dismiss();
+//                    loadingDialog.dismiss();
 
                     Log.w(TAG, "userLoaded");
                 }

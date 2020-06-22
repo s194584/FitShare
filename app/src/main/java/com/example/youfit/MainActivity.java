@@ -14,8 +14,11 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +42,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements SignOutDialogListener, ChangePasswordDialogListener, Server.OnServerSetupCompleteListener, DatabaseListener {
 
     private static final int RESULT_CODE_DOWORKOUT = 214;
-    protected String TAG = "Server";
+    protected String TAG = "MainActivity";
 
     protected boolean alreadyLoggedIn = false;
     protected Server server;
@@ -47,20 +50,20 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
     protected boolean notifications;
     private ArrayList<Workout> workouts = new ArrayList<>();
     private Statistics stats;
+    protected ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate ");
         super.onCreate(savedInstanceState);
         this.server = new Server(this);
         createNotificationChannel();
+
         server.loadUserNotifications(this);
         server.loadCurrentUsersWorkouts(this);
 
-
         //TODO: Line below need to be deleted after everyone has run this code atleast once.
         server.changeStats(new Statistics());
-
-
 
 
         server.loadUserStats(this);
