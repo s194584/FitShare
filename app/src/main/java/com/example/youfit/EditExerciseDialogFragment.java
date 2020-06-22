@@ -104,8 +104,8 @@ public class EditExerciseDialogFragment extends DialogFragment {
                 }
 
                 // Lock type
-                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(true);
-                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(true);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_reps).setEnabled(false);
+                radioGroup.findViewById(R.id.radiobutton_edit_exercise_time).setEnabled(false);
                 textChanged = false;
             }
         });

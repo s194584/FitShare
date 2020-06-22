@@ -15,6 +15,7 @@ import java.util.List;
 
 public class WorkoutDetailAdapter extends RecyclerView.Adapter<WorkoutDetailAdapter.ViewHolder>
 {
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         public TextView workoutName;

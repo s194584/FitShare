@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
     private final String TAG = "HomeFragment";
+    private final int RESULT_CODE_DOWORKOUT = 214;
 
    private ArrayList<Workout> workouts = new ArrayList<>();
    private User currentUser;
@@ -139,7 +140,7 @@ public class HomeFragment extends Fragment implements WorkoutDetailAdapter.OnWor
         Log.i("HomeFragment", "A workout has been started: " + workout.getName());
         Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
         intent.putExtra("workout", workout);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,RESULT_CODE_DOWORKOUT);
 
     }
 

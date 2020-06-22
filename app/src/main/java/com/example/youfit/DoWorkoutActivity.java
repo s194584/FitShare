@@ -419,7 +419,6 @@ public class DoWorkoutActivity extends AppCompatActivity {
         endWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
             }
         });

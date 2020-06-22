@@ -33,7 +33,7 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
 
     int totalWorkoutsWeekly = 0; //TODO firebase, baby. Gotta be a list of dates and how long they took.
     TextView totalWorkoutsWeeklyText;
-    int totalTimeWeekly = 0; //TODO firebase, baby. Yup, that would be the "how long it took" part
+    long totalTimeWeekly = 0; //TODO firebase, baby. Yup, that would be the "how long it took" part
     TextView totalTimeWeeklyText;
 
     int totalWorkoutsTotal = 0; //TODO firebase, baby. Probably just an integer.
@@ -69,7 +69,8 @@ public class StatisticsFragment extends Fragment implements DatabaseListener {
         totalWaterAmount = stats.getTotalWater();
         totalWorkoutsTotal = stats.getTotalWorkoutsTotal();
         totalTimeTotal = stats.getTotalTimeTotal();
-
+        totalTimeWeekly = stats.getWeeklyTimeTotal();
+        totalWorkoutsWeekly = stats.getWeeklyWorkoutsTotal();
 
         setWaterAmountText = view.findViewById(R.id.setWaterAmount_text);
         setWaterAmountText.setText(""+setWaterAmount);

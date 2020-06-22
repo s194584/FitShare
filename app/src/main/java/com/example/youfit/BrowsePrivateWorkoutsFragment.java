@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWorkoutDetailAdapter.OnWorkoutListener, DatabaseListener {
 
+    private static final int RESULT_CODE_DOWORKOUT = 214;
+
     private static final String TAG = "BrowsePrivateFragment";
     private ArrayList<Workout> workouts = new ArrayList<Workout>();
     private View view;
@@ -85,7 +87,7 @@ public class BrowsePrivateWorkoutsFragment extends Fragment implements BrowseWor
         Workout workout = workouts.get(position);
         Intent intent = new Intent(getActivity().getApplicationContext(), DoWorkoutActivity.class);
         intent.putExtra("workout", workout);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,RESULT_CODE_DOWORKOUT);
     }
 
     @Override
