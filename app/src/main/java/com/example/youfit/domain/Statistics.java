@@ -64,28 +64,28 @@ public class Statistics {
 
     public void addTotalWorkoutsTotal(int add){
         totalWorkoutsTotal += add;
-        // Weekly check
-        if (checkTimeForUpdate()){
-            setWeeklyWorkoutsTotal(0);
-            lastUpdate = new Date();
-        }
         addWeeklyWorkoutsTotal(add);
     }
 
     public void addTotalTimeTotal(long add){
         totalTimeTotal += add;
+        addWeeklyTimeTotal(add);
+    }
+
+    public void addWeeklyTimeTotal(long add){
         // Weekly check
         if (checkTimeForUpdate()){
             setWeeklyTimeTotal(0);
             lastUpdate = new Date();
         }
-        addWeeklyTimeTotal(add);
-    }
-
-    public void addWeeklyTimeTotal(long add){
         weeklyTimeTotal += add;
     }
     public void addWeeklyWorkoutsTotal(long add){
+        // Weekly check
+        if (checkTimeForUpdate()){
+            setWeeklyTimeTotal(0);
+            lastUpdate = new Date();
+        }
         weeklyWorkoutsTotal += add;
     }
 
@@ -95,7 +95,10 @@ public class Statistics {
         thisTime.setTime(now);
         Calendar thatTime = Calendar.getInstance();
         thatTime.setTime(lastUpdate);
-        return thatTime.get(Calendar.WEEK_OF_YEAR)<thisTime.get(Calendar.WEEK_OF_YEAR);
+        return thatTime.get
+                (Calendar.WEEK_OF_YEAR)
+                <
+                thisTime.get(Calendar.WEEK_OF_YEAR);
     }
 
 }

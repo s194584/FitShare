@@ -184,9 +184,13 @@
 
     <TextView
         android:id="@+id/total_workouts_time_weekly_text"
-        android:layout_width="45dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginTop="116dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/circle_stats"
         android:gravity="center"
@@ -259,9 +263,13 @@
 
     <TextView
         android:id="@+id/total_workouts_time_total_text"
-        android:layout_width="45dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginTop="116dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/circle_stats"
         android:gravity="center"
