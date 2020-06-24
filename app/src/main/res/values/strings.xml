@@ -133,5 +133,5 @@
     <string name="pause_description">You take a breather.</string>
     <string name="watergoal_reached">Congratulations, you\'ve reached your water goal! Good job! you are awesome!</string>
     <string name="delete_workout_question">\"Do you want to delete workout \"</string>
-    <string name="workout_creator">\"Workout creator: \"</string>
+    <string name="workout_creator">Workout creator: </string>
 </resources>

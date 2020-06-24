@@ -223,14 +223,16 @@ public class MainActivity extends AppCompatActivity implements SignOutDialogList
         // Setting or cancelling the alarm and pending intent
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
-        pendingIntent.cancel();
 
 
         if(b){
             Log.i(TAG, "setNotificationAlarm: setting alarm");
              alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeInMillis,AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent); // Real alarm
 //            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+6*1000,5*1000, pendingIntent); // Test alarm
-        }
+        }else
+            {
+                pendingIntent.cancel();
+            }
     }
 
     private int[] getNumberOfDailyWorkouts(ArrayList<Workout> workouts){
